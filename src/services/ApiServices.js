@@ -101,7 +101,7 @@ export const FetchCountService = (successCallback, errorCallBack) => _fetchServi
 export const FetcTagAssetShowData = (successCallback, errorCallBack) => _fetchService('tagAsset/showData', 'GET', {}, successCallback, errorCallBack);
 
 
-////.........Category...../////
+////.........Category Unit...../////
 export const UnitAddService = (data, successCallback, errorCallBack) => _fetchService('unit/add', 'POST', data, successCallback, errorCallBack);
 
 export const UnitUpdateService = (data, successCallback, errorCallBack) => _fetchService(`unit/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
@@ -110,7 +110,25 @@ export const UnitDeleteService = (data, successCallback, errorCallBack) => _fetc
 
 export const FetchUnitService = (successCallback, errorCallBack) => _fetchService('unit/showData', 'GET', {}, successCallback, errorCallBack);
 
+////.........Category Project...../////
 
+export const ProjectAddService = (data, successCallback, errorCallBack) => _fetchService('project/add', 'POST', data, successCallback, errorCallBack);
+
+export const ProjectUpdateService = (data, successCallback, errorCallBack) => _fetchService(`project/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const ProjectDeleteService = (data, successCallback, errorCallBack) => _fetchService(`project/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchProjectService = (successCallback, errorCallBack) => _fetchService('project/showData', 'GET', {}, successCallback, errorCallBack);
+
+////.........Category Project...../////
+
+export const LineAddService = (data, successCallback, errorCallBack) => _fetchService('line/add', 'POST', data, successCallback, errorCallBack);
+
+export const LineUpdateService = (data, successCallback, errorCallBack) => _fetchService(`line/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const LineDeleteService = (data, successCallback, errorCallBack) => _fetchService(`line/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchLineService = (successCallback, errorCallBack) => _fetchService('line/showData', 'GET', {}, successCallback, errorCallBack);
 
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
