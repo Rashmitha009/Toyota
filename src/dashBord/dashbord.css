@@ -1,0 +1,10 @@
+.sidebar{
+    
+    display: 'inline-flex',
+}
+.navbar{
+    position:fixed;
+}
+*{
+    background: rgb(170, 165, 165);
+}
