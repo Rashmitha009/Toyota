@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchAuditListService, AuditDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AuditModel from './AuditModel';
 import Edit from '@mui/icons-material/Edit';
 import Delete from '@mui/icons-material/Delete';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 
 const AuditList = () => {
     const [open, setOpen] = useState(false);
@@ -22,13 +21,20 @@ const AuditList = () => {
     });
     
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 120 },
-        { field: 'auditDate', headerName: 'Date', width: 140 },
-        { field: 'auditName', headerName: 'Audit Name', width: 140 },
-        { field: 'department', headerName: 'Department', width: 140 },
-        { field: 'section', headerName: 'Section', width: 140 },
-        { field: 'assetType', headerName: 'Asset Type', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        { field: 'id', headerName: 'Serial No', 
+          minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'auditDate', headerName: 'Date', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'auditName', headerName: 'Audit Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'department', headerName: 'Department', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'section', headerName: 'Section', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetType', headerName: 'Asset Type', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        {field: 'action', headerName: 'Action',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -116,29 +122,34 @@ const AuditList = () => {
   
     return (
         <div>
-            <Grid container>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
-                 style={{alignSelf:'center', textAlign:'center'}}
-                >
-                <h3 > Audit View Assets </h3>
+             <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                style={{alignSelf:'center',textAlign:'center'}}
+            >
+                <h3 style={{margin:'0px'}}> Audit View Assets </h3>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6}
-                 style={{alignSelf:'center', textAlign:'center'}}
-                >
-                <Button style={{width:'120px',height:'30px',marginTop:'20px'}} variant="outlined" onClick={handleModalOpen}>
+                <Grid item style={{}} >
+                <Button variant="contained" onClick={handleModalOpen} >
                     Add
-                </Button>
-                </Grid>
+                </Button>    
+              </Grid>
             </Grid>
-            <hr style={{ bottom: 'solid' }} />
-            <div style={{ height: '400px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
-            <DataGrid
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+            <DataGrid 
+                style={{ height: 270,width:'100%' }}
                 loading={loading}
                 rows={rows}
                 columns={columns} 
             />
-               
-            </div>
+        </Grid>
             <AuditModel
             open={open}
             setOpen={setOpen}

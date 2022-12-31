@@ -129,12 +129,18 @@ const ViewAuditReport = () => {
   
 
   const columns = [
-    { field: 'id', headerName: 'Serial No', width: 180 },
-    { field: 'auditName', headerName: 'Audit Name', width: 200 },
-    { field: 'department', headerName: 'Department', width: 200 },
-    { field: 'section', headerName: 'Section', width: 180 },
-    { field: 'assetType', headerName: 'Asset Type', width: 180 },
-    {field: 'action', headerName: 'Action', width: 150, sortable: false,
+    { field: 'id', headerName: 'Serial No', 
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'auditName', headerName: 'Audit Name',
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    { field: 'department', headerName: 'Department', 
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'section', headerName: 'Section', 
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'assetType', headerName: 'Asset Type',
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    {field: 'action', headerName: 'Action',
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
     cellClassname: 'actions',
     type: 'actions',
     getActions: (params) => [
@@ -262,24 +268,40 @@ const ViewAuditReport = () => {
         <Button variant="contained" style={{marginLeft:'50px', marginBottom:'30px'}} type='submit'  onClick={onSubmit}>View</Button>
       </Grid>
     </Grid>
-    <form style={{border:'solid ' ,borderColor:'whitesmoke'}}>
-      <div>
-        <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>
-      </div>
-      <hr/>
-      <div style={{ height: '200px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-        <DataGrid
-        rows={rows}
-        columns={columns}/>
-      </div>
+    <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+              <Grid item  
+                style={{alignSelf:'center',textAlign:'center'}}
+              >
+                <h3 style={{marginLeft:'30px'}}>AUDITED REPORT</h3>
+                <hr/>
+              </Grid>
+          
+              <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                  <DataGrid 
+                      style={{ height: 270,width:'100%' }}
+                      
+                      rows={rows}
+                      columns={columns} 
+                  />
+              </Grid>
+            </Grid>
+        
       <Button style={{marginLeft:'50px', marginBottom:'30px',marginTop:'20px'}} variant="contained" onClick={AuditDownload}>Export</Button>
-    </form>
+   
     <ViewAuditViewModal
-    open={open}
-    setOpen={setOpen}
-    isAdd={isAdd}
-    editData={editData}
-    setRefresh={setRefresh}/>
+      open={open}
+      setOpen={setOpen}
+      isAdd={isAdd}
+      editData={editData}
+      setRefresh={setRefresh}/>
     </div>
   )
 }
