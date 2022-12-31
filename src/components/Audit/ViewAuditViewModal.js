@@ -20,19 +20,21 @@ const ViewAuditViewModal =({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [ assetNameList, setAssetNameList] = useState([]);
   const [asset, setAsset] = useState('');
   const [rows ,setRows]=useState([]);
-
-
-    const [openNotification, setNotification] = useState({
-      status: false,
-      type: 'error',
-      message: '',
-    });
+  const [openNotification, setNotification] = useState({
+    status: false,
+    type: 'error',
+    message: '',
+  });
 
     const columns = [
-        { field: 'department', headerName: 'Department', width: 260 },
-        { field: 'section', headerName: 'Section', width: 260 },
-        { field: 'assetType', headerName: 'Asset Type', width: 260 },
-        { field: 'machineName', headerName: 'Machine Name', width: 260 },
+        { field: 'department', headerName: 'Department', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'section', headerName: 'Section',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'assetType', headerName: 'Asset Type',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'machineName', headerName: 'Machine Name', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
       ]
 
     useEffect(() => {
