@@ -72,50 +72,50 @@ const AssetTab = () => {
          }}
         >
           <Tab label="ASSET" {...a11yProps(0)} />
-          <Tab label="MASTERS" {...a11yProps(1)} />
-          <Tab label="DEPARTMENT" {...a11yProps(2)} />
-          <Tab label="SECTION" {...a11yProps(3)} />
-          <Tab label="ASSET TYPE" {...a11yProps(4)} />
-          <Tab label="CATEGORY" {...a11yProps(5)} />
-          <Tab label="TAG ASSET" {...a11yProps(6)} />
-        {
+          {/* <Tab label="MASTERS" {...a11yProps(1)} /> */}
+          <Tab label="DEPARTMENT" {...a11yProps(1)} />
+          <Tab label="SECTION" {...a11yProps(2)} />
+          <Tab label="ASSET TYPE" {...a11yProps(3)} />
+          <Tab label="CATEGORY" {...a11yProps(4)} />
+          {/* <Tab label="TAG ASSET" {...a11yProps(6)} /> */}
+        {/* {
           user === true &&
           <Tab label="SCRAP ASSET" {...a11yProps(7)} />
-        }
-          <Tab label=" TRANSFER ASSET" {...a11yProps(8)} />
-          <Tab label="ASSET MASTER" {...a11yProps(9)} />
+        } */}
+          <Tab label=" TRANSFER ASSET" {...a11yProps(5)} />
+          {/* <Tab label="ASSET MASTER" {...a11yProps(9)} /> */}
         </Tabs>
       </Box>
       <TabPanel  value={value} index={0} >
        <AssetTabList/>     
       </TabPanel>
-      <TabPanel  value={value} index={1} >
+      {/* <TabPanel  value={value} index={1} >
        <Masters/>   
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      </TabPanel> */}
+      <TabPanel value={value} index={1}>
       <DepartmentList />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
        <SectionList />
       </TabPanel>
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={3}>
         <AssetTypeList />
       </TabPanel>
-      <TabPanel value={value} index={5}>
+      <TabPanel value={value} index={4}>
         <CategoryList/>
       </TabPanel>
-      <TabPanel value={value} index={6}>
+      {/* <TabPanel value={value} index={6}>
         <TagAssetModel />
-      </TabPanel>
-      <TabPanel value={value} index={7}>
+      </TabPanel> */}
+      {/* <TabPanel value={value} index={7}>
         <ScrapAssetList />
-      </TabPanel>
-      <TabPanel value={value} index={8}>
+      </TabPanel> */}
+      <TabPanel value={value} index={5}>
         <Transferasset />
       </TabPanel>
-      <TabPanel value={value} index={9}>
+      {/* <TabPanel value={value} index={9}>
         <Assetmaster />
-      </TabPanel>
+      </TabPanel> */}
     </Box>
     </div>
   )
