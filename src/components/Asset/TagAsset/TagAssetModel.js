@@ -189,9 +189,16 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                 <h3 style={{margin:'0px'}}>TAG ASSET</h3>
             </Grid>  
             <form onSubmit={onSubmit}>
-                <Grid container spacing={2} style={{padding:'0'}}>
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                        style={{alignSelf:'center', alignItems:'center', marginLeft:'18%'}}
+                <Grid container spacing={2} style={{
+                    display:'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding:'10px'
+                }}>
+                    <Grid 
+                        style={{alignSelf:'center', alignItems:'center', }}
                     >
                     <FormControl>
                         <FormLabel id="Department"></FormLabel>
@@ -205,24 +212,25 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                         </RadioGroup>
                     </FormControl>
                     </Grid>
-
+                    <Grid>
+                    <Button style={{ }} variant="contained" type='submit' >
+                        Assign
+                    </Button>
                 </Grid>
+                </Grid>
+                
                 <Grid>
                 {
                     tagAssetType === 'Department' &&
                     <>
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
+                        <Grid container spacing={2} style={{}}> 
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                                 style={{alignSelf:'center',textAlign:'center'}}
                             >
                             <label >Department :</label>
                             </Grid>
                             <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                            <Box>
-                                <FormControl fullWidth
-                                
-                                >
+                                <FormControl fullWidth >
                                     <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
                                         <Select
                                             label="Select Department"
@@ -235,19 +243,13 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                             })}
                                         </Select>
                                 </FormControl>
-                            </Box>
                             </Grid>
-
-                        </Grid>
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                                 style={{alignSelf:'center',textAlign:'center'}}
                             >
                             <label >Section : </label>
                             </Grid>
                             <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                            <Box>
                                 <FormControl fullWidth>
                                     <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
                                         <Select
@@ -263,43 +265,30 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                             })}
                                         </Select>
                                 </FormControl>
-                            </Box>
                             </Grid>
-
-                        </Grid>
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
-
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                             style={{alignSelf:'center',textAlign:'center'}}
                             >
                             <label >Asset Type : </label>
                             </Grid>
                             <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                            <Box>
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
-                                        <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label="Select Asset Type"
-                                        value={assetType}
-                                            onChange={(e) => onAssetTypeChange(e)}>
-                                            {
-                                                assetTypeList.map((data, index) => {
-                                                return (
-                                                    <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
-                                                )
-                                            })}
-                                        </Select>
-                                    </FormControl>
-                                </Box>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
+                                    <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    label="Select Asset Type"
+                                    value={assetType}
+                                        onChange={(e) => onAssetTypeChange(e)}>
+                                        {
+                                            assetTypeList.map((data, index) => {
+                                            return (
+                                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                            )
+                                        })}
+                                    </Select>
+                                </FormControl>
                             </Grid>
-
-                        </Grid>
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
-
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                             style={{alignSelf:'center',textAlign:'center'}}
                             >
@@ -323,11 +312,6 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                     </FormControl>
                                 </Box>
                             </Grid>
-
-                        </Grid>          
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
-
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                             style={{alignSelf:'center',textAlign:'center'}}
                             >
@@ -343,16 +327,6 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                 
                                 />   
                             </Grid>
-                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                            style={{alignSelf:'center',textAlign:'center'}}
-                            >          
-                                <Button variant="contained">Scan</Button>
-                            </Grid>
-
-
-                        </Grid>
-                        <Grid container spacing={2} style={{marginTop:'5px'}}>
-                            
                             <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
                             style={{alignSelf:'center',textAlign:'center'}}
                             >
@@ -367,6 +341,11 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                                 value={rfIdNo2}
                                                 
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >          
+                                <Button variant="contained">Scan</Button>
                             </Grid>
                             <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
                             style={{alignSelf:'center',textAlign:'center'}}
@@ -517,17 +496,7 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                     </Grid>
                     </>
                 }
-                <Grid>
-                    <Button 
-                    style={{
-                        marginTop:'10px', 
-                        marginLeft:'25%'
-                        }} variant="contained"
-                        type='submit'
-                        >
-                            Assign
-                    </Button>
-                </Grid>
+               
                 </Grid>
             </form>
             <NotificationBar

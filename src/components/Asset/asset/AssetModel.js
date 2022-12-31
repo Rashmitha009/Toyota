@@ -60,6 +60,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [line,setLine]=useState('');
     const [lineList,setLineList]=useState([]);
     const [usedNew,setUsedNew]=useState('');
+    const [manufacturerNo,setManufacturerNo]=useState('');
     const [warranty, setWarranty] = useState("warranty");
     const [openNotification, setNotification] = useState({
         status: false,
@@ -96,7 +97,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     };
 
     useEffect(() => {
-        FetchAssetIdService(handleFetchAssetId, handleFetchAssetIdException);
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
         setDepartment(editData?.department || '');
@@ -155,22 +155,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     }
     
     const handleFetchVenderException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const handleFetchAssetId = (dataObject) => {
-        if(editData?.assetId)
-        {
-            setAssetId(editData?.assetId || '');
-        }
-        else
-        {
-            setAssetId(dataObject?.data);
-        }
-        
-    }
-
-    const handleFetchAssetIdException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
 
@@ -363,12 +347,65 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                             id="Asset Id "
                                             fullWidth
+                                            label="Asset Id"
                                             variant="outlined"
                                             value={assetId}
+                                            onChange={(e) => { setAssetId(e.target.value) }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
                                         <label style={{}}>Department:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
+                                        <FormControl style={{}} fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <Select
+                                            labelId="department"
+                                            id="department"
+                                            label="Select Department"
+                                            value={department}
+                                            onChange={(e) => onDepartmentChange(e)}>
+                                                {
+                                                    departmentList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}
+                                        style={{
+                                            alignSelf: 'center',
+                                            textAlignLast: 'center'
+                                        }}
+                                    >
+                                        <label>Control Department: </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}
+                                    >
+                                        <FormControl style={{}} fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <Select
+                                            labelId="department"
+                                            id="department"
+                                            label="Select Department"
+                                            value={department}
+                                            onChange={(e) => onDepartmentChange(e)}>
+                                                {
+                                                    departmentList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
+                                        <label style={{}}>User Department:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
                                         <FormControl style={{}} fullWidth>
@@ -411,109 +448,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item  xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                                        <label>Asset Name : </label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
-                                        <TextField
-                                        fullWidth
-                                        id="Asset-Name"
-                                        label="Asset Name"
-                                        variant="outlined"
-                                        onChange={(e) => { setAssetName(e.target.value) }}
-                                        value={assetName}/>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
-                                        <label> Financial Asset ID :</label>
-                                    </Grid>
-                                    <Grid item xs={12}  sm={9}  md={4} lg={3.5} xl={3}>
-                                        <TextField
-                                        fullWidth
-                                        id="FinancialAssetID "
-                                        label="Financial Asset ID  "
-                                        variant="outlined"
-                                        onChange={(e) => { setFinancialAssetId(e.target.value) }}
-                                        value={financialAssetId}/>
-                                    </Grid>
-                                    <Grid item xs={12}  sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center',  textAlignLast: 'center' }}>
-                                        <label style={{}}>Unit:</label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={9} md={4} lg={3.5}  xl={3} >
-                                        <FormControl fullWidth >
-                                            <InputLabel >Select Unit</InputLabel>
-                                            <Select
-                                            labelId="vendor"
-                                            id="vendor"
-                                            label="Select Unit"
-                                            value={unit}
-                                            onChange={(e) => onUnitChange(e)}>
-                                                {/* {unitList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.unitId} key={index}>{data.unitName}</MenuItem>
-                                                    )
-                                                })} */}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                                        <label>Project :</label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={9}  md={4}  lg={3.5}  xl={3}  >
-                                    <FormControl fullWidth >
-                                            <InputLabel >Select Project</InputLabel>
-                                            <Select
-                                            labelId="vendor"
-                                            id="vendor"
-                                            label="Select Unit"
-                                            value={project}
-                                            onChange={(e) => onProjectChange(e)}>
-                                                {/* {projectList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.projectId} key={index}>{data.projectName}</MenuItem>
-                                                    )
-                                                })} */}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                                        <label style={{}}>Line :</label>
-                                    </Grid>
-                                    <Grid item  xs={12} sm={9} md={4} lg={3.5}  xl={3} >
-                                    <FormControl fullWidth >
-                                            <InputLabel >Select Line</InputLabel>
-                                            <Select
-                                            labelId="vendor"
-                                            id="vendor"
-                                            label="Select Unit"
-                                            value={line}
-                                            onChange={(e) => onLineChange(e)}>
-                                                {/* {lineList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.lineId} key={index}>{data.lineName}</MenuItem>
-                                                    )
-                                                })} */}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
-                                        <label>Operation No : </label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
-                                        <TextField
-                                        fullWidth
-                                        id="Vendor-Address"
-                                        label="Vendor Address "
-                                        variant="outlined"
-                                        value={vendorAddress}/>
-                                    </Grid>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label>Asset Type :</label>
                                     </Grid>
@@ -536,21 +470,114 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
+                                   
                                 </Grid>
 
                                 <Grid container spacing={2} style={{ marginTop: '10px' }}>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
-                                        <label>Manufacturer: </label>
+                                    <Grid item  xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                                        <label>Asset Name : </label>
                                     </Grid>
-                                    <Grid item xs={12} sm={9}  md={4} lg={3.5}  xl={3} >
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <TextField
                                         fullWidth
-                                        id="Manufacturer"
-                                        label="Manufacturer"
+                                        id="Asset-Name"
+                                        label="Asset Name"
                                         variant="outlined"
-                                        value={manufacturer}
-                                        onChange={(e) => { setManufacturer(e.target.value) }}/>
+                                        onChange={(e) => { setAssetName(e.target.value) }}
+                                        value={assetName}/>
                                     </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
+                                        <label> Financial Asset ID :</label>
+                                    </Grid>
+                                    <Grid item xs={12}  sm={9}  md={4} lg={3.5} xl={3}>
+                                        <TextField
+                                        fullWidth
+                                        id="FinancialAssetID "
+                                        label="Financial Asset ID  "
+                                        variant="outlined"
+                                        onChange={(e) => { setFinancialAssetId(e.target.value) }}
+                                        value={financialAssetId}/>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
+                                    <Grid item xs={12}  sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center',  textAlignLast: 'center' }}>
+                                        <label style={{}}>Unit:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5}  xl={3} >
+                                        <FormControl fullWidth >
+                                            <InputLabel >Select Unit</InputLabel>
+                                            <Select
+                                            labelId="vendor"
+                                            id="vendor"
+                                            label="Select Unit"
+                                            value={unit}
+                                            onChange={(e) => onUnitChange(e)}>
+                                                {/* {unitList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.unitId} key={index}>{data.unitName}</MenuItem>
+                                                    )
+                                                })} */}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                                        <label>Project :</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9}  md={4}  lg={3.5}  xl={3}  >
+                                    <FormControl fullWidth >
+                                            <InputLabel >Select Project</InputLabel>
+                                            <Select
+                                            labelId="vendor"
+                                            id="vendor"
+                                            label="Select Unit"
+                                            value={project}
+                                            onChange={(e) => onProjectChange(e)}>
+                                                {/* {projectList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.projectId} key={index}>{data.projectName}</MenuItem>
+                                                    )
+                                                })} */}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid>
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                                        <label style={{}}>Line :</label>
+                                    </Grid>
+                                    <Grid item  xs={12} sm={9} md={4} lg={3.5}  xl={3} >
+                                    <FormControl fullWidth >
+                                            <InputLabel >Select Line</InputLabel>
+                                            <Select
+                                            labelId="vendor"
+                                            id="vendor"
+                                            label="Select Unit"
+                                            value={line}
+                                            onChange={(e) => onLineChange(e)}>
+                                                {/* {lineList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.lineId} key={index}>{data.lineName}</MenuItem>
+                                                    )
+                                                })} */}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
+                                        <label>Operation No : </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
+                                        <TextField
+                                        fullWidth
+                                        id="Vendor-Address"
+                                        label="Vendor Address "
+                                        variant="outlined"
+                                        value={vendorAddress}/>
+                                    </Grid>
+                                   
+                                </Grid>
+
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12}  sm={3}  md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label style={{}}>Usage Code:</label>
                                     </Grid>
@@ -563,9 +590,33 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={assetModel}
                                         onChange={(e) => { setAssetModel(e.target.value) }}/>
                                     </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
+                                        <label>Manufacturer: </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9}  md={4} lg={3.5}  xl={3} >
+                                        <TextField
+                                        fullWidth
+                                        id="Manufacturer"
+                                        label="Manufacturer"
+                                        variant="outlined"
+                                        value={manufacturer}
+                                        onChange={(e) => { setManufacturer(e.target.value) }}/>
+                                    </Grid>   
                                 </Grid>
 
                                 <Grid container spacing={2} style={{ marginTop: '10px' }}>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
+                                        <label>Manufacturer No: </label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9}  md={4} lg={3.5}  xl={3} >
+                                        <TextField
+                                        fullWidth
+                                        id="Manufacturer"
+                                        label="Manufacturer"
+                                        variant="outlined"
+                                        value={manufacturerNo}
+                                        onChange={(e) => { setManufacturerNo(e.target.value) }}/>
+                                    </Grid>
                                     <Grid item xs={12} sm={3}  md={2}  lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label>Year of Mfg: </label>
                                     </Grid>
@@ -578,6 +629,9 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={poNo}
                                         onChange={(e) => { setpoNo(e.target.value) }}/>
                                     </Grid>
+                                    
+                                </Grid>
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2}  lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label style={{}}>Country of Mfg:</label>
                                     </Grid>
@@ -590,8 +644,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={invoiceNo}
                                         onChange={(e) => { setInvoiceNo(e.target.value) }}/>
                                     </Grid>
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'}}
                                     >
                                         <label>Used/New:</label>
@@ -611,7 +663,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         </Select>
                                     </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
+                                  
+                                </Grid>
+                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
+                                <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label>Description:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
@@ -624,8 +679,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         onChange={(e) => { setDescription(e.target.value) }}
                                         />
                                     </Grid>
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5}  xl={3} style={{ alignSelf: 'center',  textAlignLast: 'center'  }} >
                                         <label>Asset Image:</label>
                                     </Grid>

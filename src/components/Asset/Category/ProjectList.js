@@ -23,9 +23,9 @@ const ProjectList = () => {
     const columns = [
       { field: 'id', headerName: 'Serial No',  
         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-      { field: 'employee_id', headerName: 'Project Name',  
+      { field: 'projectName', headerName: 'Project Name',  
         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-      { field: 'employee_name', headerName: 'Description',  
+      { field: 'description', headerName: 'Description',  
         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
       { field: 'action', headerName: 'Action',  
         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
