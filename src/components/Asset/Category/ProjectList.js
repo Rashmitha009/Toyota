@@ -21,10 +21,14 @@ const ProjectList = () => {
     });
       
     const columns = [
-      { field: 'id', headerName: 'Serial No', width: 200 },
-      { field: 'projectName', headerName: 'Project Name', width: 200 },
-      { field: 'description', headerName: 'Description', width: 200 },
-      {field: 'action', headerName: 'Action', width: 200, sortable: false,
+      { field: 'id', headerName: 'Serial No',  
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+      { field: 'employee_id', headerName: 'Project Name',  
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+      { field: 'employee_name', headerName: 'Description',  
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+      { field: 'action', headerName: 'Action',  
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -110,23 +114,6 @@ const ProjectList = () => {
     });
   };
 
-      { field: 'id', headerName: 'Serial No',  
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-      { field: 'employee_id', headerName: 'Project Name',  
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-      { field: 'employee_name', headerName: 'Description',  
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-      { field: 'action', headerName: 'Action',  
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
-      cellClassname: 'actions',
-      type: 'actions',
-    
-      }
-    ];
-    const handleModalOpen = () => {
-      setIsAdd(true);
-      setOpen(true);
-    };
   return (
     <div>
       <Grid container style={{
