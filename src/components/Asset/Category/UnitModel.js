@@ -143,4 +143,4 @@ const UnitModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   )
 }
 
-export default UnitModel
+export default UnitModel;

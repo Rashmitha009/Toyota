@@ -6,24 +6,86 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
-
+import { LineAddService, LineUpdateService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [departmentName,setDepartmentName]=useState("")
+    const [lineName,setLineName] = useState('');
     const[description,setDescription]=useState("")
+    const[openNotification,setNotification]=useState({
+        status: false,
+        type: 'error',
+        message:'',
+    })
 
+    useEffect(() => {
+        setLineName(editData?.lineName || '');
+        setDescription(editData?.description || '');
+    }, [editData]);
+ 
     const handleClose=()=>{
         setOpen(false);
+        setLineName('');
+        setDescription('');
     }
-  return (
-    <div>
-    <div>
-            <Dialog 
-            open={open}
-            onClose={handleClose}
-            fullWidth
-            >
-                <form > 
+
+    const onSubmit=(e)=>{
+        e.preventDefault();
+        isAdd === true ?
+        (
+            LineAddService({
+                lineName:lineName,
+                description:description,
+            },handleSucess , handleException)
+        ) : (
+            LineUpdateService({
+                id:editData.id,
+                lineName:lineName,
+                description:description,
+            },handleSucess, handleException)
+        );
+    }
+
+    const handleSucess = (dataObject) => {
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type:'success',
+            message: dataObject.message,
+        });
+        setLineName('');
+        setDescription('');
+    }
+
+    const handleException = (errorObject, errorMessage) => {
+        console.log(errorMessage);
+        setNotification({
+          status: true,
+          type: 'error',
+          message: errorMessage,
+        });
+        setLineName('');
+        setDescription('');
+    }
+    
+    const handleNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+    };
+  
+    return (
+        <div>
+            <div>
+                <Dialog 
+                open={open}
+                onClose={handleClose}
+                fullWidth>
+                    <form  onSubmit={onSubmit}> 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"ADD LINE"}
                     </DialogTitle>
@@ -31,51 +93,50 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         <DialogContentText id="alert-dialog-description">
                             <div>
                                 <Grid container  style={{marginTop:'20px'}}>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                    >
-                                    <label >Line Name:</label>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6} style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}} >
+                                        <label >Line Name:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                    <TextField fullWidth 
+                                        <TextField 
+                                        fullWidth 
                                         label=""
                                         variant="outlined"
-                                        onChange={((e)=>{setDepartmentName(e.target.value)})}
-                                        value={departmentName}
-                                    />
+                                        onChange={((e)=>{setLineName(e.target.value)})}
+                                        value={lineName}/>
                                     </Grid>
                                 </Grid>
-
                                 <Grid container  style={{marginTop:'20px'}}>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                    >
-                                   <label>Description:</label>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6} style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}>
+                                        <label>Description:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                    <TextField 
+                                        <TextField 
                                         fullWidth
                                         multiline
                                         onChange={((e)=>{setDescription(e.target.value)})}
-                                        value={description}
-                                    />
+                                        value={description}/>
                                     </Grid>
                                 </Grid>
                                 <div style={{marginLeft:'70%',marginTop:'20px'}}>
-                             <Button type='reset' onClick={handleClose}>Cancel</Button>
-                                <Button type='submit'>
-                                    {isAdd === true ? 'Add' : 'Update'}
-                                </Button>
+                                    <Button type='reset' onClick={handleClose}>Cancel</Button>
+                                    <Button type='submit'>
+                                        {isAdd === true ? 'Add' : 'Update'}
+                                    </Button>
                                 </div>
                             </div>
                         </DialogContentText>
                     </DialogContent>
                 </form>
-            </Dialog>
+                </Dialog>
+                <NotificationBar
+                handleClose={handleNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}/>  
            
+            </div>
         </div>
-</div>
-  )
+    )
 }
 
 export default LineModel

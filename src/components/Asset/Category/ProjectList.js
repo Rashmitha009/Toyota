@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Grid ,Button } from '@mui/material';
 import ProjectModel from './ProjectModel';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import NotificationBar from '../../../services/NotificationBar';
+import { FetchProjectService, ProjectDeleteService } from '../../../services/ApiServices';
 
 const ProjectList = () => {
     const [open, setOpen] = useState(false);
@@ -10,8 +14,102 @@ const ProjectList = () => {
     const [editData, setEditData] = useState('');
     const [loading , setLoading]=useState(true);
     const [refresh , setRefresh]=useState(false);
+    const [openNotification, setNotification] = useState({
+      status: false,
+      type: 'error',
+      message: '',
+    });
       
     const columns = [
+      { field: 'id', headerName: 'Serial No', width: 200 },
+      { field: 'projectName', headerName: 'Project Name', width: 200 },
+      { field: 'description', headerName: 'Description', width: 200 },
+      {field: 'action', headerName: 'Action', width: 200, sortable: false,
+        cellClassname: 'actions',
+        type: 'actions',
+        getActions: (params) => [
+            <EditData selectedRow={params.row} />,
+            <DeleteData selectedRow={params.row} />,
+        ],
+        }
+  ];
+
+  function EditData({ selectedRow }) {
+    return (
+        <EditIcon
+        className='prbuton'
+        variant="contained"
+        color='primary'
+        onClick={() => {
+            setIsAdd(false);
+            setEditData(selectedRow);
+            setOpen(true);
+        }}/>        
+    )
+  }
+
+  function DeleteData({ selectedRow }) {
+    return (
+        <DeleteIcon
+        variant="contained"
+        color='primary'
+        onClick={() => {
+            deletUser(selectedRow.id)
+        }}/>       
+    )
+  }
+
+  const deletUser =(id) => {
+    ProjectDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+  }
+
+  const handleDeleteSuccess = (dataObject) =>{
+    console.log(dataObject);
+    setRefresh(oldValue => !oldValue);
+    setNotification({
+        status: true,
+        type: 'success',
+        message: dataObject.message,
+    });
+  }
+
+  const handleDeleteException = (errorObject, errorMessage) =>{
+    console.log(errorMessage);
+    setNotification({
+        status: true,
+        type: 'error',
+        message:errorMessage,
+    });
+  }
+
+  useEffect(() => {
+    FetchProjectService(handleFetchSuccess, handleFetchException);
+ 
+  }, [refresh]);
+  
+  const handleFetchSuccess = (dataObject) =>{
+    setLoading(false);
+    setRows(dataObject.data);
+  }
+  
+  const handleFetchException = (errorStaus, errorMessage) =>{
+    console.log(errorMessage);
+  }
+
+  const handleModalOpen = () => {
+    setIsAdd(true);
+    setOpen(true);
+  };
+  
+  const handleNotify = () => {
+    setOpen(false)
+    setNotification({
+      status: false,
+      type: '',
+      message: '',
+    });
+  };
+
       { field: 'id', headerName: 'Serial No',  
         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
       { field: 'employee_id', headerName: 'Project Name',  
@@ -66,7 +164,12 @@ const ProjectList = () => {
             editData={editData}
             setRefresh={setRefresh}
             refresh={refresh}/>
-    </div>
+            <NotificationBar
+              handleClose={handleNotify}
+              notificationContent={openNotification.message}
+              openNotification={openNotification.status}
+              type={openNotification.type}/>
+  </div>
   )
 }
 
