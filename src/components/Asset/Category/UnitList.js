@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
-import { Grid } from '@mui/material';
+import { Grid, Button  } from '@mui/material';
 import UnitModel from './UnitModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -22,10 +21,15 @@ const UnitList = () => {
 });
 
   const columns = [
-    { field: 'id', headerName: 'Serial No', width: 200 },
-    { field: 'unitName', headerName: 'Unit Name', width: 200 },
-    { field: 'description', headerName: 'Description', width: 200 },
-    {field: 'action', headerName: 'Action', width: 200, sortable: false,
+    { field: 'id', headerName: 'Serial No',  
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'unitName', headerName: 'Unit Name', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'description', headerName: 'Description',  
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'action', headerName: 'Action',  
+      minWidth: 100, flex: 1, align: 'center', 
+      headerAlign: 'center', sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -109,40 +113,49 @@ const handleNotify = () => {
     message: '',
   });
 };
-
-  return (
+return (
     <div>
-      <div>
-            <Grid container>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center', textAlignLast: 'center', marginTop: '20px', }} >
-                    <h3 >Unit List</h3>
+      <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}>Unit List</h3>
                 </Grid>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center',  textAlignLast: 'center', marginTop: '20px',  }} >
-                    <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen} >
-                      Add
-                    </Button>
+                <Grid item style={{}} >
+                  <Button variant="contained" onClick={handleModalOpen} >
+                    Add
+                  </Button>
+                    
                 </Grid>
-            </Grid>
-            <hr style={{ bottom: 'solid' }} />
-            <div style={{ height: '350px', width: '85%', marginLeft: '5%', marginTop: '20px' }}>
-                <DataGrid
-                loading={loading}
-                rows={rows}
-                columns={columns} />
-            </div>
-            <UnitModel 
-              open={open}
-              setOpen={setOpen}
-              isAdd={isAdd}
-              editData={editData}
-              setRefresh={setRefresh}
-              refresh={refresh}/>
-            <NotificationBar
-              handleClose={handleNotify}
-              notificationContent={openNotification.message}
-              openNotification={openNotification.status}
-              type={openNotification.type}/>
-        </div>
+      </Grid>
+      <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+          <DataGrid 
+              style={{ height: 270,width:'100%' }}
+              loading={loading}
+              rows={rows}
+              columns={columns} 
+          />
+      </Grid>
+      <UnitModel 
+        open={open}
+        setOpen={setOpen}
+        isAdd={isAdd}
+        editData={editData}
+        setRefresh={setRefresh}
+        refresh={refresh}/>
+      <NotificationBar
+        handleClose={handleNotify}
+        notificationContent={openNotification.message}
+        openNotification={openNotification.status}
+      type={openNotification.type}/>
     </div>
   )
 }

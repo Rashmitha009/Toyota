@@ -4,13 +4,11 @@ import img from "./rdl.png"
 
 const Navbar = () => {
     return (
-        <nav className="navbar" style={{
-            height: '6vh',width:'98.2%'
-        }}>
+        <nav className="navbar" >
             <Grid container>
-                <Grid item xs={0} sm={7} md={8} lg={8} xl={10}>
+                <Grid item xs={1} sm={4} md={7} lg={9} xl={9}>
                 </Grid>
-                <Grid item xs={8} sm={4} md={3} lg={2.5} xl={1}>
+                <Grid item xs={11} sm={5} md={4} lg={3} xl={3}>
                     <Typography variant="h5" gutterBottom
                         style={{
                             alignContent:'',
@@ -19,7 +17,7 @@ const Navbar = () => {
                             alignItems: 'center',
                             alignSelf:'left',
                             textAlign:'left',
-                            justifyContent: 'space-between'
+                           
                     }}>
                          <img src={img} height="40px" width="40px"/>
                             Asset Managment

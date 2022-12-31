@@ -99,16 +99,16 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     return (
         <div>
             <Dialog
-            open={open}
-            onClose={handleClose}
-            fullWidth
+                open={open}
+                onClose={handleClose}
+                fullWidth
             >
                 <form onSubmit={onSubmit}>
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                         {"ADD SECTION"}
                     </DialogTitle>
                     <div>
-                        <Grid container spacing={2} style={{marginTop:'20px',marginLeft:'5px'}}>
+                        <Grid container spacing={2} style={{marginTop:'20px'}}>
                             <Grid item xs={10} sm={4} md={4} lg={4} xl={4}
                                 style={{alignSelf:'center', textAlign:'center'}}
                             >
@@ -133,8 +133,8 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                        </Grid>x
-                        <Grid container spacing={2} style={{marginTop:'20px',marginLeft:'5px'}}>
+                        </Grid>
+                        <Grid container spacing={2} style={{marginTop:'20px',}}>
                             <Grid item xs={10} sm={4} md={4} lg={4} xl={4}
                                 style={{alignSelf:'center', textAlign:'center'}}
                             >
@@ -156,14 +156,13 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         </div>
                     </div>
                 </form>
-            </Dialog>   
-                    
-      <NotificationBar
-          handleClose={handleCloseNotify}
-          notificationContent={openNotification.message}
-          openNotification={openNotification.status}
-          type={openNotification.type}
-      />        
+            </Dialog>              
+            <NotificationBar
+                handleClose={handleCloseNotify}
+                notificationContent={openNotification.message}
+                openNotification={openNotification.status}
+                type={openNotification.type}
+            />        
         </div>
     )
 }

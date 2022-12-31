@@ -25,7 +25,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 1 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -62,7 +62,14 @@ const AssetTab = () => {
     <div>
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+         variant='scrollable'
+         visibleScrollbar={true}
+         allowScrollButtonsMobile
+         style={{overflow: 'auto',
+             width:'89vw'
+         }}
+        >
           <Tab label="ASSET" {...a11yProps(0)} />
           <Tab label="DEPARTMENT" {...a11yProps(1)} />
           <Tab label="SECTION" {...a11yProps(2)} />

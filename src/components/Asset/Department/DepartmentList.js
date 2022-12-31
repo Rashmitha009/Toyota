@@ -1,10 +1,9 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchDepartmentListService , DepartmentDeleteService  } from '../../../services/ApiServices';
 import DepartmentModel from './DepartmentModel';
 import NotificationBar from '../../../services/NotificationBar';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -22,16 +21,20 @@ const DepartmentList = () => {
     });
     
     const columns = [
-        { field: 'id', headerName: 'Dep No', width: 200 },
-        { field: 'department_name', headerName: 'Department Name', width: 200 },
-        { field: 'description', headerName: 'Description', width: 250 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <EditData selectedRow={params.row} />,
-            <DeleteData selectedRow={params.row} />,
-        ],
+        {   field: 'id', headerName: 'Dep No',   
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'department_name', headerName: 'Department Name',   
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'description', headerName: 'Description',  
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'action', headerName: 'Action', width: 250, sortable: false,
+            cellClassname: 'actions',  minWidth: 100, flex: 1, align: 'center', 
+            headerAlign: 'center',
+            type: 'actions',
+            getActions: (params) => [
+                <EditData selectedRow={params.row} />,
+                <DeleteData selectedRow={params.row} />,
+            ],
         }
     ];
     useEffect(() => {
@@ -111,33 +114,36 @@ const DepartmentList = () => {
         setOpen(true);
        
     };
-    
-    
-  
     return (
         <div>
-            <Grid container spacing={2}>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
-                    style={{alignSelf:'center', textAlign:'center'}}
+            <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
                 >
-                <h3 >Department</h3>
+                    <h3 style={{margin:'0px'}}>Department</h3>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
-                    style={{alignSelf:'center', textAlign:'center'}}
-                >
-                <Button style={{width:'120px',height:'30px', }} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>
-                </Grid>                
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={handleModalOpen}>
+                        Add
+                    </Button>
+                </Grid>
             </Grid>
-            <hr style={{ bottom: 'solid' }} />
-           
-            <div style={{ height: '350px', width: '90%', marginLeft: '50px', marginTop: '20px' }}>
-                <DataGrid
-                 loading={loading}
-                rows={rows}
-                columns={columns} />
-            </div>
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
+                    style={{ height: 270,width:'100%' }}
+                    loading={loading}
+                    rows={rows}
+                    columns={columns} 
+                />
+             </Grid>
             <DepartmentModel 
              open={open}
              setOpen={setOpen}

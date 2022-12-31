@@ -1,10 +1,9 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchAssetTypeListService , AssetTypeDeleteService,FetchAssetTypeSection} from '../../../services/ApiServices'
 import AssetTypeModel from './AssetTypeModel'
 import NotificationBar from '../../../services/NotificationBar';
-import { Grid } from '@mui/material';
+import { Grid,Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -24,17 +23,24 @@ const AssetTypeList= () => {
   });
   
   const columns = [
-    { field: 'id', headerName: 'Asset Type no', width:120 },
-    { field: 'assetType', headerName: 'Asset Type', width: 200,},
-    { field: 'department', headerName: 'Department', width: 200,},
-    { field: 'section', headerName: 'Section', width: 200,},
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
-    cellClassname: 'actions',
-    type: 'actions',
-      getActions: (params) => [
-       <EditData selectedRow={params.row} />,
-       <DeleteData selectedRow={params.row} />,
-      ],
+    { field: 'id', headerName: 'Asset Type no', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'assetType', headerName: 'Asset Type', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'
+    },
+    { field: 'department', headerName: 'Department', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    { field: 'section', headerName: 'Section', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    { field: 'action', headerName: 'Action', 
+      minWidth: 100, flex: 1, align: 'center', 
+      headerAlign: 'center', sortable: false,
+      cellClassname: 'actions',
+      type: 'actions',
+        getActions: (params) => [
+        <EditData selectedRow={params.row} />,
+        <DeleteData selectedRow={params.row} />,
+        ],
     }
   ];
   
@@ -117,28 +123,47 @@ const AssetTypeList= () => {
   
   return (
     <div>
+      <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}>Asset Type</h3>
+                </Grid>
+                <Grid item style={{}} >
+                <Button variant="contained"  onClick={handleModalOpen}>
+                    Add
+                </Button>
+                   
+                </Grid>
+      </Grid>
+      <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+          <DataGrid 
+              style={{ height: 270,width:'100%' }}
+              loading={loading}
+              rows={rows}
+              columns={columns} 
+          />
+      </Grid>
       <Grid container>
       <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
       style={{alignSelf:'center',textAlign:'center'}}
       >
-      <h3 >Asset Type</h3>
+      <h3 ></h3>
      </Grid>
         <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
         style={{alignSelf:'center',textAlign:'center'}}
         >
-        <Button style={{marginLeft:'43%',width:'120px',height:'30px', marginTop:'25px'}} variant="outlined" onClick={handleModalOpen}>
-            Add
-        </Button>
+       
         </Grid>    
       </Grid> 
-      <hr style={{ bottom: 'solid' }} />
-     
-      <div style={{ height: '350px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
-        <DataGrid
-        loading={loading}
-        rows={rows}
-        columns={columns} />
-      </div>
       <AssetTypeModel
       open={open}
       setOpen={setOpen}

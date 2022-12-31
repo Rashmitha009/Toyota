@@ -44,7 +44,6 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const [sectionId, setSectionId] = useState('');
     const [assetTypeId, setAssetTypeId] = useState('');
     const [assetNameId, setAssetNameId] = useState('');
-
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -53,7 +52,6 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const onTagAssetType = (event) => {
         setTageAssetType(event.target.value);
     };
-    
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
         FetchSelectAssetIdService(handleAssetIdService,handleAssetIdServiceException);
@@ -66,23 +64,18 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const handleAssetRfIdServiceException=(errorStaus, errorMessage)=>{
         console.log(errorMessage);
     }
-
     const handleAssetIdService = (dataObject) =>{
         setAssetIdList(dataObject.data);
     }
-    
     const handleAssetIdServiceException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
     }
-    
     const handleFetchSuccess = (dataObject) =>{
         setDepartmentList(dataObject.data);
     }
-    
     const handleFetchException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
     }
-
     const handleCloseNotify = () => {
         setOpen(false)
         setNotification({
@@ -91,19 +84,15 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
           message: '',
         });
       };
-    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
         FetchSectionService({
             id: e.target.value
         }, handleFetchSection, handleFetchSectionException)
     }
-
     const handleFetchSection = (dataObject) => {
         setSectionList(dataObject.data);
-
     }
-
     const handleFetchSectionException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
@@ -114,11 +103,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const handleAssetTypeService = (dataObject) => {
         setAssetTypeList(dataObject.data);
     }
-
     const handleAssetTypeException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
-
     const onAssetTypeChange = (e)=>{
         setAssetType(e.target.value);
         FetchAssetNameService({id:e.target.value},handleAssetNameService,handleAssetNameServiceException)
@@ -126,11 +113,9 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
     const handleAssetNameService = (dataObject) => {
         setAssetNameList(dataObject.data);
     }
-
     const handleAssetNameServiceException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
-
     const onAssetNameChange = (e)=>{
         setAssetName(e.target.value);
     }
@@ -147,17 +132,14 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
         setSectionId(dataObject?.data[0]?.section);
         setAssetTypeId(dataObject?.data[0]?.assetype);
         setAssetNameId(dataObject?.data[0]?.assetName);
-       
     }
     const handleIdAssetIdServiceException =(errorStaus, errorMessage)=>{
         console.log(errorMessage);
     }
-
     const onSubmit=(e)=>{
         e.preventDefault();
         FetchTagAssetIdService(
             { 
-
             tagAssetType:tagAssetType,
             assetId:assetId,
             department:department,
@@ -165,10 +147,7 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
             assetType: assetType,
             assetName:assetName,
             scanRfidNo:rfIdNo1,
-            rfidNo:rfIdNo2,
-            
-             
-            
+            rfidNo:rfIdNo2,  
         },handleTagAssetId,handleTagAssetIdExeption)
     }
     const handleTagAssetId=(dataObject)=>{
@@ -203,351 +182,342 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
           setSectionId('');
           setAssetTypeId('');
           setAssetNameId('');
-         
-      
     }
     return (
-        <div>
-            <Grid container>
+        <div>  
+            <Grid>
+                <h3 style={{margin:'0px'}}>TAG ASSET</h3>
+            </Grid>  
+            <form onSubmit={onSubmit}>
+                <Grid container spacing={2} style={{padding:'0'}}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                        style={{alignSelf:'center', alignItems:'center', marginLeft:'18%'}}
+                    >
+                    <FormControl>
+                        <FormLabel id="Department"></FormLabel>
+                        <RadioGroup
+                            row aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            value={tagAssetType}
+                            onChange={onTagAssetType}>
+                            <FormControlLabel value="Department" control={<Radio />} label="Department" />
+                            <FormControlLabel value="AssetId" control={<Radio />} label="Asset Id" />
+                        </RadioGroup>
+                    </FormControl>
+                    </Grid>
+
+                </Grid>
                 <Grid>
-                    <h3 style={{background:'whitesmoke'}}>
-                    TAG ASSET
-                    </h3>
-                </Grid>
-            </Grid>
-        <form onSubmit={onSubmit}>
-            <hr style={{bottom:'solid'}}/>
+                {
+                    tagAssetType === 'Department' &&
+                    <>
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Department :</label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Box>
+                                <FormControl fullWidth
+                                
+                                >
+                                    <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                        <Select
+                                            label="Select Department"
+                                            value={department}
+                                            onChange={(e) => onDepartmentChange(e)}>
+                                            {departmentList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                </FormControl>
+                            </Box>
+                            </Grid>
 
-            <Grid container spacing={2}>
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                style={{alignSelf:'center', alignItems:'center', marginLeft:'18%'}}
-                >
-                <FormControl>
-                    <FormLabel id="Department"></FormLabel>
-                    <RadioGroup
-                    row aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    value={tagAssetType}
-                    onChange={onTagAssetType}>
-                        <FormControlLabel value="Department" control={<Radio />} label="Department" />
-                        <FormControlLabel value="AssetId" control={<Radio />} label="Asset Id" />
-                    </RadioGroup>
-                </FormControl>
-                </Grid>
+                        </Grid>
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Section : </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Box>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            label="Select Section"
+                                            value={section}
+                                            onChange={(e) => onSectionChange(e)}>
+                                            {sectionList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                </FormControl>
+                            </Box>
+                            </Grid>
 
-            </Grid>
+                        </Grid>
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
 
-        <div>
-            {
-                tagAssetType === 'Department' &&
-            <>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                  
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                    <label >Department :</label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <Box>
-                        <FormControl fullWidth
-                      
-                        >
-                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                <Select
-                                    label="Select Department"
-                                    value={department}
-                                    onChange={(e) => onDepartmentChange(e)}>
-                                    {departmentList.map((data, index) => {
-                                        return (
-                                            <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                        )
-                                    })}
-                                </Select>
-                        </FormControl>
-                    </Box>
-                    </Grid>
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Asset Type : </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Box>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Select Asset Type"
+                                        value={assetType}
+                                            onChange={(e) => onAssetTypeChange(e)}>
+                                            {
+                                                assetTypeList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
 
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                       style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                    <label >Section : </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <Box>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
-                                <Select
+                        </Grid>
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
+
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                                <label >Asset Name : </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Box>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
+                                        <Select
+                                        label="Select Asset Name"
+                                        value={assetName}
+                                            onChange={(e) => onAssetNameChange(e)}>
+                                            {
+                                                assetNameList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Grid>
+
+                        </Grid>          
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
+
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                                <label >RFID NO :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField fullWidth 
+                                id="outlined-basic" 
+                                label="RFID NO" 
+                                variant="outlined" 
+                                value={rfIdNo1}
+                                onChange={(e)=>setRfIdNo1(e.target.value)}
+                                
+                                />   
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >          
+                                <Button variant="contained">Scan</Button>
+                            </Grid>
+
+
+                        </Grid>
+                        <Grid container spacing={2} style={{marginTop:'5px'}}>
+                            
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                                <label>RFID NO :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic" 
+                                label="RFID NO" 
+                                variant="outlined" 
+                                value={rfIdNo2}
+                                                
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <Button variant="contained">Write</Button>
+                            </Grid>
+                        </Grid>
+                    </>
+                }        
+                {
+                    tagAssetType === 'AssetId' && 
+                    <>
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Asset Id : </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <Box>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">Select Asset Id</InputLabel>
+                                    <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                    label="Select Section"
-                                    value={section}
-                                    onChange={(e) => onSectionChange(e)}>
-                                    {sectionList.map((data, index) => {
-                                        return (
-                                            <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                                        )
-                                    })}
-                                </Select>
-                        </FormControl>
-                    </Box>
-                    </Grid>
-
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                   
-
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                    <label >Asset Type : </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <Box>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Asset Type"
-                                value={assetType}
-                                    onChange={(e) => onAssetTypeChange(e)}>
+                                    label="Select Asset Id"
+                                    value={assetId}
+                                    onChange={(e) => onAssetIdChange(e)}>
                                     {
-                                        assetTypeList.map((data, index) => {
+                                        assetIdList.map((data, index) => {
                                         return (
-                                            <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                                            <MenuItem value={data.id} key={index}>{data.assetId}</MenuItem>
                                         )
                                     })}
-                                </Select>
-                            </FormControl>
-                        </Box>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </Grid>
                     </Grid>
-
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                  
-
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                  style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                        <label >Asset Name : </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <Box>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Asset Name</InputLabel>
-                                <Select
-                                label="Select Asset Name"
-                                value={assetName}
-                                    onChange={(e) => onAssetNameChange(e)}>
-                                    {
-                                        assetNameList.map((data, index) => {
-                                        return (
-                                            <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
-                                        )
-                                    })}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Grid>
-
-                </Grid>          
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                  
-
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                   style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                        <label >RFID NO :  </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <TextField fullWidth 
-                        id="outlined-basic" 
-                        label="RFID NO" 
-                        variant="outlined" 
-                        value={rfIdNo1}
-                        onChange={(e)=>setRfIdNo1(e.target.value)}
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
                         
-                        />   
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Department :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField  
+                                fullWidth 
+                                id="outlined-basic" 
+                                variant="outlined" 
+                                value={departmentId}
+                                />
+                            </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center',textAlign:'center'}}
-                    >          
-                        <Button variant="contained">Scan</Button>
-                    </Grid>
-
-
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                  style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                        <label>RFID NO :  </label>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                    <TextField 
-                        fullWidth 
-                        id="outlined-basic" 
-                        label="RFID NO" 
-                        variant="outlined" 
-                        value={rfIdNo2}
-                                       
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center',textAlign:'center'}}
-                    >
-                    <Button variant="contained">Write</Button>
-                    </Grid>
-                </Grid>
-            </>
-            }        
-            {
-             tagAssetType === 'AssetId' && 
-             <>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    
-                    <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                       style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label >Asset Id : </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <Box>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Asset Id</InputLabel>
-                                <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                label="Select Asset Id"
-                                value={assetId}
-                                onChange={(e) => onAssetIdChange(e)}>
-                                {
-                                    assetIdList.map((data, index) => {
-                                    return (
-                                        <MenuItem value={data.id} key={index}>{data.assetId}</MenuItem>
-                                    )
-                                })}
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                       style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label >Department :  </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField  
-                            fullWidth 
-                            id="outlined-basic" 
-                            variant="outlined" 
-                            value={departmentId}
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Section :</label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic"  
+                                variant="outlined" 
+                                value={sectionId}
                             />
-                        </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                   
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                       style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label >Section :</label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField 
-                            fullWidth 
-                            id="outlined-basic"  
-                            variant="outlined" 
-                            value={sectionId}
-                        />
-                        </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                  
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label >Asset Type :  </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField 
-                            fullWidth 
-                            id="outlined-basic"  
-                            variant="outlined" 
-                            value={assetTypeId}
-                        />
-                        </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                   
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                      style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                            <label >Asset Name:  </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField 
-                            fullWidth 
-                            id="outlined-basic"  
-                            variant="outlined" 
-                            value={assetNameId}
-                        />
-                        </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                   
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label> RFID NO :  </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField 
-                            fullWidth 
-                            id="outlined-basic"  
-                            variant="outlined" 
-                            value={rfIdNo1}
-                            onChange={(e)=>setRfIdNo1(e.target.value)}
-                        />
-                        </Grid>
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <Button  variant="contained">Scan</Button>
-                        </Grid>
-                </Grid>
-                <Grid container spacing={2} style={{marginTop:'5px'}}>
-                    
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <label> RFID NO :  </label>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
-                        <TextField 
-                            fullWidth 
-                            id="outlined-basic"  
-                            variant="outlined" 
-                            value={rfIdNo2}
-                           
-                        />
-                        </Grid>
-                        <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
-                        style={{alignSelf:'center',textAlign:'center'}}
-                        >
-                        <Button variant="contained">Write</Button>
-                        </Grid>
-                </Grid>
-             </>
-            }
-                <div>
+                            </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label >Asset Type :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic"  
+                                variant="outlined" 
+                                value={assetTypeId}
+                            />
+                            </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                                <label >Asset Name:  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic"  
+                                variant="outlined" 
+                                value={assetNameId}
+                            />
+                            </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label> RFID NO :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic"  
+                                variant="outlined" 
+                                value={rfIdNo1}
+                                onChange={(e)=>setRfIdNo1(e.target.value)}
+                            />
+                            </Grid>
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <Button  variant="contained">Scan</Button>
+                            </Grid>
+                    </Grid>
+                    <Grid container spacing={2} style={{marginTop:'5px'}}>
+                        
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <label> RFID NO :  </label>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                            <TextField 
+                                fullWidth 
+                                id="outlined-basic"  
+                                variant="outlined" 
+                                value={rfIdNo2}
+                                
+                            />
+                            </Grid>
+                            <Grid item xs={12} sm={3} md={3} lg={3} xl={3}
+                            style={{alignSelf:'center',textAlign:'center'}}
+                            >
+                            <Button variant="contained">Write</Button>
+                            </Grid>
+                    </Grid>
+                    </>
+                }
+                <Grid>
                     <Button 
                     style={{
                         marginTop:'10px', 
@@ -557,8 +527,8 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                         >
                             Assign
                     </Button>
-                </div>
-                </div>
+                </Grid>
+                </Grid>
             </form>
             <NotificationBar
                 handleClose={handleCloseNotify}
@@ -567,9 +537,8 @@ export default function TagAssetModel({ open, setOpen, isAdd, editData, setRefre
                 type={openNotification.type}
             />
 
-  
+
         </div>
-       
     )
 }
 
