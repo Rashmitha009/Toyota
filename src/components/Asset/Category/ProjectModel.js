@@ -6,24 +6,89 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
+import { ProjectAddService, ProjectUpdateService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
+
 
 
 const ProjectModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [departmentName,setDepartmentName]=useState("")
-    const[description,setDescription]=useState("")
+    const [projectName,setProjectName] = useState('');
+    const [description,setDescription]=useState('');
+    const[openNotification,setNotification]=useState({
+        status: false,
+        type: 'error',
+        message:'',
+    })
+
+    useEffect(() => {
+        setProjectName(editData?.projectName || '');
+        setDescription(editData?.description || '');
+    }, [editData]);
 
     const handleClose=()=>{
         setOpen(false);
+        setProjectName('');
+        setDescription('');
     }
+
+    const onSubmit=(e)=>{
+        e.preventDefault();
+        isAdd === true ?
+        (
+            ProjectAddService({
+                projectName:projectName,
+                description:description,
+            },handleSucess , handleException)
+        ) : (
+            ProjectUpdateService({
+                id:editData.id,
+                projectName:projectName,
+                description:description,
+            },handleSucess, handleException)
+        );
+    }
+
+    const handleSucess = (dataObject) => {
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type:'success',
+            message: dataObject.message,
+        });
+        setProjectName('');
+        setDescription('');
+    }
+
+    const handleException = (errorObject, errorMessage) => {
+        console.log(errorMessage);
+        setNotification({
+          status: true,
+          type: 'error',
+          message: errorMessage,
+        });
+        setProjectName('');
+        setDescription('');
+      }
+      const handleNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+      };
+
+    
   return (
     <div>
-    <div>
+    
             <Dialog 
             open={open}
             onClose={handleClose}
             fullWidth
             >
-                <form > 
+                <form onSubmit={onSubmit}> 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"ADD PROJECT"}
                     </DialogTitle>
@@ -38,11 +103,11 @@ const ProjectModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                     <TextField fullWidth 
-                                        label=""
-                                        variant="outlined"
-                                        onChange={((e)=>{setDepartmentName(e.target.value)})}
-                                        value={departmentName}
-                                    />
+                                    label=""
+                                    variant="outlined"
+                                    onChange={(e)=>{setProjectName(e.target.value)}}
+                                    value={projectName}
+                                />
                                     </Grid>
                                 </Grid>
 
@@ -72,10 +137,15 @@ const ProjectModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </DialogContent>
                 </form>
             </Dialog>
-           
+            <NotificationBar
+            handleClose={handleNotify}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
+        />  
         </div>
-</div>
+
   )
 }
 
-export default ProjectModel
+export default ProjectModel;
