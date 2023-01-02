@@ -7,6 +7,9 @@ import Box from '@mui/material/Box';
 import UnitList from './UnitList';
 import ProjectList from './ProjectList'
 import LineList from './LineList';
+import ControlDepartmentList from './ControlDepartmentList';
+import UserDepartmentList from './UserDepartmentList';
+import AssetMasterList from './AssetMasterList';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -56,7 +59,10 @@ const CategoryList = () => {
           <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab label="UNIT" {...a11yProps(0)} />
             <Tab label="PROJECT" {...a11yProps(1)} />
-            <Tab label="Line" {...a11yProps(2)} />
+            <Tab label="LINE" {...a11yProps(2)} />
+            <Tab label="CONTROL DEPARTMENT" {...a11yProps(3)} />
+            <Tab label="USER DEPARTMENT" {...a11yProps(4)} />
+            <Tab label="ASSET MASTER " {...a11yProps(5)} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -67,6 +73,15 @@ const CategoryList = () => {
         </TabPanel>
         <TabPanel value={value} index={2}>
           <LineList/>
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+       <ControlDepartmentList/>
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+         <UserDepartmentList/>
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+         <AssetMasterList/>
         </TabPanel>
       </Box>
     );

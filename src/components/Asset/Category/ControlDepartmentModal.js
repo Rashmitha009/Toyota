@@ -6,17 +6,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import { LineAddService, LineUpdateService } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
+import { ControlDepartmentAddService, ControlDepartmentUpdateService } from '../../../services/ApiServices';
 
-const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [lineName,setLineName] = useState('');
+const ControlDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [controlDepartment,setControlDepartment] = useState('');
     const[description,setDescription]=useState('')
-    const [status,setStatus]=useState('');
     const[openNotification,setNotification]=useState({
         status: false,
         type: 'error',
@@ -24,13 +19,13 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     })
 
     useEffect(() => {
-        setLineName(editData?.lineName || '');
+        setControlDepartment(editData?.controlDepartment || '');
         setDescription(editData?.description || '');
     }, [editData]);
  
     const handleClose=()=>{
         setOpen(false);
-        setLineName('');
+        setControlDepartment('');
         setDescription('');
     }
 
@@ -38,14 +33,14 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         e.preventDefault();
         isAdd === true ?
         (
-            LineAddService({
-                lineName:lineName,
+            ControlDepartmentAddService({
+                controlDepartment:controlDepartment,
                 description:description,
             },handleSucess , handleException)
         ) : (
-            LineUpdateService({
+            ControlDepartmentUpdateService({
                 id:editData.id,
-                lineName:lineName,
+                controlDepartment:controlDepartment,
                 description:description,
             },handleSucess, handleException)
         );
@@ -59,7 +54,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             type:'success',
             message: dataObject.message,
         });
-        setLineName('');
+        setControlDepartment('');
         setDescription('');
     }
 
@@ -70,7 +65,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           type: 'error',
           message: errorMessage,
         });
-        setLineName('');
+        setControlDepartment('');
         setDescription('');
     }
     
@@ -83,9 +78,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         });
     };
 
-    const onStatus=(e)=>{
-        setStatus(e.target.value);
-      }
+    
   
     return (
         <div>
@@ -94,24 +87,24 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 open={open}
                 onClose={handleClose}
                 fullWidth>
-                    <form  onSubmit={onSubmit}> 
+                    <form  > 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                      {"ADD LINE"}
+                      {"ADD CONTROL DEPARTMENT"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <div>
                                 <Grid container  style={{marginTop:'20px'}}>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6} style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}} >
-                                        <label >Line Name:</label>
+                                        <label >Control Department:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                         <TextField 
                                         fullWidth 
                                         label=""
                                         variant="outlined"
-                                        onChange={((e)=>{setLineName(e.target.value)})}
-                                        value={lineName}/>
+                                        onChange={((e)=>{setControlDepartment(e.target.value)})}
+                                        value={controlDepartment}/>
                                     </Grid>
                                 </Grid>
                                 <Grid container  style={{marginTop:'20px'}}>
@@ -126,27 +119,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         value={description}/>
                                     </Grid>
                                 </Grid>
-                                <Grid container  style={{marginTop:'10px'}}>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <label>Status:</label>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <FormControl>
-                                    <RadioGroup
-                                        row
-                                        value={status}
-                                        onChange={onStatus}
-                                    >
-                                        <FormControlLabel value="Active" control={<Radio />} label="Active" />
-                                        <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
-                                    </RadioGroup>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
+                                
                                 <div style={{marginLeft:'70%',marginTop:'20px'}}>
                                     <Button type='reset' onClick={handleClose}>Cancel</Button>
                                     <Button type='submit'>
@@ -169,4 +142,4 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     )
 }
 
-export default LineModel
+export default ControlDepartmentModal
