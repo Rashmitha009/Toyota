@@ -117,20 +117,20 @@ const SectionModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             <Grid item xs={10} sm={5} md={5} lg={5} xl={5}
                                 style={{alignSelf:'center', }}
                             >
-                            <FormControl 
-                                    fullWidth>
-                                    <InputLabel >Select Department</InputLabel>
-                                    <Select
-                                    label="Select Department"
-                                    value={department}
-                                    onChange={(e) => onDepartmentChange(e)}>
-                                        {   
-                                            departmentList.map((data, index) => {
-                                            return (
-                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                            )
-                                        })}
-                                    </Select>
+                                <FormControl 
+                                        fullWidth>
+                                        <InputLabel >Select Department</InputLabel>
+                                        <Select
+                                        label="Select Department"
+                                        value={department}
+                                        onChange={(e) => onDepartmentChange(e)}>
+                                            {   
+                                                departmentList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                )
+                                            })}
+                                        </Select>
                                 </FormControl>
                             </Grid>
                         </Grid>
