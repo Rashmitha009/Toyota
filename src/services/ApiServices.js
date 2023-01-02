@@ -170,6 +170,7 @@ export const FetchRequestedService = (successCallback, errorCallBack) => _fetchS
 
 ///.........Asset........////
 
+
 export const  FetchAssetListService = (successCallback, errorCallBack) => _fetchService('asset/showData', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
@@ -196,6 +197,7 @@ export const  AssetShowLabelService = (data, successCallback, errorCallBack) => 
 
 export const  AssetLabelDeletService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
+export const  AssetMasterShow = (data, successCallback, errorCallBack) => _fetchService('assetMaster/showData', 'GET', {}, successCallback, errorCallBack);
 
 
 ////....Department..../////

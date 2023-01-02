@@ -82,68 +82,67 @@ const ProjectModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     
   return (
     <div>
-    
-            <Dialog 
+        <Dialog 
             open={open}
             onClose={handleClose}
             fullWidth
-            >
-                <form onSubmit={onSubmit}> 
-                    <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                      {"ADD PROJECT"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            <div>
-                                <Grid container  style={{marginTop:'20px'}}>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                    >
-                                    <label >Project Name:</label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                    <TextField fullWidth 
-                                    label=""
-                                    variant="outlined"
-                                    onChange={(e)=>{setProjectName(e.target.value)}}
-                                    value={projectName}
-                                />
-                                    </Grid>
+        >
+            <form onSubmit={onSubmit}> 
+                <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
+                    {"ADD PROJECT"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        <div>
+                            <Grid container  style={{marginTop:'20px'}}>
+                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
+                                >
+                                <label >Project Name:</label>
                                 </Grid>
+                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                <TextField fullWidth 
+                                label=""
+                                variant="outlined"
+                                onChange={(e)=>{setProjectName(e.target.value)}}
+                                value={projectName}
+                            />
+                                </Grid>
+                            </Grid>
 
-                                <Grid container  style={{marginTop:'20px'}}>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                     style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                    >
-                                   <label>Description:</label>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                    <TextField 
-                                        fullWidth
-                                        multiline
-                                        onChange={((e)=>{setDescription(e.target.value)})}
-                                        value={description}
-                                    />
-                                    </Grid>
+                            <Grid container  style={{marginTop:'20px'}}>
+                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
+                                >
+                                <label>Description:</label>
                                 </Grid>
-                                <div style={{marginLeft:'70%',marginTop:'20px'}}>
-                             <Button type='reset' onClick={handleClose}>Cancel</Button>
-                                <Button type='submit'>
-                                    {isAdd === true ? 'Add' : 'Update'}
-                                </Button>
-                                </div>
+                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                <TextField 
+                                    fullWidth
+                                    multiline
+                                    onChange={((e)=>{setDescription(e.target.value)})}
+                                    value={description}
+                                />
+                                </Grid>
+                            </Grid>
+                            <div style={{marginLeft:'70%',marginTop:'20px'}}>
+                            <Button type='reset' onClick={handleClose}>Cancel</Button>
+                            <Button type='submit'>
+                                {isAdd === true ? 'Add' : 'Update'}
+                            </Button>
                             </div>
-                        </DialogContentText>
-                    </DialogContent>
-                </form>
-            </Dialog>
-            <NotificationBar
+                        </div>
+                    </DialogContentText>
+                </DialogContent>
+            </form>
+        </Dialog>
+        <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}
         />  
-        </div>
+    </div>
 
   )
 }

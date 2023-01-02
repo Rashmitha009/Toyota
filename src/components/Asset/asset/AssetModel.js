@@ -12,7 +12,6 @@ import Select from '@mui/material/Select';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
 import {
@@ -24,11 +23,13 @@ import {
     FetchAssetTypeService,
     FetchVenderDataService,
     FetchAssetIdService,
+    AssetMasterShow,
 } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
-    const [assetId, setAssetId] = useState();
+    const [assetId, setAssetId] = useState('');
+    const [assetIdList, setAssetIdList] = useState([]);
     const [departmentList, setDepartmentList] = useState([]);
     const [department, setDepartment] = useState(editData?.department || '');
     const [section, setSection] = useState('');
@@ -62,6 +63,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [usedNew,setUsedNew]=useState('');
     const [manufacturerNo,setManufacturerNo]=useState('');
     const [warranty, setWarranty] = useState("warranty");
+    const [contralDepartment, setcontralDepartment] = useState("");
+    const [userDepartmentList, setUserDepartmentList] = useState([]);
+    const [userDepartment,setUserDepartment] = useState("");
+    const [contralDepartmentList, setcontralDepartmentList] = useState([]);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -98,6 +103,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
 
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
+        AssetMasterShow(handleAssetMasterShow,handleAssetMasterException);
         FetchVenderService(handleFetchVender, handleFetchVenderException);
         setDepartment(editData?.department || '');
         setSection(editData?.section ||'');
@@ -118,8 +124,18 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         
     }, [editData, refresh]);
 
+    const handleAssetMasterShow=(dataObject)=>{
+        setAssetIdList(dataObject?.data);
+        alert('data'+dataObject?.data)
+    }
+    const handleAssetMasterException=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
+    }
+
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
+        setcontralDepartmentList(dataObject.data);
+        setUserDepartmentList(dataObject.data);
         if (editData?.department) {
             FetchSectionService({
                 id: editData?.department
@@ -135,7 +151,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     }
 
     const handleFetchAssetTypeSectionEdit = (dataObject) => {
-       setAssetTypeList(dataObject.data)
+       setAssetTypeList(dataObject?.data)
     }
 
     const handleFetchAssetTypeSectionEditException = (errorStaus, errorMessage) => {
@@ -158,6 +174,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         console.log(errorMessage);
     }
 
+    const onContralDepartmentChange=(e)=>{
+        setcontralDepartment(e.target.value);
+    }
+    const onUserDepartmentChange=(e)=>{
+        setUserDepartment(e.target.value);
+    }
     // department on change and section API call//    
     const onDepartmentChange = (e) => {
         setDepartment(e.target.value);
@@ -321,6 +343,9 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setUsedNew(e.target.value);
     }
 
+    const onAssetMasterChange = (e) => {
+        setAssetId(e.target.value);
+    }
     return (
         <div>
             <Dialog
@@ -340,11 +365,30 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             textAlignLast: 'center'
                                         }}
                                     >
-                                        <label> Asset ID : </label>
+                                        <label> Asset Master: </label>
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}
                                     >
-                                        <TextField
+                                        <FormControl style={{}} fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Select Asset Master</InputLabel>
+                                            <Select
+                                                label="Select Asset Master"
+                                                value={assetId}
+                                                onChange={(e) => onAssetMasterChange(e)}>
+                                                    {
+                                                        assetIdList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.assetMasterName}</MenuItem>
+                                                        )
+                                                    })}
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
+                                        <label style={{}}>Id:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
+                                    <TextField
                                             id="Asset Id "
                                             fullWidth
                                             label="Asset Id"
@@ -352,6 +396,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             value={assetId}
                                             onChange={(e) => { setAssetId(e.target.value) }}
                                         />
+                                        
                                     </Grid>
                                     <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
                                         <label style={{}}>Department:</label>
@@ -374,9 +419,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}
                                         style={{
                                             alignSelf: 'center',
@@ -388,20 +430,20 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}
                                     >
                                         <FormControl style={{}} fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
-                                            <Select
-                                            labelId="department"
-                                            id="department"
-                                            label="Select Department"
-                                            value={department}
-                                            onChange={(e) => onDepartmentChange(e)}>
-                                                {
-                                                    departmentList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                                                    )
-                                                })}
-                                            </Select>
+                                            <InputLabel id="demo-simple-select-label">Select Control Department</InputLabel>
+                                                <Select
+                                                    labelId="department"
+                                                    id="department"
+                                                    label="Select Control Department"
+                                                    value={contralDepartment}
+                                                    onChange={(e) => onContralDepartmentChange(e)}>
+                                                        {
+                                                            contralDepartmentList.map((data, index) => {
+                                                            return (
+                                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                            )
+                                                        })}
+                                                </Select>
                                         </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
@@ -409,15 +451,15 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
                                         <FormControl style={{}} fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Select User Department</InputLabel>
                                             <Select
                                             labelId="department"
                                             id="department"
-                                            label="Select Department"
-                                            value={department}
-                                            onChange={(e) => onDepartmentChange(e)}>
+                                            label="Select User Department"
+                                            value={userDepartment}
+                                            onChange={(e) =>  onUserDepartmentChange(e)}>
                                                 {
-                                                    departmentList.map((data, index) => {
+                                                    userDepartmentList.map((data, index) => {
                                                     return (
                                                         <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
                                                     )
@@ -425,9 +467,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label >Section:</label>
                                     </Grid>
@@ -470,10 +509,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                   
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item  xs={12} sm={3} md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label>Asset Name : </label>
                                     </Grid>
@@ -498,9 +533,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         onChange={(e) => { setFinancialAssetId(e.target.value) }}
                                         value={financialAssetId}/>
                                     </Grid>
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12}  sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center',  textAlignLast: 'center' }}>
                                         <label style={{}}>Unit:</label>
                                     </Grid>
@@ -541,8 +573,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label style={{}}>Line :</label>
                                     </Grid>
@@ -574,10 +604,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         variant="outlined"
                                         value={vendorAddress}/>
                                     </Grid>
-                                   
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12}  sm={3}  md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label style={{}}>Usage Code:</label>
                                     </Grid>
@@ -602,9 +628,6 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={manufacturer}
                                         onChange={(e) => { setManufacturer(e.target.value) }}/>
                                     </Grid>   
-                                </Grid>
-
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label>Manufacturer No: </label>
                                     </Grid>
@@ -629,11 +652,20 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={poNo}
                                         onChange={(e) => { setpoNo(e.target.value) }}/>
                                     </Grid>
-                                    
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
                                     <Grid item xs={12} sm={3} md={2}  lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label style={{}}>Country of Mfg:</label>
+                                    </Grid>
+                                    <Grid item  xs={12} sm={9} md={4} lg={3.5} xl={3} >
+                                        <TextField
+                                        fullWidth
+                                        id="InvoiceNo"
+                                        label="Invoice No"
+                                        variant="outlined"
+                                        value={invoiceNo}
+                                        onChange={(e) => { setInvoiceNo(e.target.value) }}/>
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={2}  lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
+                                        <label style={{}}>Weight:</label>
                                     </Grid>
                                     <Grid item  xs={12} sm={9} md={4} lg={3.5} xl={3} >
                                         <TextField
@@ -663,10 +695,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         </Select>
                                     </FormControl>
                                     </Grid>
-                                  
-                                </Grid>
-                                <Grid container spacing={2} style={{ marginTop: '10px' }}>
-                                <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label>Description:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
@@ -678,6 +707,40 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         value={description}
                                         onChange={(e) => { setDescription(e.target.value) }}
                                         />
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }} >
+                                        <label>Requestor Name:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
+                                        <TextField
+                                        fullWidth
+                                        id="Description"
+                                        label="Description"
+                                        variant="outlined"
+                                        value={description}
+                                        onChange={(e) => { setDescription(e.target.value) }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={3} md={2} lg={2.5}  xl={3} style={{ alignSelf: 'center',  textAlignLast: 'center'  }} >
+                                        <label>Requestor Department:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
+                                        <FormControl style={{}} fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <Select
+                                            labelId="department"
+                                            id="department"
+                                            label="Select Department"
+                                            value={department}
+                                            onChange={(e) => onDepartmentChange(e)}>
+                                                {
+                                                    departmentList.map((data, index) => {
+                                                    return (
+                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                    )
+                                                })}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5}  xl={3} style={{ alignSelf: 'center',  textAlignLast: 'center'  }} >
                                         <label>Asset Image:</label>
@@ -699,6 +762,18 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             InputLabelProps={{ shrink: true }}
                                             type="file"
                                         />
+                                    </Grid>
+                                    <Grid item xs={12}  sm={10} md={8} lg={8} xl={8} style={{ alignSelf: 'center',  textAlignLast: 'center'  }} >
+                                        <FormControl>
+                                            <RadioGroup
+                                                row
+                                                aria-labelledby="demo-row-radio-buttons-group-label"
+                                                name="row-radio-buttons-group"
+                                            >
+                                                <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
+                                                <FormControlLabel value="Active" control={<Radio />} label="Active" />
+                                            </RadioGroup>
+                                        </FormControl>
                                     </Grid>
                                 </Grid>
                             </form>
