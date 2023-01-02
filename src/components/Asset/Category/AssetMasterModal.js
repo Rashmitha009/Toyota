@@ -6,17 +6,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import { LineAddService, LineUpdateService } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
+import { AssetMasterAddService, AssetMasterUpdateService } from '../../../services/ApiServices';
 
-const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [lineName,setLineName] = useState('');
+const AssetMasterModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [assetMasterName,setAssetMasterName] = useState('');
     const[description,setDescription]=useState('')
-    const [status,setStatus]=useState('');
     const[openNotification,setNotification]=useState({
         status: false,
         type: 'error',
@@ -24,13 +19,13 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     })
 
     useEffect(() => {
-        setLineName(editData?.lineName || '');
+        setAssetMasterName(editData?.assetMasterName || '');
         setDescription(editData?.description || '');
     }, [editData]);
  
     const handleClose=()=>{
         setOpen(false);
-        setLineName('');
+        setAssetMasterName('');
         setDescription('');
     }
 
@@ -38,14 +33,14 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         e.preventDefault();
         isAdd === true ?
         (
-            LineAddService({
-                lineName:lineName,
+            AssetMasterAddService({
+                assetMasterName:assetMasterName,
                 description:description,
             },handleSucess , handleException)
         ) : (
-            LineUpdateService({
+            AssetMasterUpdateService({
                 id:editData.id,
-                lineName:lineName,
+                assetMasterName:assetMasterName,
                 description:description,
             },handleSucess, handleException)
         );
@@ -59,7 +54,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             type:'success',
             message: dataObject.message,
         });
-        setLineName('');
+        setAssetMasterName('');
         setDescription('');
     }
 
@@ -70,7 +65,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           type: 'error',
           message: errorMessage,
         });
-        setLineName('');
+        setAssetMasterName('');
         setDescription('');
     }
     
@@ -83,9 +78,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         });
     };
 
-    const onStatus=(e)=>{
-        setStatus(e.target.value);
-      }
+    
   
     return (
         <div>
@@ -94,24 +87,24 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                 open={open}
                 onClose={handleClose}
                 fullWidth>
-                    <form  onSubmit={onSubmit}> 
+                    <form onSubmit={onSubmit} > 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                      {"ADD LINE"}
+                      {"ADD ASSET MASTER"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <div>
                                 <Grid container  style={{marginTop:'20px'}}>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6} style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}} >
-                                        <label >Line Name:</label>
+                                        <label >Asset Master:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                         <TextField 
                                         fullWidth 
                                         label=""
                                         variant="outlined"
-                                        onChange={((e)=>{setLineName(e.target.value)})}
-                                        value={lineName}/>
+                                        onChange={((e)=>{setAssetMasterName(e.target.value)})}
+                                        value={assetMasterName}/>
                                     </Grid>
                                 </Grid>
                                 <Grid container  style={{marginTop:'20px'}}>
@@ -126,27 +119,7 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         value={description}/>
                                     </Grid>
                                 </Grid>
-                                <Grid container  style={{marginTop:'10px'}}>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <label>Status:</label>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <FormControl>
-                                    <RadioGroup
-                                        row
-                                        value={status}
-                                        onChange={onStatus}
-                                    >
-                                        <FormControlLabel value="Active" control={<Radio />} label="Active" />
-                                        <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
-                                    </RadioGroup>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
+                                
                                 <div style={{marginLeft:'70%',marginTop:'20px'}}>
                                     <Button type='reset' onClick={handleClose}>Cancel</Button>
                                     <Button type='submit'>
@@ -169,4 +142,4 @@ const LineModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     )
 }
 
-export default LineModel
+export default AssetMasterModal
