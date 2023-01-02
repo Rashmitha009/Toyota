@@ -1,78 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import Button from '@mui/material/Button';
-import UserModel from './UserModel';
-import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
-import NotificationBar from '../../services/NotificationBar';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import LinearProgress from '@mui/material/LinearProgress';
+import {FetchRequesterDepartService, RequesterDepartmentDeleteService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
+import RequesterModal from './RequesterModal';
 
-const UserList = (props) => {
+const RequesterList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
     const [editData, setEditData] = useState('');
-    const [refresh , setRefresh]=useState(false);
     const [loading , setLoading]=useState(true);
+    const [refresh , setRefresh]=useState(false);
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
     });
 
- 
+
     const columns = [
-        { field: 'id', headerName: 'Serial No',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
-        { field: 'employee_id', headerName: 'Employee Id', 
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'employee_name', headerName: 'Employee Name',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
-        { field: 'department', headerName: 'Department', 
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'designation', headerName: 'Designation',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'mobile_number', headerName: 'Mobile',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
-        { field: 'email', headerName: 'Email',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
-        { field: 'user_name', headerName: 'UserName', 
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
-        {field: 'action', headerName: 'Action',
-        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' , sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
+        {   field: 'id', headerName: 'Serial No', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        {   field: 'requesterDepartment', headerName: 'Requester Department', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'description', headerName: 'Description', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'action', headerName: 'Action', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
+            cellClassname: 'actions',
+            type: 'actions',
         getActions: (params) => [
             <EditData selectedRow={params.row} />,
             <DeleteData selectedRow={params.row} />,
         ],
         }
     ];
-    
-    useEffect(() => {
-        FetchUserService(handleFetchSuccess, handleFetchException);
-       
-    }, [refresh]);
-
-    const handleFetchSuccess = (dataObject) =>{
-        setLoading(false);
-        setRows(dataObject.data);
-    }
-
-    const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-    }
-
-    const handleClose = () => {
-        setOpen(false)
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-    };
 
     function EditData({ selectedRow }) {
         return (
@@ -84,10 +49,10 @@ const UserList = (props) => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}/>        
+            }}/> 
         )
     }
-    
+
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
@@ -95,12 +60,12 @@ const UserList = (props) => {
             color='primary'
             onClick={() => {
                 deletUser(selectedRow.id)
-            }}/>       
+            }}/>
         )
     }
-    
-    const deletUser = (id) => {
-        UserDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+
+    const deletUser =(id) => {
+        RequesterDepartmentDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
 
     const handleDeleteSuccess = (dataObject) =>{
@@ -112,7 +77,7 @@ const UserList = (props) => {
             message: dataObject.message,
         });
     }
-
+  
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
@@ -122,14 +87,36 @@ const UserList = (props) => {
         });
     }
 
+    useEffect(() => {
+        FetchRequesterDepartService(handleFetchSuccess, handleFetchException);
+    }, [refresh]);
+  
+    const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
+        setRows(dataObject.data);
+    }
+  
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
     };
 
+    const handleNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+    };
+  
     return (
         <div>
-            <Grid container style={{
+        <Grid container style={{
                 display:'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
@@ -141,7 +128,7 @@ const UserList = (props) => {
             <Grid item  
                 style={{alignSelf:'center',textAlign:'center'}}
             >
-                <h3 style={{margin:'0px'}}>MANAGE USER</h3>
+                <h3 style={{margin:'0px'}}>Request Department List</h3>
             </Grid>
               <Grid item style={{}} >
                 <Button variant="contained" onClick={handleModalOpen} >
@@ -151,26 +138,27 @@ const UserList = (props) => {
         </Grid>
         <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
             <DataGrid 
-                style={{ height: 400,width:'100%' }}
+                style={{ height: 270,width:'100%' }}
                 loading={loading}
                 rows={rows}
                 columns={columns} 
             />
         </Grid>
-            <UserModel 
+        <RequesterModal
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh}
-            refresh={refresh}/>
+            refresh={refresh}
+/>
             <NotificationBar
-            handleClose={handleClose}
+            handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}/>
-        </div>
-    )
+          </div>
+  )
 }
 
-export default UserList
+export default RequesterList

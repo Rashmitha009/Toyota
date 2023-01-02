@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchVendorService,VendorDeleteService } from '../../services/ApiServices';
 import VendorModel from './VendorModel';
 import NotificationBar from '../../services/NotificationBar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Grid } from '@mui/material';
+import { Grid , Button} from '@mui/material';
 
 export default function VendorList() {
     const [open, setOpen] = useState(false);
@@ -22,14 +21,21 @@ export default function VendorList() {
       });
 
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 60 },
-        { field: 'vendorName', headerName: 'Name', width: 150 },
-        { field: 'address', headerName: 'Address', width: 150 },
-        { field: 'contactNo', headerName: 'Contact No', width: 150 },
-        { field: 'email', headerName: 'Email', width: 150 },
-        { field: 'contactPerson', headerName: 'Contact Parson', width: 150 },
+        { field: 'id', headerName: 'Serial No', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'vendorName', headerName: 'Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'address', headerName: 'Address',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'contactNo', headerName: 'Contact No', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'email', headerName: 'Email', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'contactPerson', headerName: 'Contact Parson', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {
-            field: 'action', headerName: 'Action', width: 250, sortable: false,
+            field: 'action', headerName: 'Action', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
             cellClassname: 'actions',
             type: 'actions',
             getActions: (params) => [
@@ -116,29 +122,34 @@ export default function VendorList() {
 
     return (
         <div>
-            <Grid container>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                    style={{alignSelf:'center',textAlignLast: 'center',}}
-                >
-                    <h3 >MANAGE VENDOR</h3>
-                </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                    style={{alignSelf:'center',textAlignLast: 'center',}}
-                >
-                    <Button style={{ width: '120px', height: '30px' }} variant="outlined" onClick={handleModalOpen}>
-                Add
-            </Button>
-                </Grid>
+            <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+            <Grid item  
+                style={{alignSelf:'center',textAlign:'center'}}
+            >
+                <h3 style={{margin:'0px'}}>VIEW VENDOR</h3>
             </Grid>
-           
-            <hr style={{ bottom: 'solid' }} />
-           
-            <div style={{ height: '350px', width: '90%', marginLeft: '40px', marginTop: '20px' }}>
-                <DataGrid
-                    loading={loading}
-                    rows={rows}
-                    columns={columns} />
-            </div>
+              <Grid item style={{}} >
+                <Button variant="contained" onClick={handleModalOpen} >
+                    Add
+                </Button>    
+              </Grid>
+        </Grid>
+        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+            <DataGrid 
+                style={{ height: 270,width:'100%' }}
+                loading={loading}
+                rows={rows}
+                columns={columns} 
+            />
+        </Grid>
             <VendorModel
                 open={open}
                 setOpen={setOpen}

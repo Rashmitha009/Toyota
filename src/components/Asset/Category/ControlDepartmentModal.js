@@ -78,7 +78,6 @@ const ControlDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) 
         });
     };
 
-    
   
     return (
         <div>
@@ -87,7 +86,7 @@ const ControlDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) 
                 open={open}
                 onClose={handleClose}
                 fullWidth>
-                    <form  > 
+                    <form onSubmit={onSubmit} > 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                       {"ADD CONTROL DEPARTMENT"}
                     </DialogTitle>

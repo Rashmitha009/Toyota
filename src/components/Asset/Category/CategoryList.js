@@ -10,6 +10,7 @@ import LineList from './LineList';
 import ControlDepartmentList from './ControlDepartmentList';
 import UserDepartmentList from './UserDepartmentList';
 import AssetMasterList from './AssetMasterList';
+import RequesterList from './RequesterList';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -55,14 +56,22 @@ const CategoryList = () => {
   
     return (
       <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+         variant='scrollable'
+         visibleScrollbar={true}
+         allowScrollButtonsMobile
+         style={{overflow: 'auto',
+             width:'89vw'
+         }}
+        >
             <Tab label="UNIT" {...a11yProps(0)} />
             <Tab label="PROJECT" {...a11yProps(1)} />
             <Tab label="LINE" {...a11yProps(2)} />
             <Tab label="CONTROL DEPARTMENT" {...a11yProps(3)} />
             <Tab label="USER DEPARTMENT" {...a11yProps(4)} />
-            <Tab label="ASSET MASTER " {...a11yProps(5)} />
+            <Tab label="REQUESTER DEPARTMENT" {...a11yProps(5)} />
+            <Tab label="ASSET MASTER " {...a11yProps(6)} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -81,6 +90,9 @@ const CategoryList = () => {
          <UserDepartmentList/>
         </TabPanel>
         <TabPanel value={value} index={5}>
+         <RequesterList/>
+        </TabPanel>
+        <TabPanel value={value} index={6}>
          <AssetMasterList/>
         </TabPanel>
       </Box>

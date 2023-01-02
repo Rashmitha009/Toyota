@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Grid, Button } from '@mui/material';
-import LineModel from './LineModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ControlDepartmentModal from './ControlDepartmentModal';
@@ -29,7 +28,7 @@ const ControlDepartmentList = () => {
     const columns = [
         {   field: 'id', headerName: 'Serial No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'lineName', headerName: 'Control Department', 
+        {   field: 'controlDepartment', headerName: 'Control Department', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {   field: 'description', headerName: 'Description', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
