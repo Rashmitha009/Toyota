@@ -120,20 +120,21 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         setInvoiceNo(editData?.invoiceNo || '');
         setWarrantyStartDate(editData?.warrantyStartDate || '');
         setwarrantyEndDate(editData?.warrantyEndDate || '');
-        setDescription(editData?.description || '');
-        
+        setDescription(editData?.description || '');       
     }, [editData, refresh]);
 
     const handleAssetMasterShow=(dataObject)=>{
-        setAssetIdList(dataObject?.data);
+        
         alert('data'+dataObject?.data)
     }
+    
     const handleAssetMasterException=(errorStaus, errorMessage)=>{
         console.log(errorMessage);
     }
 
     const handleFetchSuccess = (dataObject) => {
         setDepartmentList(dataObject.data);
+        setAssetIdList(dataObject?.data);
         setcontralDepartmentList(dataObject.data);
         setUserDepartmentList(dataObject.data);
         if (editData?.department) {

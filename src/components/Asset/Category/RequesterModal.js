@@ -7,10 +7,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
 import { Grid } from '@mui/material';
 import NotificationBar from '../../../services/NotificationBar';
-import { UserDepartmentAddService, UserDepartmentUpdateService } from '../../../services/ApiServices';
+import { RequesterDepartmentAddService, RequesterDepartmentUpdateService } from '../../../services/ApiServices';
 
-const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [userDepartment,setUserDepartment] = useState('');
+const RequesterModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
+    const [requesterDepartment,setRequesterDepartment] = useState('');
     const[description,setDescription]=useState('')
     const[openNotification,setNotification]=useState({
         status: false,
@@ -19,13 +19,13 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
     })
 
     useEffect(() => {
-        setUserDepartment(editData?.userDepartment || '');
+        setRequesterDepartment(editData?.requesterDepartment || '');
         setDescription(editData?.description || '');
     }, [editData]);
  
     const handleClose=()=>{
         setOpen(false);
-        setUserDepartment('');
+        setRequesterDepartment('');
         setDescription('');
     }
 
@@ -33,14 +33,14 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
         e.preventDefault();
         isAdd === true ?
         (
-            UserDepartmentAddService({
-                userDepartment:userDepartment,
+            RequesterDepartmentAddService({
+                requesterDepartment:requesterDepartment,
                 description:description,
             },handleSucess , handleException)
         ) : (
-            UserDepartmentUpdateService({
+            RequesterDepartmentUpdateService({
                 id:editData.id,
-                userDepartment:userDepartment,
+                requesterDepartment:requesterDepartment,
                 description:description,
             },handleSucess, handleException)
         );
@@ -54,7 +54,7 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
             type:'success',
             message: dataObject.message,
         });
-        setUserDepartment('');
+        setRequesterDepartment('');
         setDescription('');
     }
 
@@ -65,7 +65,7 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
           type: 'error',
           message: errorMessage,
         });
-        setUserDepartment('');
+        setRequesterDepartment('');
         setDescription('');
     }
     
@@ -87,24 +87,24 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
                 open={open}
                 onClose={handleClose}
                 fullWidth>
-                    <form onSubmit={onSubmit}> 
+                    <form onSubmit={onSubmit} > 
                     <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                      {"ADD USER DEPARTMENT"}
+                      {"ADD REQUESTER DEPARTMENT"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             <div>
                                 <Grid container  style={{marginTop:'20px'}}>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6} style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}} >
-                                        <label >User Department:</label>
+                                        <label >Requester Department:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                                         <TextField 
                                         fullWidth 
                                         label=""
                                         variant="outlined"
-                                        onChange={((e)=>{setUserDepartment(e.target.value)})}
-                                        value={userDepartment}/>
+                                        onChange={((e)=>{setRequesterDepartment(e.target.value)})}
+                                        value={requesterDepartment}/>
                                     </Grid>
                                 </Grid>
                                 <Grid container  style={{marginTop:'20px'}}>
@@ -142,4 +142,4 @@ const UserDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) => 
     )
 }
 
-export default UserDepartmentModal
+export default RequesterModal

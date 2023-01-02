@@ -313,7 +313,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     <div>
       <Dialog
       open={open}
-      fullScreen>
+      maxWidth>
         <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
             {isAdd === true ? 'Add ' : 'Edit '}User
@@ -321,17 +321,22 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <div>
-                <Grid container spacing={2} style={{display:'box', }}> 
-                <Grid container item xs={12} sm={12} md={5} lg={5} xl={5}  style={{display:'box',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
-                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{alignSelf:'center', textAlign:'center'}} >
-                  <h2 >ASSET</h2>
+              <Grid container spacing={2} style={{display:'flex'}}>
+                    <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
+                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'60px'}}
+                    >
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                        <h3>Asset</h3>
                   <hr/>
                   </Grid>
-                  <Grid container>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                  <Grid container >
+                  <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                    style={{alignSelf:'center', textAlign:'center' }}>
                       <label >Department : </label>
                     </Grid>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}}  >
+                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
                       <FormControl fullWidth>
                         <InputLabel id="departmentlabel">Select Department</InputLabel>
                         <Select
@@ -348,11 +353,13 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  <Grid container style={{marginTop:'10px'}}>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                  <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                       <label >Section : </label>
                     </Grid>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
                       <FormControl fullWidth>
                         <InputLabel id="sectionList">Select section</InputLabel>
                         <Select
@@ -371,11 +378,13 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  <Grid container style={{marginTop:'10px'}}>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                  <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                       <label >Asset Type : </label>
                     </Grid>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
                       <FormControl fullWidth>
                         <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
                         <Select
@@ -395,11 +404,13 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  <Grid container style={{marginTop:'10px'}}>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                  <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                       <label >Asset Name:</label>
                     </Grid>
-                    <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center', marginBottom:'20px'}} >
+                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
                       <FormControl fullWidth>
                         <InputLabel >Select Asset Name</InputLabel>
                         <Select
@@ -418,9 +429,13 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     </Grid>
                   </Grid>
                   </Grid>
-                  <Grid container spacing={2} item xs={12} sm={9} md={4} lg={4} xl={4}  style={{display:'box',marginLeft:'10%',border:'solid',marginTop:'30px',marginBottom:'20px'}}>
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{alignSelf:'center', textAlign:'center'}} >
-                      <h2 style={{marginLeft:'100px'}}>User</h2>
+                  <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
+                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'70px'}}
+                    >
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
+                            style={{alignSelf:'center', textAlign:'center'}}
+                        >
+                        <h3>User</h3>
                       <hr/>
                     </Grid>
                     <Grid container spacing={2}>
@@ -438,12 +453,16 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       {
                         user ==='EmpId' &&
                         <>
-                          <Grid container spacing={2} style={{marginTop:'5px',marginLeft:'10px'}}>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                          <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                               <label >Emp Id: </label>
                             </Grid>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
-                            <FormControl fullWidth>
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
+                                <FormControl fullWidth>
                               <InputLabel id="departmentlabel">Select Employee Id</InputLabel>
                               <Select
                               labelId="departmentlabel"
@@ -461,11 +480,15 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                               </FormControl>
                             </Grid>
                           </Grid>
-                          <Grid container style={{marginTop:'5px',marginLeft:'10px'}}>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                          <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                               <label >Emp Name: </label>
                             </Grid>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center',marginLeft:'10px'}}  >
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
                               <TextField
                               fullWidth
                               label='Emp Name'
@@ -478,11 +501,15 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       {
                         user !=='EmpId' &&
                         <>
-                          <Grid container style={{marginTop:'5px',marginLeft:'10px'}}>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                          <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                               <label >Department: </label>
                             </Grid>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
                               <FormControl fullWidth>
                                 <InputLabel id="departmentlabel">Select Department</InputLabel>
                                 <Select
@@ -502,11 +529,15 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                               </FormControl>
                             </Grid>
                           </Grid>
-                          <Grid container style={{marginTop:'10px',marginLeft:'10px'}}>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}}  >
-                              <label >Uesr: </label>
+                          <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                              <label >User: </label>
                             </Grid>
-                            <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                            <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px'}}
+                            >
                               <FormControl fullWidth>
                                 <InputLabel id="departmentlabel">Select User</InputLabel>
                                 <Select
@@ -542,11 +573,15 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                     {
                       temporary === 'temporary' &&
                       <>
-                        <Grid container style={{marginTop:'10px',marginLeft:'10px'}}>
-                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
                             <label >From:</label>
                           </Grid>
-                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}} >
+                          <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px',marginBotton:'10px'}}
+                            >
                             <TextField 
                             fullWidth
                             id="outlined-basic"  
@@ -556,11 +591,15 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                             onChange={(e)=>setTempFromDate(e.target.value)}/>
                           </Grid>
                         </Grid>
-                        <Grid container style={{marginTop:'10px',marginLeft:'10px',marginBottom:'20px'}}>
-                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center'}}>
-                            <label >to:</label>
+                        <Grid container >
+                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
+                                style={{alignSelf:'center', textAlign:'center'}}
+                            >
+                            <label >To:</label>
                           </Grid> 
-                          <Grid item xs={10} sm={10} md={4} lg={4} xl={4} style={{alignSelf:'center', textAlign:'center',marginBotton:'20px'}} >
+                          <Grid item xs={10} sm={10} md={6} lg={6} xl={6}
+                            style={{marginTop:'10px',marginBotton:'10px'}}
+                            >
                             <TextField fullWidth 
                             id="outlined-basic"  
                             type='date' 

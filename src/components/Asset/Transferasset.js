@@ -8,10 +8,22 @@ import TextField from '@mui/material/TextField';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
+import img from "./rdl.png"
+import { TransferAssetGetAssetIdService, TransGetAssetIdService } from '../../services/ApiServices';
 
-const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    
+const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => { 
+    const [unit, setUnit] = useState('');
+    const [unitName, setUnitName] = useState('');
+    const [projectName, setProjectName] = useState('');
+    const [departmentName, setDepartmentName] = useState('');
+    const [sectionName, setSectionName] = useState('');
+    const [lineName, setLineName] = useState('');
+    const [remarks, setRemarks] = useState('');
     const [fileUpload, setFileUpload] = useState('');
+    const [assetIdList,setAssetIdList]=useState([]);
+    const [assetId,setAssetId]=useState([]);
+    const [rows, setRows]=useState([]);
+
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
@@ -31,14 +43,37 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           message: '',
         });
     };
-  
-    
+  useEffect(()=>{
+    TransferAssetGetAssetIdService(handleTransferAssetGetAssetId,handleTransferAssetGetAssetException);
+  },[])
+
+    const handleTransferAssetGetAssetId=(dataObject)=>
+    {
+        setAssetIdList(dataObject.data);
+    }
+    const handleTransferAssetGetAssetException=()=>{
+
+    }
+    const onAssetIdChange=(e)=>{
+        setAssetId(e.target.value);
+        TransGetAssetIdService({id:e.target.value},handleTransGetAssetIdService,handleTransGetAssetIdException);
+    }
+const handleTransGetAssetIdService=(dataObject)=>{
+    setUnitName(dataObject?.data[0]?.unitName || '');
+    setProjectName(dataObject?.data[0]?.projectName || '');
+    setDepartmentName(dataObject?.data[0]?.departmentName || '');
+    setSectionName(dataObject?.data[0]?.sectionName  || '');
+    setLineName(dataObject?.data[0]?.lineName  || '');
+}
+const handleTransGetAssetIdException=()=>{
+
+}
     return(
         <div>
             <form >
                 <Grid container spacing={2} style={{display:'flex'}}>
                     <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
-                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'10px'}}
+                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'60px'}}
                     >
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                             style={{alignSelf:'center', textAlign:'center'}}
@@ -53,14 +88,19 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                 <label>Asset Id:</label>
                             </Grid>
                             <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                                <FormControl 
+                                        fullWidth>
+                                        <InputLabel >Select AssetId</InputLabel>
                                         <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label=""
-                                       >
-                                               
+                                        label="Select Department"
+                                        value={assetId}
+                                        onChange={(e) => onAssetIdChange(e)}>
+                                            {   
+                                                assetIdList.map((data, index) => {
+                                                return (
+                                                    <MenuItem value={data.id} key={index}>{data.assetId}</MenuItem>
+                                                )
+                                            })}
                                         </Select>
                                 </FormControl>
                             </Grid>
@@ -75,7 +115,8 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <TextField 
                                         fullWidth 
                                         label=""
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={unitName}/>
                                     </Grid>
                         </Grid>
                         <Grid container >
@@ -88,7 +129,8 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <TextField 
                                         fullWidth 
                                         label=""
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={projectName}/>
                                     </Grid>
                         </Grid>
                         <Grid container >
@@ -101,7 +143,8 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <TextField 
                                         fullWidth 
                                         label=""
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={departmentName}/>
                                     </Grid>
                         </Grid>
                         <Grid container >
@@ -114,7 +157,8 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <TextField 
                                         fullWidth 
                                         label=""
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={sectionName }/>
                                     </Grid>
                         </Grid>
                         <Grid container >
@@ -127,7 +171,8 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         <TextField 
                                         fullWidth 
                                         label=""
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={lineName}/>
                                     </Grid>
                         </Grid>
                         <Grid container >
@@ -153,7 +198,7 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                         </Grid>
                     </Grid>
                     <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
-                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'10px'}}
+                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'60px'}}
                     >
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
                             style={{alignSelf:'center', textAlign:'center'}}
@@ -311,9 +356,9 @@ const Transferasset = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                   <AccordionDetails>
                     <Typography>
                       <ImageList x={{ width: 400, height: 450 }} cols={4} rowHeight={164}>
-                        <img
-                        style={{width:'50px',height:'50px'}}/>
-                         {/* src={`${bpImages1}`} */}
+                        {/* <img
+                        style={{width:'50px',height:'50px'}}/> */}
+                       <img src={img} style={{alignSelf:'center',alignItems: 'center',}} height="40px" width="40px"/>
                       </ImageList>
 
                     </Typography>

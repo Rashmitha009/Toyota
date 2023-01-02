@@ -4,7 +4,6 @@ import { Grid, Button } from '@mui/material';
 import LineModel from './LineModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { AssetMasterDeleteService, FetchAssetmasterService } from '../../../services/ApiServices';
 import AssetMasterModal from './AssetMasterModal';
 import NotificationBar from '../../../services/NotificationBar';
@@ -130,7 +129,7 @@ const AssetMasterList = () => {
             <Grid item  
                 style={{alignSelf:'center',textAlign:'center'}}
             >
-                <h3 style={{margin:'0px'}}>ASSET MASTER List</h3>
+                <h3 style={{margin:'0px'}}>Asset Master List</h3>
             </Grid>
               <Grid item style={{}} >
                 <Button variant="contained" onClick={handleModalOpen} >

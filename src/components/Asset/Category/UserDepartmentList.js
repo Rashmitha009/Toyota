@@ -6,6 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ControlDepartmentModal from './ControlDepartmentModal';
 import UserDepartmentModal from './UserDepartmentModal';
+import { FetchUserDepartmentService, UserDepartmentDeleteService } from '../../../services/ApiServices';
+import NotificationBar from '../../../services/NotificationBar';
 
 const UserDepartmentList = () => {
     const [open, setOpen] = useState(false);
@@ -20,25 +22,12 @@ const UserDepartmentList = () => {
         message: '',
     });
 
-    const handleModalOpen = () => {
-        setIsAdd(true);
-        setOpen(true);
-    };
     
-
-    const handleNotify = () => {
-        setOpen(false)
-        setNotification({
-          status: false,
-          type: '',
-          message: '',
-        });
-    };
 
     const columns = [
         {   field: 'id', headerName: 'Serial No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'lineName', headerName: 'User Department', 
+        {   field: 'userDepartment', headerName: 'User Department', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {   field: 'description', headerName: 'Description', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
@@ -52,7 +41,8 @@ const UserDepartmentList = () => {
         ],
         }
     ];
-
+    
+    
     function EditData({ selectedRow }) {
         return (
             <EditIcon
@@ -73,10 +63,63 @@ const UserDepartmentList = () => {
             variant="contained"
             color='primary'
             onClick={() => {
-                // deletUser(selectedRow.id)
+                 deletUser(selectedRow.id)
             }}/>
         )
     }
+
+    const deletUser =(id) => {
+        UserDepartmentDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    }
+  
+    const handleDeleteSuccess = (dataObject) =>{
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+        });
+    }
+
+    const handleDeleteException = (errorObject, errorMessage) =>{
+        console.log(errorMessage);
+        setNotification({
+            status: true,
+            type: 'error',
+            message:errorMessage,
+        });
+    }
+
+    useEffect(() => {
+        FetchUserDepartmentService(handleFetchSuccess, handleFetchException);
+    }, [refresh]);
+  
+    const handleFetchSuccess = (dataObject) =>{
+        setLoading(false);
+        setRows(dataObject.data);
+    }
+  
+    const handleFetchException = (errorStaus, errorMessage) =>{
+        console.log(errorMessage);
+    }
+    
+  
+
+    const handleModalOpen = () => {
+        setIsAdd(true);
+        setOpen(true);
+    };
+    
+
+    const handleNotify = () => {
+        setOpen(false)
+        setNotification({
+          status: false,
+          type: '',
+          message: '',
+        });
+    };
   
     return (
         <div>
@@ -116,11 +159,11 @@ const UserDepartmentList = () => {
             setRefresh={setRefresh}
             refresh={refresh}
 />
-            {/* <NotificationBar
+            <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
-            type={openNotification.type}/> */}
+            type={openNotification.type}/>
           </div>
   )
 }
