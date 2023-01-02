@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { DataGrid} from '@mui/x-data-grid';
 import { Button } from 'reactstrap';
 import { AllocationViewReturnAsset } from '../../services/ApiServices';
+import { Grid } from '@mui/material';
 
 const ReturnAssetList = () => {
     const [rows, setRows] = useState([]);
@@ -27,18 +28,30 @@ const ReturnAssetList = () => {
     }
 
     return (
-        <div>
-            <form>
-                <label style={{marginLeft:'500px'}}>View Asset</label>
-                <hr/>
-                <div style={{ height: '250px', width: '96%', marginLeft: '40px', marginTop: '20px' }}>
-                    <DataGrid
-                        loading={loading}
-                        rows={rows}
-                        columns={columns} 
-                    />
-                </div>
-            </form>
+        <div>   
+            <Grid container style={{
+                    display:'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding:'10px'
+                }} 
+                >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}>View Asset</h3>
+                </Grid>
+            </Grid>
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
+                    style={{ height: 270,width:'100%' }}
+                    loading={loading}
+                    rows={rows}
+                    columns={columns} 
+                />
+            </Grid>
         </div>
     )
 }

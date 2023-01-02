@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchUserService, UntagAssetViewService, UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import UntageAssetModel from './UntageAssetModel';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { DownloadUntag } from '../../services/DownloadService';
 import EditIcon from '@mui/icons-material/Edit';
@@ -118,30 +117,27 @@ const UntageAseetList = () => {
   return (
     <div>
         <form onSubmit={onSubmit}>
-            <Grid container>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                 style={{alignSelf:'center',textAlign:'center'}}
+            <Grid container style={{
+                    display:'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding:'10px'
+                }} 
                 >
-                    <h3 > UNTAG ASSET</h3>
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}> UNTAG ASSET</h3>
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                style={{alignSelf:'center',textAlign:'center'}}
-                >
-                    <Button 
-                    style={{
-                            marginLeft:'53%',
-                            width:'120px',
-                            height:'30px',
-                            marginTop:'20px', 
-                            alignSelf:'center'
-                        }} variant="outlined" 
-                    onClick={ handleModalOpen}>
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={ handleModalOpen} >
                     UNTAG ASSET
-                    </Button>
+                    </Button>    
                 </Grid>
             </Grid>
-            <hr style={{ bottom: 'solid' }} />
-            <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>               
+            <Grid container spacing={2}  style={{marginTop:'0px'}}>               
                 <Grid item xs={12} sm={4} md={2} lg={1} xl={3}
                     style={{
                         alignSelf: 'center',

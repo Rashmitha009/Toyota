@@ -21,14 +21,21 @@ import {
     FetchVenderService,
     FetchSectionService,
     FetchAssetTypeService,
-    FetchVenderDataService,
-    FetchAssetIdService,
     AssetMasterShow,
+    ControlDepartmentShow,
+    UserDepartmentShow,
+    RequesterDepartmentShow,
+    AssetIdShow,
+    UnitShow,
+    ProjectShow,
+    LineShow,
 } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
-    const [assetId, setAssetId] = useState('');
+    const [ assetMasterList,  setAssetMasterList] = useState([]);
+    const [ assetMaster,  setAssetMaster] = useState('');
+    const [ assetId, setAssetId] = useState('');
     const [assetIdList, setAssetIdList] = useState([]);
     const [departmentList, setDepartmentList] = useState([]);
     const [department, setDepartment] = useState(editData?.department || '');
@@ -36,24 +43,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [sectionList, setSectionList] = useState([]);
     const [assetName, setAssetName] = useState('');
     const [financialAssetId, setFinancialAssetId] = useState('');
-    const [vendorName, setVendorName] = useState(editData?.vendorName ||'');
-    const [vendorNameList, setVendorNameList] = useState([]);
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [emailId, setEmailId] = useState('');
     const [assetTypeList, setAssetTypeList] = useState([]);
     const [assetType, setAssetType] = useState('');
-    const [vendorAddress, setVendorAddress] = useState('');
     const [manufacturer, setManufacturer] = useState('');
-    const [assetModel, setAssetModel] = useState('');
-    const [poNo, setpoNo] = useState('');
-    const [invoiceNo, setInvoiceNo] = useState('');
-    const [warrantyStartDate, setWarrantyStartDate] = useState('');;
-    const [warrantyEndDate, setwarrantyEndDate] = useState('');;
-    const [warrantyDocument, setWarrantyDocument] = useState('');
-    const [uploadDocument, setUploadDocument] = useState('');
     const [description, setDescription] = useState('');
     const [assetImage, setAssetImage] = useState('');
-    const [vendorData, setVendorData] = useState([]);
     const [unit,setUnit]=useState('');
     const [unitList, setUnitList]=useState([]);
     const [project,setProject]=useState('');
@@ -62,80 +56,114 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const [lineList,setLineList]=useState([]);
     const [usedNew,setUsedNew]=useState('');
     const [manufacturerNo,setManufacturerNo]=useState('');
-    const [warranty, setWarranty] = useState("warranty");
-    const [contralDepartment, setcontralDepartment] = useState("");
     const [userDepartmentList, setUserDepartmentList] = useState([]);
     const [userDepartment,setUserDepartment] = useState("");
-    const [contralDepartmentList, setcontralDepartmentList] = useState([]);
+    const [contralDepartmentList, setContralDepartmentList] = useState([]);
+    const [controlDepartment,setControlDepartment]=useState('');
+    const [requestorList,setRequestorList]=useState([]);
+    const [operationNo,setOperationNo]=useState('');
+    const [requestor,setRequestor]=useState('');
+    const [usageCode,setUsageCode]=useState('');
+    const [yearOfMfg,setYearOfMfg]=useState('');
+    const [countryOfMfg,setCountryOfMfg]=useState('');
+    const [weight,setWeight]=useState('');
+    const [requestorName,setRequestorName]=useState('');
+    const [activeStatus,setActiveStatus]=useState('');
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
       });
-
-    const handleChangeWarrantyStartDate = (e) => {
-        setWarrantyStartDate(e.target.value);
-        console.log(e.target.value);
-    };
-
-    const handleChangeWarrantyEndDate = (e) => {
-        setwarrantyEndDate(e.target.value);
-    };
-
     const handleClose = () => {
         setOpen(false);
+        setAssetMaster('');
         setAssetId('');
         setDepartment('');
         setSection('');
         setAssetName('');
         setFinancialAssetId('');
-        setVendorName('');
-        setPhoneNumber('');
-        setEmailId('');
         setAssetType('');
-        setVendorAddress('');
         setManufacturer('');
-        setAssetModel('');
-        setpoNo('');
-        setInvoiceNo('');
         setDescription('');
+        setAssetImage('');
+        setUnit('');
+        setProject('');
+        setLine('');
+        setUsedNew('');
+        setManufacturerNo('');
+        setUserDepartment("");
+        setControlDepartment('');
+        setOperationNo('');
+        setRequestor('');
+        setUsageCode('');
+        setYearOfMfg('');
+        setCountryOfMfg('');
+        setWeight('');
+        setRequestorName('');
+        setActiveStatus('');
+ 
     };
 
     useEffect(() => {
         FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-        AssetMasterShow(handleAssetMasterShow,handleAssetMasterException);
-        FetchVenderService(handleFetchVender, handleFetchVenderException);
-        setDepartment(editData?.department || '');
-        setSection(editData?.section ||'');
-        setAssetName(editData?.assetName || '');
-        setFinancialAssetId(editData?.financialAssetId || '');
-        setVendorName(editData?.vendorName || '');
-        setPhoneNumber(editData?.phoneNumber || '');
-        setEmailId(editData?.email || '');
-        setAssetType(editData?.assetType || '');
-        setVendorAddress(editData?.vendorAddress || '');
-        setManufacturer(editData?.manufacturer || '');
-        setAssetModel(editData?.assetModel || '');
-        setpoNo(editData?.poNo || '');
-        setInvoiceNo(editData?.invoiceNo || '');
-        setWarrantyStartDate(editData?.warrantyStartDate || '');
-        setwarrantyEndDate(editData?.warrantyEndDate || '');
-        setDescription(editData?.description || '');
+        AssetMasterShow(handleAssetMaster,handleAssetMasterException);
+        UserDepartmentShow(handleUserDepartment,handleUserDepartmentException);
+        ControlDepartmentShow(handleControlDepartment,handleControlDepartmentException);
+        RequesterDepartmentShow(handleRequesterDepartment,handleRequesterDepartmentException);
+        UnitShow(handleUnitShow,handleUnitShowException);
+        ProjectShow(handleProjectShow,handleProjectShowException);
+        LineShow(handleLineShow,handleLineShowException);
+        // setDepartment(editData?.department || '');
+        // setSection(editData?.section ||'');
+        // setAssetName(editData?.assetName || '');
+        // setFinancialAssetId(editData?.financialAssetId || '');
+        // setPhoneNumber(editData?.phoneNumber || '');
+        // setEmailId(editData?.email || '');
+        // setAssetType(editData?.assetType || '');
+        // setVendorAddress(editData?.vendorAddress || '');
+        // setManufacturer(editData?.manufacturer || '');
+        // setAssetModel(editData?.assetModel || '');
+        // setpoNo(editData?.poNo || '');
+        // setInvoiceNo(editData?.invoiceNo || '');
+        // setWarrantyStartDate(editData?.warrantyStartDate || '');
+        // setwarrantyEndDate(editData?.warrantyEndDate || '');
+        // setDescription(editData?.description || '');
         
     }, [editData, refresh]);
 
-    const handleAssetMasterShow=(dataObject)=>{
-        setAssetIdList(dataObject?.data);
-        alert('data'+dataObject?.data)
+   
+    const handleAssetMaster = (dataObject)=>{
+        setAssetMasterList(dataObject.data);   
     }
+
     const handleAssetMasterException=(errorStaus, errorMessage)=>{
         console.log(errorMessage);
     }
 
-    const handleFetchSuccess = (dataObject) => {
-        setDepartmentList(dataObject.data);
-        setcontralDepartmentList(dataObject.data);
+    const handleUserDepartment=(dataObject)=>{
         setUserDepartmentList(dataObject.data);
+    }
+    const handleUserDepartmentException=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
+    }
+    const handleControlDepartment=(dataObject)=>{
+        setContralDepartmentList(dataObject.data);
+    }
+    const handleControlDepartmentException=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
+    }
+
+    const handleRequesterDepartment=(dataObject)=>{
+        setRequestorList(dataObject.data);
+    }
+    const handleRequesterDepartmentException=(errorStaus, errorMessage)=>{
+        console.log(errorMessage);
+    }
+
+    const handleFetchSuccess = (dataObject) => {
+        console.log('data'+dataObject.data);
+        setDepartmentList(dataObject.data);
+       
         if (editData?.department) {
             FetchSectionService({
                 id: editData?.department
@@ -166,16 +194,13 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
         console.log(errorMessage);
     }
 
-    const handleFetchVender = (dataObject) => {
-        setVendorNameList(dataObject.data); 
-    }
     
     const handleFetchVenderException = (errorStaus, errorMessage) => {
         console.log(errorMessage);
     }
 
     const onContralDepartmentChange=(e)=>{
-        setcontralDepartment(e.target.value);
+        setControlDepartment(e.target.value);
     }
     const onUserDepartmentChange=(e)=>{
         setUserDepartment(e.target.value);
@@ -224,58 +249,63 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     const onLineChange = (e) => {
         setLine(e.target.value);
     }
+    const onRequestorChange=(e)=>{
+        setRequestor(e.target.value);
+    }
 
+    const handleUnitShow=(dataObject)=>{
+        setUnitList(dataObject.data);
+    }
+    const handleUnitShowException=(errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+
+    const handleProjectShow=(dataObject)=>{
+        setProjectList(dataObject.data);
+    }
+    const handleProjectShowException= (errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
+    const handleLineShow=(dataObject)=>{
+        setLineList(dataObject.data);
+    }
+    const handleLineShowException=(errorStaus, errorMessage) => {
+        console.log(errorMessage);
+    }
     const onSubmit = (e) => {
         e.preventDefault();
         isAdd === true ?
         (
             AssetAddService({
-                assetId: assetId,
-                department: department,
-                section: section,
-                assetName: assetName,
-                financialAssetId: financialAssetId,
-                vendorName: vendorName,
-                phoneNumber: phoneNumber,
-                email: emailId,
-                assetType: assetType,
-                vendorAddress: vendorAddress,
+                assetMaster:assetMaster,
+                assetId:assetId,
+                department:department,
+                controlDepartment:controlDepartment,
+                userDepartment:userDepartment,
+                section:section,
+                assetType:assetType,
+                assetName:assetName,
+                financialAssetId:financialAssetId,
+                unit:unit,
+                project:project,
+                line:line,
+                operationNo:operationNo,
                 manufacturer: manufacturer,
-                assetModel: assetModel,  
-                poNo: poNo,
-                invoiceNo: invoiceNo,
-                warrantyStartDate: warrantyStartDate,
-                warrantyEndDate: warrantyEndDate,
-                warrantyDocument: warrantyDocument,
-                uploadDocument: uploadDocument,
-                description: description,
-                assetImage: assetImage,
-                typeWarranty: warranty,
+                manufacturerNo:manufacturerNo,
+                yearOfMfg:yearOfMfg,
+                countryOfMfg:countryOfMfg,
+                weight:weight,
+                usedNew:usedNew,
+                description:description,
+                requestorName:requestorName,
+                requesterDepartment:requestor,
+                assetImage:assetImage,
+                activeStatus:activeStatus,
+              
             }, handleSuccess, handleException)
         ) : (
             AssetUpdateService({
-                id: editData.id,
-                assetId: assetId,
-                department: department,
-                section: section,
-                assetName: assetName,
-                financialAssetId: financialAssetId,
-                vendorName: vendorName,
-                phoneNumber: phoneNumber,
-                email: emailId,
-                assetType: assetType,
-                vendorAddress: vendorAddress,
-                manufaturer: manufacturer,
-                assetModel: assetModel,
-                poNo: poNo,
-                invoiceNo: invoiceNo,
-                warrantyStartDate: warrantyStartDate,
-                warrantyEndDate: warrantyEndDate,
-                warrantyDocument: warrantyDocument,
-                uploadDocument: uploadDocument,
-                description: description,
-                assetImage: assetImage,
-                typeWarranty: warranty,
+        
 
                 }, handleSuccess, handleException)
             );
@@ -289,21 +319,33 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
             type: 'success',
             message: dataObject.message,
           });
+        
+        setAssetMaster('');
         setAssetId('');
         setDepartment('');
         setSection('');
         setAssetName('');
         setFinancialAssetId('');
-        setVendorName('');
-        setPhoneNumber('');
-        setEmailId('');
         setAssetType('');
-        setVendorAddress('');
         setManufacturer('');
-        setAssetModel('');
-        setpoNo('');
-        setInvoiceNo('');
         setDescription('');
+        setAssetImage('');
+        setUnit('');
+        setProject('');
+        setLine('');
+        setUsedNew('');
+        setManufacturerNo('');
+        setUserDepartment("");
+        setControlDepartment('');
+        setOperationNo('');
+        setRequestor('');
+        setUsageCode('');
+        setYearOfMfg('');
+        setCountryOfMfg('');
+        setWeight('');
+        setRequestorName('');
+        setActiveStatus('');
+     
     }
 
     const handleException = (errorObject, errorMessage) => {
@@ -314,21 +356,31 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
             type: 'error',
             message: errorMessage,
           });
+          setAssetMaster('');
           setAssetId('');
-        setDepartment('');
-        setSection('');
-        setAssetName('');
-        setFinancialAssetId('');
-        setVendorName('');
-        setPhoneNumber('');
-        setEmailId('');
-        setAssetType('');
-        setVendorAddress('');
-        setManufacturer('');
-        setAssetModel('');
-        setpoNo('');
-        setInvoiceNo('');
-        setDescription('');
+          setDepartment('');
+          setSection('');
+          setAssetName('');
+          setFinancialAssetId('');
+          setAssetType('');
+          setManufacturer('');
+          setDescription('');
+          setAssetImage('');
+          setUnit('');
+          setProject('');
+          setLine('');
+          setUsedNew('');
+          setManufacturerNo('');
+          setUserDepartment("");
+          setControlDepartment('');
+          setOperationNo('');
+          setRequestor('');
+          setUsageCode('');
+          setYearOfMfg('');
+          setCountryOfMfg('');
+          setWeight('');
+          setRequestorName('');
+          setActiveStatus('');
       
     }
     const handleCloseNotify = () => {
@@ -344,7 +396,19 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
     }
 
     const onAssetMasterChange = (e) => {
-        setAssetId(e.target.value);
+        setAssetMaster(e.target.value);
+        AssetIdShow(handleAssetId,handleAssetIdException);
+    }
+
+    const handleAssetId=(dataObject)=>{
+        setAssetId(dataObject.data);
+    }
+    const handleAssetIdException=(errorObject, errorMessage) => {
+        console.log(errorMessage);
+
+    }
+    const onChangeSatus=(e)=>{
+        setActiveStatus(e.target.value);
     }
     return (
         <div>
@@ -373,10 +437,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             <InputLabel id="demo-simple-select-label">Select Asset Master</InputLabel>
                                             <Select
                                                 label="Select Asset Master"
-                                                value={assetId}
+                                                value={assetMaster}
                                                 onChange={(e) => onAssetMasterChange(e)}>
                                                     {
-                                                        assetIdList.map((data, index) => {
+                                                        assetMasterList.map((data, index) => {
                                                         return (
                                                             <MenuItem value={data.id} key={index}>{data.assetMasterName}</MenuItem>
                                                         )
@@ -394,9 +458,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             label="Asset Id"
                                             variant="outlined"
                                             value={assetId}
-                                            onChange={(e) => { setAssetId(e.target.value) }}
-                                        />
-                                        
+                                    />  
                                     </Grid>
                                     <Grid item xs={12} sm={3}  md={2} lg={2.5} xl={3} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
                                         <label style={{}}>Department:</label>
@@ -435,12 +497,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                     labelId="department"
                                                     id="department"
                                                     label="Select Control Department"
-                                                    value={contralDepartment}
+                                                    value={controlDepartment}
                                                     onChange={(e) => onContralDepartmentChange(e)}>
                                                         {
                                                             contralDepartmentList.map((data, index) => {
                                                             return (
-                                                                <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                                <MenuItem value={data.id} key={index}>{data.controlDepartment}</MenuItem>
                                                             )
                                                         })}
                                                 </Select>
@@ -461,7 +523,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                                 {
                                                     userDepartmentList.map((data, index) => {
                                                     return (
-                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                        <MenuItem value={data.id} key={index}>{data.userDepartment}</MenuItem>
                                                     )
                                                 })}
                                             </Select>
@@ -545,11 +607,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             label="Select Unit"
                                             value={unit}
                                             onChange={(e) => onUnitChange(e)}>
-                                                {/* {unitList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.unitId} key={index}>{data.unitName}</MenuItem>
+                                                {
+                                                    unitList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.unitName}</MenuItem>
                                                     )
-                                                })} */}
+                                                })}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -565,11 +628,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             label="Select Unit"
                                             value={project}
                                             onChange={(e) => onProjectChange(e)}>
-                                                {/* {projectList.map((data, index) => {
+                                                {projectList.map((data, index) => {
                                                     return (
-                                                        <MenuItem value={data.projectId} key={index}>{data.projectName}</MenuItem>
+                                                        <MenuItem value={data.id} key={index}>{data.projectName}</MenuItem>
                                                     )
-                                                })} */}
+                                                })}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -585,11 +648,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                             label="Select Unit"
                                             value={line}
                                             onChange={(e) => onLineChange(e)}>
-                                                {/* {lineList.map((data, index) => {
-                                                    return (
-                                                        <MenuItem value={data.lineId} key={index}>{data.lineName}</MenuItem>
-                                                    )
-                                                })} */}
+                                                {
+                                                    lineList.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.lineName}</MenuItem>
+                                                        )
+                                                })}
                                             </Select>
                                         </FormControl>
                                     </Grid>
@@ -600,9 +664,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                         fullWidth
                                         id="Vendor-Address"
-                                        label="Vendor Address "
+                                        label="Operation No "
                                         variant="outlined"
-                                        value={vendorAddress}/>
+                                        value={operationNo}
+                                        onChange={(e) => { setOperationNo(e.target.value) }}
+                                    />
                                     </Grid>
                                     <Grid item xs={12}  sm={3}  md={2} lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }} >
                                         <label style={{}}>Usage Code:</label>
@@ -611,10 +677,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                         fullWidth
                                         id="AssetModel"
-                                        label="Asset Model"
+                                        label="Usage Code"
                                         variant="outlined"
-                                        value={assetModel}
-                                        onChange={(e) => { setAssetModel(e.target.value) }}/>
+                                        value={usageCode}
+                                        onChange={(e) => { setUsageCode(e.target.value) }}/>
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label>Manufacturer: </label>
@@ -635,7 +701,7 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                         fullWidth
                                         id="Manufacturer"
-                                        label="Manufacturer"
+                                        label="Manufacturer No"
                                         variant="outlined"
                                         value={manufacturerNo}
                                         onChange={(e) => { setManufacturerNo(e.target.value) }}/>
@@ -646,11 +712,10 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3} >
                                         <TextField
                                         fullWidth
-                                        id="PONo"
-                                        label="PO No:"
+                                        label="Year of Mfg:"
                                         variant="outlined"
-                                        value={poNo}
-                                        onChange={(e) => { setpoNo(e.target.value) }}/>
+                                        value={yearOfMfg}
+                                        onChange={(e) => { setYearOfMfg(e.target.value) }}/>
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2}  lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label style={{}}>Country of Mfg:</label>
@@ -658,11 +723,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     <Grid item  xs={12} sm={9} md={4} lg={3.5} xl={3} >
                                         <TextField
                                         fullWidth
-                                        id="InvoiceNo"
-                                        label="Invoice No"
+                                        
+                                        label="Country of Mfg"
                                         variant="outlined"
-                                        value={invoiceNo}
-                                        onChange={(e) => { setInvoiceNo(e.target.value) }}/>
+                                        value={countryOfMfg}
+                                        onChange={(e) => { setCountryOfMfg(e.target.value) }}/>
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2}  lg={2.5} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }} >
                                         <label style={{}}>Weight:</label>
@@ -670,11 +735,11 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     <Grid item  xs={12} sm={9} md={4} lg={3.5} xl={3} >
                                         <TextField
                                         fullWidth
-                                        id="InvoiceNo"
-                                        label="Invoice No"
+                                        id="Weight"
+                                        label="Weight"
                                         variant="outlined"
-                                        value={invoiceNo}
-                                        onChange={(e) => { setInvoiceNo(e.target.value) }}/>
+                                        value={weight}
+                                        onChange={(e) => { setWeight(e.target.value) }}/>
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5} xl={3}  style={{ alignSelf: 'center', textAlignLast: 'center'}}
                                     >
@@ -684,13 +749,12 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">Used/New</InputLabel>
                                         <Select
-                                       
-                                        value={usedNew}
-                                        label="Used/New"
-                                        onChange={handleChange}
+                                            value={usedNew}
+                                            label="Used/New"
+                                            onChange={handleChange}
                                         >
-                                        <MenuItem value='used'>Used</MenuItem>
-                                        <MenuItem value='new'>New</MenuItem>
+                                        <MenuItem value='Used'>Used</MenuItem>
+                                        <MenuItem value='New'>New</MenuItem>
                                         
                                         </Select>
                                     </FormControl>
@@ -715,28 +779,28 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <TextField
                                         fullWidth
                                         id="Description"
-                                        label="Description"
+                                        label="Requestor Name"
                                         variant="outlined"
-                                        value={description}
-                                        onChange={(e) => { setDescription(e.target.value) }}
+                                        value={requestorName}
+                                        onChange={(e) => { setRequestorName(e.target.value) }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={3} md={2} lg={2.5}  xl={3} style={{ alignSelf: 'center',  textAlignLast: 'center'  }} >
-                                        <label>Requestor Department:</label>
+                                        <label> Requester Department:</label>
                                     </Grid>
                                     <Grid item xs={12} sm={9} md={4} lg={3.5} xl={3}>
                                         <FormControl style={{}} fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Select Requester Department</InputLabel>
                                             <Select
                                             labelId="department"
                                             id="department"
-                                            label="Select Department"
-                                            value={department}
-                                            onChange={(e) => onDepartmentChange(e)}>
+                                            label="Select Requester Department"
+                                            value={requestor}
+                                            onChange={(e) => onRequestorChange(e)}>
                                                 {
-                                                    departmentList.map((data, index) => {
+                                                    requestorList.map((data, index) => {
                                                     return (
-                                                        <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
+                                                        <MenuItem value={data.id} key={index}>{data.requesterDepartment}</MenuItem>
                                                     )
                                                 })}
                                             </Select>
@@ -767,8 +831,8 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                                         <FormControl>
                                             <RadioGroup
                                                 row
-                                                aria-labelledby="demo-row-radio-buttons-group-label"
-                                                name="row-radio-buttons-group"
+                                               value={activeStatus}
+                                               onChange={onChangeSatus}
                                             >
                                                 <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
                                                 <FormControlLabel value="Active" control={<Radio />} label="Active" />

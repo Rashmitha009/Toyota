@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { DataGrid} from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
+
 import {  AlloctionViewService,  UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AllocationModel from './AllocationModel';
-import { Grid } from '@mui/material';
+import { Grid,Button } from '@mui/material';
 import { DownloadAlloction } from '../../services/DownloadService';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -24,13 +24,13 @@ const AllocationList = () => {
     });
    
     const columns = [
-        { field: 'department', headerName: 'Department', width: 150 },
-        { field: 'section', headerName: 'Section', width: 150 },
-        { field: 'assetType', headerName: 'Asset Type', width: 150 },
-        { field: 'assetName', headerName: 'Asset Name', width: 150 },
-        { field: 'assetId', headerName: 'Asset Id', width: 150 },
-        { field: 'user', headerName: 'Assigned User', width: 150 },
-        {field: 'action', headerName: 'Action', width: 200, sortable: false, 
+        { field: 'department', headerName: 'Department', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'section', headerName: 'Section', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetType', headerName: 'Asset Type', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetName', headerName: 'Asset Name', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'assetId', headerName: 'Asset Id', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'user', headerName: 'Assigned User', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {field: 'action', headerName: 'Action', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false, 
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -121,16 +121,25 @@ const AllocationList = () => {
     return (
         <div>
             <form onSubmit={onSubmitView}>
-                <Grid container spacing={2}>
-                    <Grid item xs={6} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
-                        <h2 style={{marginLeft:'40px'}}>View Allocation</h2>
+                <Grid container style={{
+                    display:'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding:'10px'
+                }} 
+                >
+                    <Grid item  
+                        style={{alignSelf:'center',textAlign:'center'}}
+                    >
+                        <h3 style={{margin:'0px'}}>View Allocation</h3>
                     </Grid>
-                    <Grid item xs={6} style={{  alignSelf: 'center', textAlignLast: 'center' }}>
-                        <Button  variant="contained" style={{height:'40px'}} onClick={handleModalOpen}>Add Alloction</Button>
+                    <Grid item style={{}} >
+                        <Button  variant="contained" onClick={handleModalOpen}>Add Alloction</Button> 
                     </Grid>
                 </Grid>
-                <hr/>
-                <Grid container spacing={2}  style={{marginLeft:'20px', marginTop:'30px'}}>
+                <Grid container spacing={2}  style={{ marginTop:'0px'}}>
                     <Grid item xs={10} sm={4} md={1} lg={1} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
                         <label >Date From :</label>
                     </Grid>

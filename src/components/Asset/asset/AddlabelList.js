@@ -26,17 +26,14 @@ const AddlabelList = () => {
         // { field: 'id', headerName: 'Serial No', width: 100, },
         {   field: 'department', headerName: 'Department', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'selectSection', headerName: 'Section',  
+        {   field: 'section', headerName: 'Section',  
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'selectAsset', headerName: 'Asset Type', 
+        {   field: 'assetType', headerName: 'Asset Type', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'selectAssetId', headerName: 'Asset Id	', 
+        {   field: 'assetId', headerName: 'Asset Id	', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'   },
-        {   field: 'code', headerName: 'Code	', 
-            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'date', headerName: 'Date', 
-            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        // {   field: 'selectAsset', headerName: '	Asset Name', },
+        {   field: 'assetName', headerName: '	Asset Name',
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {   field: 'action', headerName: 'Action', 
             minWidth: 100, flex: 1, align: 'center', 
             headerAlign: 'center', sortable: false,
@@ -56,7 +53,7 @@ const AddlabelList = () => {
 
     const handleFetchSuccess = (dataObject) =>{
         setLoading(false);
-        setRows(dataObject.data);
+        setRows(dataObject?.data || []);
     }
 
     const handleFetchException = (errorStaus, errorMessage) =>{

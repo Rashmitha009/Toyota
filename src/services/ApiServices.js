@@ -217,7 +217,24 @@ export const  AssetShowLabelService = (data, successCallback, errorCallBack) => 
 
 export const  AssetLabelDeletService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
-export const  AssetMasterShow = (data, successCallback, errorCallBack) => _fetchService('assetMaster/showData', 'GET', {}, successCallback, errorCallBack);
+export const  AssetMasterShow = (successCallback, errorCallBack) => _fetchService('assetMaster/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const  ControlDepartmentShow = ( successCallback, errorCallBack) => _fetchService('controlDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  UserDepartmentShow = ( successCallback, errorCallBack) => _fetchService('userDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  RequesterDepartmentShow = ( successCallback, errorCallBack) => _fetchService('requesterDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  AssetIdShow = ( successCallback, errorCallBack) => _fetchService('asset/id', 'GET',{}, successCallback, errorCallBack);
+
+export const  UnitShow = ( successCallback, errorCallBack) => _fetchService('unit/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  ProjectShow = ( successCallback, errorCallBack) => _fetchService('project/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  LineShow = ( successCallback, errorCallBack) => _fetchService('line/showData', 'GET',{}, successCallback, errorCallBack);
+
+
+
 
 
 ////....Department..../////
@@ -283,6 +300,9 @@ export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fe
 export const AuditDeleteService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const ViewAuditReportService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/viewAuditReport`, 'POST', data, successCallback, errorCallBack);
+
+export const  GetAllocatedDepartmentService = (data,successCallback, errorCallBack) => _fetchService('getAllocatedDepartment', 'GET', {}, successCallback, errorCallBack);
+
 
 ///..........Amc.........//// 
 export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _fetchService('amc/showData', 'GET', {}, successCallback, errorCallBack);

@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { AllocationViewSelfAssessment } from '../../services/ApiServices';
+import { Grid } from '@mui/material';
 
 const SelfAssesmentList = () => {
   const [loading,setLoading]=useState(true);
@@ -26,17 +27,29 @@ const SelfAssesmentList = () => {
   }
   return (
     <div>
-      <div style={{marginLeft:'500px'}}>
-        <h2>View Asset</h2>
-      </div>
-      <hr/>
-      <div style={{ height: 400, width: '90%', marginLeft:'30px' }}>
-        <DataGrid
-          loading={loading}
-          rows={rows}
-          columns={columns}
-        />
-    </div>
+        <Grid container style={{
+                  display:'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding:'10px'
+              }} 
+              >
+              <Grid item  
+                  style={{alignSelf:'center',textAlign:'center'}}
+              >
+                  <h3 style={{margin:'0px'}}>View Asset</h3>
+              </Grid>
+        </Grid>
+        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+            <DataGrid 
+                style={{ height: 270,width:'100%' }}
+                loading={loading}
+                rows={rows}
+                columns={columns} 
+            />
+        </Grid>
     </div>
   )
 }
