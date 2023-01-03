@@ -143,7 +143,7 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                    fullWidth>
                     <form onSubmit={onSubmit}>
                         <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                            {"ADD SECTION"}
+                            {"ADD ASSET TYPE"}
                         </DialogTitle>
                         <div>
                             <Grid container style={{marginTop:"20px"}}>

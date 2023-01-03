@@ -550,5 +550,8 @@ export const  TransferAssetGetAssetIdService = (successCallback, errorCallBack) 
 
 export const  TransGetAssetIdService = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}/getAssetList`, 'GET', {}, successCallback, errorCallBack);
 
+export const TransferAsset = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}`, 'POST', data, successCallback, errorCallBack);
+
+
 
 
