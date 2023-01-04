@@ -13,19 +13,18 @@ import AssetMasterList from './AssetMasterList';
 import RequesterList from './RequesterList';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 0 }}>
-            <Typography>{children}</Typography>
+  const { children, value, index, ...other } = props;
+ 
+  return (
+    <div
+    role="tabpanel"
+    hidden={value !== index}
+    id={`simple-tabpanel-${index}`}
+    aria-labelledby={`simple-tab-${index}`}
+    {...other}>
+      {value === index && (
+        <Box sx={{ p: 0 }}>
+          <Typography>{children}</Typography>
           </Box>
         )}
       </div>
@@ -45,34 +44,31 @@ function TabPanel(props) {
     };
   }
   
-
-const CategoryList = () => {
-    
+  const CategoryList = () => {
     const [value, setValue] = React.useState(0);
-
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-  
+    
     return (
       <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
-         variant='scrollable'
-         visibleScrollbar={true}
-         allowScrollButtonsMobile
-         style={{overflow: 'auto',
-             width:'89vw'
-         }}
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+          variant='scrollable'
+          visibleScrollbar={true}
+          allowScrollButtonsMobile
+          style={{overflow: 'auto',
+          width:'89vw'
+        }}
         >
-            <Tab label="UNIT" {...a11yProps(0)} />
-            <Tab label="PROJECT" {...a11yProps(1)} />
-            <Tab label="LINE" {...a11yProps(2)} />
-            <Tab label="CONTROL DEPARTMENT" {...a11yProps(3)} />
-            <Tab label="USER DEPARTMENT" {...a11yProps(4)} />
-            <Tab label="REQUESTER DEPARTMENT" {...a11yProps(5)} />
-            <Tab label="ASSET MASTER " {...a11yProps(6)} />
-          </Tabs>
+          <Tab label="UNIT" {...a11yProps(0)} />
+          <Tab label="PROJECT" {...a11yProps(1)} />
+          <Tab label="LINE" {...a11yProps(2)} />
+          <Tab label="CONTROL DEPARTMENT" {...a11yProps(3)} />
+          <Tab label="USER DEPARTMENT" {...a11yProps(4)} />
+          <Tab label="REQUESTER DEPARTMENT" {...a11yProps(5)} />
+          <Tab label="ASSET MASTER " {...a11yProps(6)} />
+        </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
           <UnitList/>

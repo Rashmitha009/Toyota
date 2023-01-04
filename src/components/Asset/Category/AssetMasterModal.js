@@ -78,8 +78,6 @@ const AssetMasterModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
         });
     };
 
-    
-  
     return (
         <div>
             <div>
@@ -119,17 +117,16 @@ const AssetMasterModal = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                         value={description}/>
                                     </Grid>
                                 </Grid>
-                                
                                 <div style={{marginLeft:'70%',marginTop:'20px'}}>
                                     <Button type='reset' onClick={handleClose}>Cancel</Button>
                                     <Button type='submit'>
                                         {isAdd === true ? 'Add' : 'Update'}
-                                    </Button>
+                                     </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </DialogContentText>
-                    </DialogContent>
-                </form>
+                            </DialogContentText>
+                        </DialogContent>
+                    </form>
                 </Dialog>
                 <NotificationBar
                 handleClose={handleNotify}

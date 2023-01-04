@@ -9,10 +9,14 @@ const ReturnAssetList = () => {
     const [loading,setLoading]=useState(true);
 		
     const columns = [
-        { field: 'assetId', headerName: 'Asset Id', width: 200 },
-        { field: 'assetName', headerName: 'Returned Asset Name', width: 200 },
-        { field: 'user', headerName: 'User Name', width: 200 },
-        { field: 'returnedDate', headerName: ' Returned Date', width: 200 },
+        { field: 'assetId', headerName: 'Asset Id',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetName', headerName: 'Returned Asset Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'user', headerName: 'User Name', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'returnedDate', headerName: ' Returned Date',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
         
     ];
 

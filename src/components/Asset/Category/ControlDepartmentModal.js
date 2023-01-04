@@ -134,8 +134,7 @@ const ControlDepartmentModal = ({ open, setOpen, isAdd, editData, setRefresh }) 
                 handleClose={handleNotify}
                 notificationContent={openNotification.message}
                 openNotification={openNotification.status}
-                type={openNotification.type}/>  
-           
+                type={openNotification.type}/>           
             </div>
         </div>
     )

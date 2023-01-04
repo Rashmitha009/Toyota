@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Grid, Button } from '@mui/material';
-import LineModel from './LineModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AssetMasterDeleteService, FetchAssetmasterService } from '../../../services/ApiServices';
@@ -117,49 +116,38 @@ const AssetMasterList = () => {
   
     return (
         <div>
-        <Grid container style={{
-                display:'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding:'10px'
-            }} 
-            >
-            <Grid item  
-                style={{alignSelf:'center',textAlign:'center'}}
-            >
-                <h3 style={{margin:'0px'}}>Asset Master List</h3>
+            <Grid container style={{display:'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', padding:'10px' }}  >
+                <Grid item style={{alignSelf:'center',textAlign:'center'}} >
+                    <h3 style={{margin:'0px'}}>Asset Master List</h3>
+                </Grid>
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={handleModalOpen} >
+                        Add
+                    </Button>    
+                </Grid>
             </Grid>
-              <Grid item style={{}} >
-                <Button variant="contained" onClick={handleModalOpen} >
-                    Add
-                </Button>    
-              </Grid>
-        </Grid>
-        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
-            <DataGrid 
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
                 style={{ height: 270,width:'100%' }}
                 loading={loading}
                 rows={rows}
-                columns={columns} 
-            />
-        </Grid>
-        <AssetMasterModal
+                columns={columns} />
+            </Grid>
+            <AssetMasterModal
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh}
-            refresh={refresh}
-/>
+            refresh={refresh}/>
+        
             <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}/>
-          </div>
-  )
+        </div>
+    )
 }
 
 export default AssetMasterList

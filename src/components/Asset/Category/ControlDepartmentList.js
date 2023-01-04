@@ -20,11 +20,6 @@ const ControlDepartmentList = () => {
         message: '',
     });
 
-    
-    
-
-   
-
     const columns = [
         {   field: 'id', headerName: 'Serial No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
@@ -56,8 +51,7 @@ const ControlDepartmentList = () => {
             }}/> 
         )
     }
-    
-    
+       
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
@@ -121,49 +115,46 @@ const ControlDepartmentList = () => {
   
     return (
         <div>
-        <Grid container style={{
+            <Grid container style={{
                 display:'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding:'10px'
-            }} 
-            >
-            <Grid item  
-                style={{alignSelf:'center',textAlign:'center'}}
-            >
-                <h3 style={{margin:'0px'}}>Control Department List</h3>
+            }}>
+                <Grid item style={{alignSelf:'center',textAlign:'center'}}>
+                    <h3 style={{margin:'0px'}}>Control Department List</h3>
+                </Grid>
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={handleModalOpen} >
+                        Add
+                    </Button>
+                </Grid>
             </Grid>
-              <Grid item style={{}} >
-                <Button variant="contained" onClick={handleModalOpen} >
-                    Add
-                </Button>    
-              </Grid>
-        </Grid>
-        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
-            <DataGrid 
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
                 style={{ height: 270,width:'100%' }}
                 loading={loading}
                 rows={rows}
-                columns={columns} 
-            />
-        </Grid>
-        <ControlDepartmentModal 
+                columns={columns}/>
+            </Grid>
+            
+            <ControlDepartmentModal 
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh}
-            refresh={refresh}
-/>
+            refresh={refresh}/>
+
             <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}/>
-          </div>
-  )
+        </div>
+    )
 }
 
 export default ControlDepartmentList;

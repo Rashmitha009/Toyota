@@ -32,7 +32,7 @@ const ViewAuditReport = () => {
   const [isAdd, setIsAdd] = useState(true); 
   const [editData, setEditData] = useState('');
   const [refresh , setRefresh]=useState(false);
- 
+  const [rows, setRows] = useState([]);
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -52,6 +52,7 @@ const ViewAuditReport = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     FetchDepaertmentService(handleFetchSuccess, handleFetchException);
   }, [editData]);
@@ -124,9 +125,6 @@ const ViewAuditReport = () => {
   const onAssetTypeChange = (e) => {
     setAssetType(e.target.value);
   }
-  
-  const [rows, setRows] = useState([]);
-  
 
   const columns = [
     { field: 'id', headerName: 'Serial No', 
@@ -156,65 +154,58 @@ const ViewAuditReport = () => {
         setIsAdd(false);
         setEditData(selectedRow);
         setOpen(true);
-    }}
-      />
+      }}/>
     )
-
   }
+
   const AuditDownload=()=> {
-    Downloadaudit( assetType,fromDate,toDate,handleDownloadaudit,handleDownloadauditException);
-    
+    Downloadaudit( assetType,fromDate,toDate,handleDownloadaudit,handleDownloadauditException);  
   }
 
   const handleDownloadaudit =()=> {
-
   }
 
   const handleDownloadauditException =()=>{
-
   }
    
- 
   return (
     <div style={{}}>
       <Grid container>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-        style={{}}
-        >
-        <h3 style={{marginTop:'0'}}>VIEW AUDITED REPORT</h3>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{}}>
+          <h3 style={{marginTop:'0'}}>VIEW AUDITED REPORT</h3>
         </Grid>
+      </Grid>
+      <Grid container spacing={2} style={{}}>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{alignself:'center' , textAlign:'center'}} >
+          <label>Audited Date From :</label>
         </Grid>
-        <Grid container spacing={2} style={{}}>
-          <Grid item xs={12} sm={6} md={3} lg={3} xl={3} style={{alignself:'center' , textAlign:'center'}} >
-              <label>Audited Date From :</label>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={3} xl={3} >
-            <TextField
-            fullWidth
-            id="Vendor-Address"
-            variant="outlined"
-            type='date'
-            value={fromDate}
-            onChange={(e) => { handleChangefromDate(e) }}/>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={2} xl={2} style={{alignself:'center' , textAlign:'center'}} >
-            <label > To</label>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={3} xl={3} >
-            <TextField
-            fullWidth
-            id="Vendor-Address"
-            variant="outlined"
-            type='date'
-            value={toDate}
-            onChange={(e) => { handleChangetoDate(e) }}/>
-          </Grid>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={fromDate}
+          onChange={(e) => { handleChangefromDate(e) }}/>
         </Grid>
-        <Grid container spacing={2} style={{ marginTop:'5px'}} >
-          <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2} style={{alignSelf:'center', textAlign:'center'}}>
-            <label>Department :</label>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2} style={{alignself:'center' , textAlign:'center'}} >
+          <label > To</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2} >
+          <TextField
+          fullWidth
+          id="Vendor-Address"
+          variant="outlined"
+          type='date'
+          value={toDate}
+          onChange={(e) => { handleChangetoDate(e) }}/>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} style={{ marginTop:'5px'}} >
+        <Grid item xs={12} sm={6} md={2} lg={1.5} xl={2} style={{alignSelf:'center', textAlign:'center'}}>
+          <label>Department :</label>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
           <FormControl fullWidth>
             <InputLabel id="departmentlabel">Select Department</InputLabel>
             <Select
@@ -228,10 +219,10 @@ const ViewAuditReport = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={1} xl={1} style={{alignSelf:'center', textAlign:'center'}}>
+        <Grid item xs={12} sm={6} md={2} lg={1} xl={2} style={{alignSelf:'center', textAlign:'center'}}>
           <label>Section:</label>
         </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
           <FormControl fullWidth >
             <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
             <Select
@@ -245,10 +236,10 @@ const ViewAuditReport = () => {
             </Select>
           </FormControl>
         </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={1.2} xl={1.2} style={{alignSelf:'center', textAlign:'center'}}>
+          <Grid item xs={12} sm={6} md={2} lg={1.5} xl={2} style={{alignSelf:'center', textAlign:'center'}}>
             <label >Asset Type :</label>
           </Grid>
-          <Grid item xs={12} sm={6} md={3} lg={2} xl={2}>
+          <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Select Asset Type</InputLabel>
             <Select
@@ -262,36 +253,28 @@ const ViewAuditReport = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12} sm={6} md={3} lg={1.5} xl={1.5}>
+        <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
           <Button variant="contained" style={{marginLeft:'50px', marginBottom:'30px'}} type='submit'  onClick={onSubmit}>View</Button>
         </Grid>
-        </Grid>
-        <Grid container style={{
-                    
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding:'10px'
-                }} 
-                >
-                  <Grid item  
-                    style={{}}
-                  >
-                    <h3 style={{marginTop:'0px'}}>AUDITED REPORT</h3>
-                    
-                  </Grid>    
-        </Grid>
-        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
-          <DataGrid 
-              style={{ height: 270,width:'100%' }}
-              
-              rows={rows}
-              columns={columns} 
-          />
+      </Grid>
+      <Grid container style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding:'10px'}}>
+          <Grid item  style={{}}>
+            <h3 style={{marginTop:'0px'}}>AUDITED REPORT</h3>
+          </Grid>    
+      </Grid>
+      <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+        <DataGrid
+        style={{ height: 270,width:'100%' }}
+        rows={rows}
+        columns={columns} />
       </Grid>
       <Button style={{marginTop:'5px'}} variant="contained" onClick={AuditDownload}>Export</Button>
-    <ViewAuditViewModal
+      <ViewAuditViewModal
       open={open}
       setOpen={setOpen}
       isAdd={isAdd}

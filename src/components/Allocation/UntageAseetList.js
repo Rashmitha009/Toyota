@@ -23,13 +23,19 @@ const UntageAseetList = () => {
         message: '',
     });
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 140 },
-        { field: 'section', headerName: 'Section', width: 140 },
-        { field: 'assetName', headerName: 'Asset Name', width: 140 },
-        { field: 'assetId', headerName: 'Asset Id', width: 140 },
-        { field: 'id', headerName: 'Id', width: 140 },
-        { field: 'user', headerName: 'Username', width: 140 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+       
+        { field: 'section', headerName: 'Section',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'assetName', headerName: 'Asset Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'assetId', headerName: 'Asset Id', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'id', headerName: 'Id',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'user', headerName: 'Username',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        {field: 'action', headerName: 'Action',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' , sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -58,8 +64,7 @@ const UntageAseetList = () => {
                 setIsAdd(false);
                 setEditData(selectedRow);
                 setOpen(true);
-            }}/>
-                
+            }}/>               
         )
     }
         
@@ -74,7 +79,7 @@ const UntageAseetList = () => {
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
+        });
     }
 
     const handleDeleteException = (errorObject, errorMessage) =>{
@@ -83,7 +88,7 @@ const UntageAseetList = () => {
             status: true,
             type: 'error',
             message:errorMessage,
-          });
+        });
     }
 
     const handleModalOpen = () => {
@@ -99,36 +104,36 @@ const UntageAseetList = () => {
     const handleViewService=(dataObject)=>{
     setRows(dataObject.data)
     }
+
     const handleViewServiceException=(errorObject, errorMessage) =>{
         console.log(errorMessage);
     }
 
     const onClickExport=(e)=>{
-        e.preventDefault();
-        
+        e.preventDefault();    
         DownloadUntag({fromDate:dateFrom,toDate:dateTo}, handleUntagExport,handleUntagExportException)
     }
+
     const handleUntagExport = () => { 
 
-      }
-    const handleUntagExportException=()=>{   }
+    }
 
+    const handleUntagExportException=()=>{  
 
-  return (
-    <div>
-        <form onSubmit={onSubmit}>
-            <Grid container style={{
+    }
+  
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <Grid container style={{
                     display:'flex',
                     flexDirection: 'row',
                     flexWrap: 'wrap',
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding:'10px'
-                }} 
-                >
-                <Grid item  
-                    style={{alignSelf:'center',textAlign:'center'}}
-                >
+                }}>
+                <Grid item style={{alignSelf:'center',textAlign:'center'}}>
                     <h3 style={{margin:'0px'}}> UNTAG ASSET</h3>
                 </Grid>
                 <Grid item style={{}} >
@@ -138,60 +143,44 @@ const UntageAseetList = () => {
                 </Grid>
             </Grid>
             <Grid container spacing={2}  style={{marginTop:'0px'}}>               
-                <Grid item xs={12} sm={4} md={2} lg={1} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
+                <Grid item xs={12} sm={4} md={2} lg={2} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
                     <label >Date From :</label>
                 </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                     <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
                 </Grid>
-                <Grid item xs={12} sm={4} md={3} lg={1} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
+                <Grid item xs={12} sm={4} md={2} lg={2} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'  }}>
                     <label > To</label>
                 </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                     <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
                 </Grid>
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3}
-                    style={{
-                        alignSelf: 'center',
-                        textAlignLast: 'center'
-                }}>
-
-                <Button variant="contained" style={{height:'40px', width:'100px'}} type='submit'>View</Button>
+                <Grid item xs={12} sm={6} md={2} lg={2} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <Button variant="contained" style={{height:'40px', width:'100px'}} type='submit'>View</Button>
                 </Grid>
             </Grid>
             <Grid container spacing={2} >
-                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                    style={{ height: '250px', marginTop: '10px' }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns} />
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ height: '250px', marginTop: '10px' }}>
+                    <DataGrid
+                    rows={rows}
+                    columns={columns} />
                 </Grid>
                 <Grid style={{marginTop:'10px',marginLeft:'20px'}}>
-                <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
+                    <Button variant="contained" onClick={(e)=>{onClickExport(e)}}>Export</Button>
                 </Grid>
             </Grid> 
-                <UntageAssetModel
-                     open={open}
-                     setOpen={setOpen}
-                     isAdd={isAdd}
-                     editData={editData}
-                     setRefresh={setRefresh}
-                />
-                 <NotificationBar
-                    handleClose={handleClose}
-                    notificationContent={openNotification.message}
-                    openNotification={openNotification.status}
-                    type={openNotification.type}
-                />
- </form>
+            <UntageAssetModel
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh}/>
+            <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}/>
+        </form>
     </div>
   )
 }
