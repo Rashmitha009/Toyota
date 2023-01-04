@@ -149,14 +149,14 @@ const LineList = () => {
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh}
-            refresh={refresh}
-/>
+            refresh={refresh}/>
+
             <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}/>
-          </div>
+        </div>
     )
 }
 

@@ -17,10 +17,14 @@ const RequestReturnAssetList = () => {
     });
 
     const columns = [
-        { field: 'id', headerName: 'Asset Id', width: 150 },
-        { field: 'assetName', headerName: 'Returned Asset Name', width: 150 },
-        { field: 'user', headerName: 'User Name', width: 150 },
-        {field: 'action', headerName: 'Action', width: 250, sortable: false,
+        { field: 'id', headerName: 'Asset Id', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetName', headerName: 'Returned Asset Name', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'user', headerName: 'User Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {field: 'action', headerName: 'Action',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [

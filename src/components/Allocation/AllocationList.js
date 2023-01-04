@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { DataGrid} from '@mui/x-data-grid';
-
 import {  AlloctionViewService,  UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
 import AllocationModel from './AllocationModel';
@@ -24,13 +23,20 @@ const AllocationList = () => {
     });
    
     const columns = [
-        { field: 'department', headerName: 'Department', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'section', headerName: 'Section', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'assetType', headerName: 'Asset Type', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'assetName', headerName: 'Asset Name', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        { field: 'assetId', headerName: 'Asset Id', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        { field: 'user', headerName: 'Assigned User', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-        {field: 'action', headerName: 'Action', minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false, 
+        { field: 'department', headerName: 'Department', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'section', headerName: 'Section',
+         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetType', headerName: 'Asset Type',
+         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'assetName', headerName: 'Asset Name', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        { field: 'assetId', headerName: 'Asset Id', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'user', headerName: 'Assigned User', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {field: 'action', headerName: 'Action',
+         minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false, 
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -140,16 +146,16 @@ const AllocationList = () => {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}  style={{ marginTop:'0px'}}>
-                    <Grid item xs={10} sm={4} md={1} lg={1} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <Grid item xs={10} sm={4} md={2} lg={2} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
                         <label >Date From :</label>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                         <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateFrom(e.target.value)} variant="outlined" />
                     </Grid>
-                    <Grid item xs={10} sm={4} md={1} lg={1} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
+                    <Grid item xs={10} sm={4} md={2} lg={1.5} xl={2} style={{ alignSelf: 'center', textAlignLast: 'center' }}>
                         <label > To</label>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3} lg={3} xl={3}>
+                    <Grid item xs={12} sm={6} md={2} lg={2} xl={2}>
                         <TextField fullWidth id="outlined-basic" type='date' onChange={(e)=>setDateTo(e.target.value)} variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} md={6} lg={3} xl={3} style={{ alignSelf: 'center', textAlignLast: 'center'}}>

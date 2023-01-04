@@ -8,11 +8,16 @@ import { Grid } from '@mui/material';
 const SelfAssesmentList = () => {
   const [loading,setLoading]=useState(true);
   const [rows, setRows]=useState([]);
+  
   const columns = [
-      { field: 'id', headerName: 'Id', width: 100 },
-      { field: 'assetId', headerName: 'Asset Id', width: 200 },
-      { field: 'selfAssessmentStatus', headerName: 'Assessment Status', width: 600 },
-      { field: 'assetName', headerName: 'User Name', width: 160 },
+      { field: 'id', headerName: 'Id', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+      { field: 'assetId', headerName: 'Asset Id',
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+      { field: 'selfAssessmentStatus', headerName: 'Assessment Status',
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+      { field: 'assetName', headerName: 'User Name', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
   ];
   useEffect(()=>{
     AllocationViewSelfAssessment(handleAllocationViewSelfAssessment,handleAllocationViewSelfException);
