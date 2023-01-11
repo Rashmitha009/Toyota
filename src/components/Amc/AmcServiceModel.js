@@ -351,6 +351,7 @@ const AmcServiceModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       }, handleSuccess, handleException)
     );
   }
+ 
   
   const handleSuccess = (dataObject) => {
     console.log(dataObject);

@@ -316,7 +316,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       maxWidth>
         <form onSubmit={onSubmit}>
           <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
-            {isAdd === true ? 'Add ' : 'Edit '}User
+            {isAdd === true ? 'Add ' : 'Edit '}Allocation
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">

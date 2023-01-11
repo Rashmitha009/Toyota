@@ -104,6 +104,7 @@ const AssetTab = () => {
       <TabPanel value={value} index={4}>
         <CategoryList/>
       </TabPanel>
+
       {/* <TabPanel value={value} index={6}>
         <TagAssetModel />
       </TabPanel> */}

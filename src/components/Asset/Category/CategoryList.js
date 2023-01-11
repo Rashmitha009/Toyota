@@ -11,6 +11,7 @@ import ControlDepartmentList from './ControlDepartmentList';
 import UserDepartmentList from './UserDepartmentList';
 import AssetMasterList from './AssetMasterList';
 import RequesterList from './RequesterList';
+import OperationList from './Process/OperationList';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,6 +69,7 @@ function TabPanel(props) {
           <Tab label="USER DEPARTMENT" {...a11yProps(4)} />
           <Tab label="REQUESTER DEPARTMENT" {...a11yProps(5)} />
           <Tab label="ASSET MASTER " {...a11yProps(6)} />
+          {/* <Tab label="PROCESS/OPERATION NO " {...a11yProps(7)} /> */}
         </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -91,6 +93,9 @@ function TabPanel(props) {
         <TabPanel value={value} index={6}>
          <AssetMasterList/>
         </TabPanel>
+        {/* <TabPanel value={value} index={7}>
+         <OperationList/>
+        </TabPanel> */}
       </Box>
     );
   }
