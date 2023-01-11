@@ -100,6 +100,14 @@ export const FetchCountService = (successCallback, errorCallBack) => _fetchServi
 
 export const FetcTagAssetShowData = (successCallback, errorCallBack) => _fetchService('tagAsset/showData', 'GET', {}, successCallback, errorCallBack);
 
+export const FetcUnitShowData = (successCallback, errorCallBack) => _fetchService('getUnitPlant', 'GET', {}, successCallback, errorCallBack);
+
+export const FetcLineShowData = (data,successCallback, errorCallBack) => _fetchService(`getLine/${data.id}`, 'GET', {}, successCallback, errorCallBack);
+
+export const FetcSectionShowData = (successCallback, errorCallBack) => _fetchService('section/showData', 'GET', {}, successCallback, errorCallBack);
+
+
+
 
 ////.........Category Unit...../////
 export const UnitAddService = (data, successCallback, errorCallBack) => _fetchService('unit/add', 'POST', data, successCallback, errorCallBack);
@@ -420,7 +428,7 @@ export const  FetchMaintenanceShowClosedMaintenanceService = (successCallback, e
 
 ////...........Allocation........//////
 
-export const AlloctionAddService = (data, successCallback, errorCallBack) => _fetchService('allocation/add', 'POST', data, successCallback, errorCallBack);
+export const AlloctionAddService = (data, successCallback, errorCallBack) => _fetchService(`allocation/${data.id}/add`, 'POST', data, successCallback, errorCallBack);
 
 export const AlloctionViewService = (data, successCallback, errorCallBack) => _fetchService('allocation/showData', 'POST', data, successCallback, errorCallBack);
 
