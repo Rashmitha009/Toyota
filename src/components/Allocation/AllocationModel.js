@@ -16,18 +16,16 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import {  UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService } from '../../services/ApiServices';
+import {  UserUpdateService,FetchDepaertmentService,FetchAuditAssetTypeService, FetchSectionService, FetchAssetTypeService, FetchAssetNameService, AlloctionAddService, FetchEmployeeIdService, FetchEmployeeNameService, FetchUserNameService, FetcUnitShowData, FetcLineShowData, FetchUserDepartmentService, ControlDepartmentShow, FetcSectionShowData } from '../../services/ApiServices';
 import { Grid } from '@mui/material';
 
 const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [departmentList, setDepartmentList] = useState([]);
-  const [department, setDepartment] = useState(editData?.department || '');
+  const [department, setDepartment] = useState('');
   const [employeeId, setEmployeeId] = useState('');
   const [employeeName, setemployeeNamed] = useState('');
   const [employeeIdList,setEmployeeIdList] = useState([]);
   const [userName, setUserName] = useState('');
-  const [sectionList, setSectionList]=useState([]);
-  const [section, setSection]=useState('');
   const [assetTypeList, setAssetTypeList]=useState([]);
   const [assetType, setAssetType]=useState('');
   const [ assetNameList, setAssetNameList]=useState([]);
@@ -38,7 +36,29 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   const [tempToDate , setTempToDate] = useState('');
   const [userDepartmentList, setUserDepartmentList]=useState([]);
   const [ userNameList,   setUserNameList]=useState([]);
+
+  const [unit,setUnit]=useState('');
+  const [unitList,setUnitList]=useState([]);
+  const [line,setLine]=useState('');
+  const [lineList,setLineList]=useState([]);
+  const [assetNo,setAssetNo]=useState('');
+  const [yearOfMgf,setYearOfMgf]=useState('');
+  const [countryOfMgf,setCountryOfMgf]=useState('');
+  const [yearofInstall,setYearofInstall]=useState('');
+  const [usageCode,setUsageCode]=useState('');
+  const [assetWeight,setAssetWeight]=useState('');
+  const [controlDept,setControlDept]=useState('');
+  const [controlDeptList,setControlDeptList]=useState([]);
+  const [userDep,setUserDep]=useState('');
+  const [userDepList,setUserDepList]=useState([]);
+  const [section,setSection]=useState('');
+  const [sectionList,setSectionList]=useState([]);
+  const [activeInactive,setActiveInactive]=useState('');
+  const [assetMfgSlNo,setAssetMfgSlNo]=useState('');
+  const [useNew,setUseNew]=useState('');
   const [userDepartment,setUserDepartment]=useState();
+  const [assetImg,setAssetImg] =useState('');
+
   const [openNotification, setNotification] = useState({
     status: false,
     type: 'error',
@@ -46,28 +66,23 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   });
   
   useEffect(() => {
-    FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-    FetchEmployeeIdService(handleEmployeeSuccess, handleEmployeeException);
-    setDepartment(editData?.departmentId || '');
-    setSection(editData?.sectionsId || '');  
-    setAssetType(editData?.assetTypesId || '');
-    setAssetName(editData?.assetNameId  || '');
-    setUserDepartment(editData?.departmentId || '');
-    setEmployeeId(editData?.empId || '');
-    setemployeeNamed(editData?.user || '' );
-    setTempFromDate(editData?.fromDate || '');
-    setTempToDate(editData?.toDate || '');
-    console.log('data'+editData?.assetNameId);
+    FetcUnitShowData(handleFetchSuccess, handleFetchException);
+    FetchUserDepartmentService(handleUserDepartment,handleUserDepartmentException);
+    ControlDepartmentShow(handleControlDepartment,handleControlDepartmentExeption);
+    FetcSectionShowData(handleSectionShow,handleSectionException);
+    setAssetNo(editData?.assetNo || '');
+    setUnit(editData?.unitPlantId || '');
+    setLine(editData?.line || '');
   }, [editData]);
   
   const handleFetchSuccess = (dataObject) =>{
-    setDepartmentList(dataObject.data);
-    setUserDepartmentList(dataObject.data);
-    if(editData?.departmentId)
+    setUnitList(dataObject.data);
+  
+    if(editData?.unitPlantId)
     {
-      FetchSectionService({
-        id: editData?.departmentId
-      }, handleFetchSectionEdit, handleFetchSectionEditException);
+      FetcLineShowData({
+        id: editData?.unitPlantId
+      }, handleLineSuccess, handleLineException);
       
       FetchUserNameService({
         id: editData?.departmentId
@@ -83,6 +98,32 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(errorMessage);
 
   }
+
+  const handleUserDepartment=(dataObject)=>{
+      setUserDepList(dataObject.data);
+  }
+  const handleUserDepartmentException=(errorStaus, errorMessage)=> {
+    console.log(errorMessage);
+
+  }
+
+const handleSectionShow=(dataObject)=>{
+  console.log("test")
+  setSectionList(dataObject?.data);
+}
+
+const handleSectionException=(errorStaus, errorMessage)=> {
+  console.log(errorMessage);
+
+}
+  const handleControlDepartment=(dataObject)=>{
+    setControlDeptList(dataObject.data);
+  }
+const handleControlDepartmentExeption=(errorStaus, errorMessage)=> {
+  console.log(errorMessage);
+
+}
+
   const  handleFetchSectionEdit=(dataObject)=>{
     setSectionList(dataObject.data);
     if(editData?.sectionsId)
@@ -139,32 +180,24 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     console.log(errorMessage);
   }
 
-  const onDepartmentChange = (e) => {
-    setDepartment(e.target.value);
-    FetchSectionService({id:e.target.value},handleSectionServiceSuccess, handleSectionServiceException);
+  const onUnitChange = (e) => {
+    setUnit(e.target.value);
+    FetcLineShowData({id:e.target.value},handleLineSuccess, handleLineException);
   }
 
-  const handleSectionServiceSuccess = (dataObject) =>{
-    setSectionList(dataObject.data);
+  const handleLineSuccess = (dataObject) =>{
+    setLineList(dataObject.data);
   }
   
-  const handleSectionServiceException= (errorStaus, errorMessage) =>{
+  const handleLineException= (errorStaus, errorMessage) =>{
     console.log(errorMessage);
   }
 
-  const onSectionChange = (e) => {
-    setSection(e.target.value);
-    FetchAssetTypeService({id: e.target.value},handleFetchAssetTypeSuccess, handleFetchAssetTypeException);
+  const onLineChange = (e) => {
+    setLine(e.target.value);
   }
   
-  const handleFetchAssetTypeSuccess = (dataObject) =>{
-    setAssetTypeList(dataObject.data);  
-  }
-  
-  const handleFetchAssetTypeException = (errorStaus, errorMessage) =>{
-    console.log(errorMessage);
-  }
-  
+
   const onAssetTypeChange = (e) => {
     setAssetType(e.target.value);
     FetchAssetNameService({id: e.target.value},handleAssetNameSuccess, handleAssetNameAssetException);
@@ -189,31 +222,28 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     setTemporary(event.target.value);
   };
 
-  const onEmployeeChange=(e)=>{
-    setEmployeeId(e.target.value);
-    FetchEmployeeNameService({id:e.target.value},handelEmployeeName,handelEmployeeNameException)
-  }
+  const onControlChange=(e)=>{
 
-  const handelEmployeeName=(dataObject)=>{
-    setemployeeNamed(dataObject.empName);
-  }
-
-  const handelEmployeeNameException=(errorObject, errorMessage) =>{
-    console.log(errorMessage);
+    setControlDept(e.target.value);
+    
   }
 
   const handleClose = () => {
     setOpen(false); 
-    setDepartment('');
-    setSection('');  
-    setAssetType('');
-    setAssetName('');
+ 
+    setYearOfMgf('');
+    setCountryOfMgf('');
+    setYearofInstall('');
+    setUsageCode('');
+    setAssetWeight('');
+    setControlDept('');
+    setUserDep('');
+    setSection('');
+    setActiveInactive('');
+    setAssetMfgSlNo('');
+    setUseNew('');
     setUserDepartment('');
-    setEmployeeId('');
-    setUserName('');
-    setTempFromDate('');
-    setTempToDate(''); 
-    setemployeeNamed('');
+    setAssetImg('');
   };
   
   const onChangeUserName=(e)=>{
@@ -225,34 +255,42 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
     isAdd === true ?
     (
       AlloctionAddService({
-        department:department,
+        id: assetNo,
+        unitPlant:unit,
+        line:line,
+        assetNo:assetNo,
+        yearOfMfg:yearOfMgf,
+        countryOfMfg:countryOfMgf,
+        yearOfInstallTKAP:yearofInstall,
+        usedOrNew:useNew,
+        usagecode:usageCode,
+        assetWeight:assetWeight,
+        controlDepartment:controlDept,
+        userDepartment:userDep,
         section:section,
-        assetType:assetType,
-        assetName:assetName,
-        userType:user,
-        user:employeeName,
-        empId:employeeId,
-        empName:employeeName,
-        userDepartment:userDepartment,
-        position:temporary,
-        fromDate:tempFromDate,
-        toDate:tempToDate,
+        assetImage:assetImg,
+        mfgSlNo:assetMfgSlNo,
+        status:activeInactive,
+
       },handleSuccess, handleException)
     ) : (
-      UserUpdateService({
-        id: editData.id,
-        department:department,
+      AlloctionAddService({
+        id: editData?.id,
+        unitPlant:unit,
+        line:line,
+        assetNo:assetNo,
+        yearOfMfg:yearOfMgf,
+        countryOfMfg:countryOfMgf,
+        yearOfInstallTKAP:yearofInstall,
+        usedOrNew:useNew,
+        usagecode:usageCode,
+        assetWeight:assetWeight,
+        controlDepartment:controlDept,
+        userDepartment:userDep,
         section:section,
-        assetType:assetType,
-        assetName:assetName,
-        userType:user,
-        user:employeeName,
-        empId:employeeId,
-        empName:employeeName,
-        userDepartment:userDepartment,
-        position:temporary,
-        fromDate:tempFromDate,
-        toDate:tempToDate,
+        assetImage:assetImg,
+        mfgSlNo:assetMfgSlNo,
+        status:activeInactive,
       }, handleSuccess, handleException)
     );
   }
@@ -265,16 +303,20 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       type: 'success',
       message: dataObject.message,
     });
-    setDepartment('');
-    setSection('');  
-    setAssetType('');
-    setAssetName('');
-    setUserDepartment('');
-    setEmployeeId('');
-    setUserName('');
-    setTempFromDate('');
-    setTempToDate('');
-    setemployeeNamed('');
+  setYearOfMgf('');
+  setCountryOfMgf('');
+  setYearofInstall('');
+  setUsageCode('');
+  setAssetWeight('');
+  setControlDept('');
+  setUserDep('');
+  setSection('');
+  setActiveInactive('');
+  setAssetMfgSlNo('');
+  setUseNew('');
+  setUserDepartment('');
+  setAssetImg('');
+
   }
   
   const handleException = (errorObject, errorMessage) =>{
@@ -284,16 +326,20 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
       type: 'error',
       message:errorMessage,
     });
-    setDepartment('');
-    setSection('');  
-    setAssetType('');
-    setAssetName('');
-    setUserDepartment('');
-    setEmployeeId('');
-    setUserName('');
-    setTempFromDate('');
-    setTempToDate('');
-    setemployeeNamed('');
+
+      setYearOfMgf('');
+      setCountryOfMgf('');
+      setYearofInstall('');
+      setUsageCode('');
+      setAssetWeight('');
+      setControlDept('');
+      setUserDep('');
+      setSection('');
+      setActiveInactive('');
+      setAssetMfgSlNo('');
+      setUseNew('');
+      setUserDepartment('');
+      setAssetImg('');
   }
 
   const onUserChange=(e)=>{
@@ -301,14 +347,23 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
   }
   
   const handleCloseNotify = () => {
-    setOpen(false)
+    // setOpen(false)
     setNotification({
       status: false,
       type: '',
       message: '',
     });
   }; 
- 
+
+  const onUseNewChange=(e)=>{
+    setUseNew(e.target.value);
+  }
+ const onSectionChange=(e)=>{
+  setSection(e.target.value);
+ }
+ const onUserDpChange=(e)=>{
+  setUserDep(e.target.value);
+ }
   return (
     <div>
       <Dialog
@@ -321,115 +376,212 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <div>
-              <Grid container spacing={2} style={{display:'flex'}}>
-                    <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
-                    style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'60px'}}
-                    >
-                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
-                            style={{alignSelf:'center', textAlign:'center'}}
-                        >
-                        <h3>Asset</h3>
-                  <hr/>
+              <Grid container spacing={2} style={{marginTop:'20px'}} >
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4} >
+                          <FormControl fullWidth>
+                            <InputLabel id="departmentlabel">Select Unit</InputLabel>
+                            <Select
+                            label="Select Unit"
+                            value={unit}
+                            onChange={(e) => onUnitChange(e)}>
+                              {
+                                unitList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.unitPlantId} key={index}>{data.unitPlant}</MenuItem>
+                                )
+                              })}
+                            </Select>
+                          </FormControl>
                   </Grid>
-                  <Grid container >
-                  <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
-                    style={{alignSelf:'center', textAlign:'center' }}>
-                      <label >Department : </label>
-                    </Grid>
-                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
-                      <FormControl fullWidth>
-                        <InputLabel id="departmentlabel">Select Department</InputLabel>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4} >
+                          <FormControl fullWidth>
+                            <InputLabel id="departmentlabel">Select Line</InputLabel>
+                            <Select
+                            label="Select Line"
+                            value={line}
+                            onChange={(e) => onLineChange(e)}>
+                              {
+                                lineList.map((data, index) => {
+                                return (
+                                  <MenuItem value={data.lineId} key={index}>{data.lineName}</MenuItem>
+                                )
+                              })}
+                            </Select>
+                          </FormControl>
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label='Asset No'
+                      placeholder='Asset No'
+                      variant="outlined" 
+                      value={assetNo}
+                      // onChange={(e)=>{setAssetNo(e.target.value)}}
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label=' YEAR OF MFG'
+                      placeholder='YEAR OF MFG'
+                      variant="outlined" 
+                      type='number'
+                      value={yearOfMgf}
+                      onChange={(e)=>{setYearOfMgf(e.target.value)}}
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label=' COUNTRY OF MFG'
+                      placeholder='COUNTRY OF MFG'
+                      variant="outlined" 
+                      value={countryOfMgf}
+                      onChange={(e)=>{setCountryOfMgf(e.target.value)}}
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label=' YEAR OF INSTALL AT TKAP'
+                      placeholder='YEAR OF INSTALL AT TKAP'
+                      variant="outlined" 
+                      type='number'
+                      value={yearofInstall}
+                      onChange={(e)=>{setYearofInstall(e.target.value)}}
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                  <FormControl fullWidth>
+                      <InputLabel id="departmentlabel">Used/New</InputLabel>
                         <Select
-                        label="Select Department"
-                        value={department}
-                        onChange={(e) => onDepartmentChange(e)}>
-                          {
-                            departmentList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.department_name}</MenuItem>
-                            )
-                          })}
+                          label="Used/New"
+                            value={useNew}
+                            onChange={(e) => onUseNewChange(e)}
+                          
+                          >
+                            <MenuItem value={'Used'}>Used</MenuItem>
+                            <MenuItem value={'New'}>New</MenuItem>
                         </Select>
-                      </FormControl>
-                    </Grid>
+                  </FormControl>
+                             
                   </Grid>
-                  <Grid container >
-                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
-                                style={{alignSelf:'center', textAlign:'center'}}
-                            >
-                      <label >Section : </label>
-                    </Grid>
-                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
-                      <FormControl fullWidth>
-                        <InputLabel id="sectionList">Select section</InputLabel>
-                        <Select
-                        labelId="sectionList"
-                        id='section'
-                        label="Select section"
-                        value={section}
-                        onChange={(e) => onSectionChange(e)}>
-                          {
-                            sectionList.map((data, index) => {
-                            return (
-                              <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
-                            )
-                          })}
-                        </Select>
-                      </FormControl>
-                    </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                        fullWidth
+                        label=' 	USAGE CODE'
+                        placeholder='	USAGE CODE'
+                        variant="outlined" 
+                        value={usageCode}
+                        onChange={(e)=>{setUsageCode(e.target.value)}}
+                      />
                   </Grid>
-                  <Grid container >
-                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
-                                style={{alignSelf:'center', textAlign:'center'}}
-                            >
-                      <label >Asset Type : </label>
-                    </Grid>
-                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
-                      <FormControl fullWidth>
-                        <InputLabel id="assetTypeList">Select Asset Type</InputLabel>
-                        <Select
-                        labelId="assetTypeList"
-                        id='assetType'
-                        label="Select Asset Type"
-                        value={assetType}
-                        onChange={(e) => onAssetTypeChange(e)}>
-                          {
-                            assetTypeList.map((data, index) => {
-                              return (
-                                <MenuItem value={data.id} key={index}>{data.assetType}</MenuItem>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label='Asset Weight'
+                      placeholder='Asset Weight'
+                      variant="outlined" 
+                      value={assetWeight}
+                      onChange={(e)=>{setAssetWeight(e.target.value)}}
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                    <FormControl fullWidth>
+                        <InputLabel id="	Controling Dept">	Select Controling Department</InputLabel>
+                          <Select
+                            label="Select Controling Department"
+                            value={controlDept}
+                            onChange={(e) => onControlChange(e)}>
+                              {
+                                controlDeptList?.map((data, index) => {
+                                  return (
+                                    <MenuItem value={data.id} key={index}>{data.controlDepartment}</MenuItem>
                               )
-                            })
-                          }
-                        </Select>
-                      </FormControl>
-                    </Grid>
+                            })}
+                      </Select>
+                    </FormControl>
                   </Grid>
-                  <Grid container >
-                            <Grid item xs={10} sm={10} md={3} lg={3} xl={3}
-                                style={{alignSelf:'center', textAlign:'center'}}
-                            >
-                      <label >Asset Name:</label>
-                    </Grid>
-                    <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{marginTop:'10px',marginBotton:'10px'}}>
-                      <FormControl fullWidth>
-                        <InputLabel >Select Asset Name</InputLabel>
-                        <Select
-                        label="Select Asset Name"
-                        value={assetName}
-                        onChange={(e) => onAssetNameChange(e)}>
-                          {
-                            assetNameList.map((data, index) => {
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                    <FormControl fullWidth>
+                        <InputLabel id="	Controling Dept">	Select User Department</InputLabel>
+                          <Select
+                            labelId="UserDept"
+                            id='department'
+                            label="Select User Department"
+                            value={userDep}
+                              onChange={(e) => onUserDpChange(e)}>
+                              {
+                              userDepList?.map((data, index) => {
                               return (
-                                <MenuItem value={data.id} key={index}>{data.assetName}</MenuItem>
+                                <MenuItem value={data.id} key={index}>{data.userDepartment}</MenuItem>
                               )
-                            })
-                          }
-                        </Select>
-                      </FormControl>
-                    </Grid>
+                            })}
+                      </Select>
+                    </FormControl>
                   </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                  <FormControl fullWidth>
+                        <InputLabel id="	Controling Dept">	Select Section</InputLabel>
+                          <Select
+                            labelId="Select Section"
+                            id='Select Section'
+                            label="Select Section"
+                            value={section}
+                            onChange={(e) => onSectionChange(e)}>
+                              {
+                              sectionList?.map((data, index) => {
+                              return (
+                                <MenuItem value={data.id} key={index}>{data.section}</MenuItem>
+                              )
+                            })}
+                      </Select>
+                    </FormControl>
                   </Grid>
-                  <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                  <TextField
+                      fullWidth
+                      label="Asset Image"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                          const reader = new FileReader();
+                          reader.onload = () => {
+                            if (reader.readyState === 2) {
+                              setAssetImg(reader.result);
+                            }
+                          };
+                          reader.readAsDataURL(e.target.files[0]);
+                        }
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                      type="file"
+                  />
+                  </Grid>
+                  <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                    <FormControl>
+                    
+                          <RadioGroup
+                            row
+                            value={activeInactive}
+                            onChange={(e)=>{setActiveInactive(e.target.value)}}
+                          >
+                            <FormControlLabel value="Active" control={<Radio />} label="Active" />
+                            <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
+                          
+                          </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                   <Grid item xs={10} sm={10} md={4} lg={4} xl={4}>
+                      <TextField
+                      fullWidth
+                      label='Asset Mfg.Sl.No'
+                      placeholder='Asset Mfg.Sl.No'
+                      variant="outlined" 
+                      value={assetMfgSlNo}
+                      onChange={(e)=>{setAssetMfgSlNo(e.target.value)}}
+                    />
+                  </Grid>
+                  {/* <Grid container  item xs={10} sm={10} md={5} lg={5} xl={5}
                     style={{border:'solid',borderColor:'whitesmoke',marginTop:'20px',marginLeft:'70px'}}
                     >
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}
@@ -611,7 +763,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                       </>
                     }
                     </Grid>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </div>
             </DialogContentText>
@@ -620,7 +772,7 @@ const AllocationModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
             <div className='addbutton'>
               <Button type='reset' onClick={handleClose}>Cancel</Button>
               <Button type='submit'>
-                {isAdd === true ? 'Allocate' : 'Update Allocate'}
+                {isAdd === true ? 'Allocate' : 'Add Allocate'}
               </Button>
             </div>
             <NotificationBar
