@@ -9,343 +9,156 @@ import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { Grid } from '@mui/material';
 import {
     AssetAddService,
     AssetUpdateService,
-    FetchDepaertmentService,
-    FetchVenderService,
-    FetchSectionService,
-    FetchAssetTypeService,
-    AssetMasterShow,
-    ControlDepartmentShow,
-    UserDepartmentShow,
-    RequesterDepartmentShow,
     AssetIdShow,
-    UnitShow,
-    ProjectShow,
-    LineShow,
+    RequesterDepartment,
+    FetchGetUnitPlantService,
+    FetchGetLineService,
+   
 } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
 
 const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => {
-    const [ assetMasterList,  setAssetMasterList] = useState([]);
-    const [ assetMaster,  setAssetMaster] = useState('');
-    const [ assetId, setAssetId] = useState('');
-    const [assetIdList, setAssetIdList] = useState([]);
-    const [departmentList, setDepartmentList] = useState([]);
-    const [department, setDepartment] = useState(editData?.department || '');
-    const [section, setSection] = useState('');
-    const [sectionList, setSectionList] = useState([]);
-    const [assetName, setAssetName] = useState('');
-    const [financialAssetId, setFinancialAssetId] = useState('');
-    const [assetTypeList, setAssetTypeList] = useState([]);
-    const [assetType, setAssetType] = useState('');
-    const [manufacturer, setManufacturer] = useState('');
-    const [description, setDescription] = useState('');
-    const [assetImage, setAssetImage] = useState('');
-    const [unit,setUnit]=useState('');
-    const [unitList, setUnitList]=useState([]);
-    const [project,setProject]=useState('');
-    const [projectList,setProjectList]=useState([]);
+    const [assetNo,setAssetNo]=useState('');
+    const [projectName,setProjectName]=useState('');
+    const [requesterDepartment,setRequesterDepartment]=useState('');
+    const [requesterDepartmentList,setRequesterDepartmentList]=useState([]);
+    const [unitPlant,setUnitPlant]=useState('');
+    const [unitPlantList,setUnitPlantList]=useState([]);
     const [line,setLine]=useState('');
     const [lineList,setLineList]=useState([]);
-    const [usedNew,setUsedNew]=useState('');
-    const [manufacturerNo,setManufacturerNo]=useState('');
-    const [userDepartmentList, setUserDepartmentList] = useState([]);
-    const [userDepartment,setUserDepartment] = useState("");
-    const [contralDepartmentList, setContralDepartmentList] = useState([]);
-    const [controlDepartment,setControlDepartment]=useState('');
-    const [requestorList,setRequestorList]=useState([]);
+    const [component,setComponent]=useState('');
     const [operationNo,setOperationNo]=useState('');
-    const [requestor,setRequestor]=useState('');
-    const [usageCode,setUsageCode]=useState('');
-    const [yearOfMfg,setYearOfMfg]=useState('');
-    const [countryOfMfg,setCountryOfMfg]=useState('');
-    const [weight,setWeight]=useState('');
-    const [requestorName,setRequestorName]=useState('');
-    const [activeStatus,setActiveStatus]=useState('');
+    const [assetName,setAssetName]=useState('');
+    const [operationName,setOperationName]=useState('');
+    const [equipmentType,setEquipmentType]=useState('');
+    const [dateOfRequest,setDateOfRequest]=useState('');
+    const [requesterName,setRequesterName]=useState('');
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
-      });
+    });
+
     const handleClose = () => {
         setOpen(false);
-        setAssetMaster('');
-        setAssetId('');
-        setDepartment('');
-        setSection('');
-        setAssetName('');
-        setFinancialAssetId('');
-        setAssetType('');
-        setManufacturer('');
-        setDescription('');
-        setAssetImage('');
-        setUnit('');
-        setProject('');
-        setLine('');
-        setUsedNew('');
-        setManufacturerNo('');
-        setUserDepartment("");
-        setControlDepartment('');
-        setOperationNo('');
-        setRequestor('');
-        setUsageCode('');
-        setYearOfMfg('');
-        setCountryOfMfg('');
-        setWeight('');
-        setRequestorName('');
-        setActiveStatus('');
- 
     };
 
     useEffect(() => {
-        FetchDepaertmentService(handleFetchSuccess, handleFetchException);
-        AssetMasterShow(handleAssetMaster,handleAssetMasterException);
-        UserDepartmentShow(handleUserDepartment,handleUserDepartmentException);
-        ControlDepartmentShow(handleControlDepartment,handleControlDepartmentException);
-        RequesterDepartmentShow(handleRequesterDepartment,handleRequesterDepartmentException);
-        UnitShow(handleUnitShow,handleUnitShowException);
-        ProjectShow(handleProjectShow,handleProjectShowException);
-        LineShow(handleLineShow,handleLineShowException);
-        // setDepartment(editData?.department || '');
-        // setSection(editData?.section ||'');
-        // setAssetName(editData?.assetName || '');
-        // setFinancialAssetId(editData?.financialAssetId || '');
-        // setPhoneNumber(editData?.phoneNumber || '');
-        // setEmailId(editData?.email || '');
-        // setAssetType(editData?.assetType || '');
-        // setVendorAddress(editData?.vendorAddress || '');
-        // setManufacturer(editData?.manufacturer || '');
-        // setAssetModel(editData?.assetModel || '');
-        // setpoNo(editData?.poNo || '');
-        // setInvoiceNo(editData?.invoiceNo || '');
-        // setWarrantyStartDate(editData?.warrantyStartDate || '');
-        // setwarrantyEndDate(editData?.warrantyEndDate || '');
-        // setDescription(editData?.description || '');
-        
-    }, [editData, refresh]);
-
-   
-    const handleAssetMaster = (dataObject)=>{
-        setAssetMasterList(dataObject.data);   
-    }
-
-    const handleAssetMasterException=(errorStaus, errorMessage)=>{
-        console.log(errorMessage);
-    }
-
-    const handleUserDepartment=(dataObject)=>{
-        setUserDepartmentList(dataObject.data);
-    }
-    const handleUserDepartmentException=(errorStaus, errorMessage)=>{
-        console.log(errorMessage);
-    }
-    const handleControlDepartment=(dataObject)=>{
-        setContralDepartmentList(dataObject.data);
-    }
-    const handleControlDepartmentException=(errorStaus, errorMessage)=>{
-        console.log(errorMessage);
-    }
+        RequesterDepartment(handleRequesterDepartment,handleRequesterDepartmentException); 
+        FetchGetUnitPlantService(handleFetchUnitPlantSuccess, handleFetchUnitPlantException);    
+        setLine(editData?.line || '');
+        setProjectName(editData?.projectName || '');
+        setRequesterDepartment(editData?.requesterDepartment || '');
+        setUnitPlant(editData?.unitPlantId || '');
+        setComponent(editData?.component || '');
+        setOperationNo(editData?.operationNo || '');
+        setAssetName(editData?.assetName || '');
+        setAssetNo(editData?.assetNo || '');
+        setOperationName(editData?.operationName || '');
+        setEquipmentType(editData?.equipmentType || '');
+        setDateOfRequest(editData?.dateOfRequest || '');
+        setRequesterName(editData?.requesterName || '');
+    }, [editData]);
 
     const handleRequesterDepartment=(dataObject)=>{
-        setRequestorList(dataObject.data);
+        setRequesterDepartmentList(dataObject.data || []);
     }
-    const handleRequesterDepartmentException=(errorStaus, errorMessage)=>{
+
+    const handleRequesterDepartmentException=(error,errorMessage)=>{
         console.log(errorMessage);
     }
 
-    const handleFetchSuccess = (dataObject) => {
-        console.log('data'+dataObject.data);
-        setDepartmentList(dataObject.data);
-       
-        if (editData?.department) {
-            FetchSectionService({
-                id: editData?.department
-            }, handleFetchSectionEdit, handleFetchSectionEditException)
-        }
-    }
-    
-    const handleFetchSectionEdit = (dataObject) => {
-        setSectionList(dataObject.data);
-        if (editData?.section) {
-            FetchAssetTypeService({ id:editData?.section}, handleFetchAssetTypeSectionEdit, handleFetchAssetTypeSectionEditException)
+    const handleFetchUnitPlantSuccess = (dataObject) =>{
+        setUnitPlantList(dataObject.data || []);
+        if(editData?.unitPlantId){
+            FetchGetLineService({id:editData?.unitPlantId},handleFetchGetLine,handleFetchGetLineException ); 
         }
     }
 
-    const handleFetchAssetTypeSectionEdit = (dataObject) => {
-       setAssetTypeList(dataObject?.data)
-    }
+   
 
-    const handleFetchAssetTypeSectionEditException = (errorStaus, errorMessage) => {
+    const handleFetchUnitPlantException = (errorStaus, errorMessage) =>{
         console.log(errorMessage);
     }
-
-    const handleFetchSectionEditException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const handleFetchException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
     
-    const handleFetchVenderException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const onContralDepartmentChange=(e)=>{
-        setControlDepartment(e.target.value);
-    }
-    const onUserDepartmentChange=(e)=>{
-        setUserDepartment(e.target.value);
-    }
-    // department on change and section API call//    
-    const onDepartmentChange = (e) => {
-        setDepartment(e.target.value);
-        FetchSectionService({
-            id: e.target.value
-        }, handleFetchSection, handleFetchSectionException)
-    }
-
-    const handleFetchSection = (dataObject) => {
-        setSectionList(dataObject.data);
-    }
-
-    const handleFetchSectionException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const onSectionChange = (e) => {
-        setSection(e.target.value);
-        FetchAssetTypeService({ id: e.target.value }, handleFetchAssetType, handleFetchAssetTypeException)
-    }
-
-    const handleFetchAssetType = (dataObject) => {
-        setAssetTypeList(dataObject.data);
-    }
-
-    const handleFetchAssetTypeException = (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const onAssetTypeChange = (e) => {
-        setAssetType(e.target.value);
-    }
-
-    const onUnitChange = (e) => {
-        setUnit(e.target.value);
-    }
-
-     const onProjectChange = (e) => {
-        setProject(e.target.value);
-    }
-
-    const onLineChange = (e) => {
-        setLine(e.target.value);
-    }
-    const onRequestorChange=(e)=>{
-        setRequestor(e.target.value);
-    }
-
-    const handleUnitShow=(dataObject)=>{
-        setUnitList(dataObject.data);
-    }
-    const handleUnitShowException=(errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-
-    const handleProjectShow=(dataObject)=>{
-        setProjectList(dataObject.data);
-    }
-    const handleProjectShowException= (errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
-    const handleLineShow=(dataObject)=>{
-        setLineList(dataObject.data);
-    }
-    const handleLineShowException=(errorStaus, errorMessage) => {
-        console.log(errorMessage);
-    }
     const onSubmit = (e) => {
         e.preventDefault();
         isAdd === true ?
         (
             AssetAddService({
-                assetMaster:assetMaster,
-                assetId:assetId,
-                department:department,
-                controlDepartment:controlDepartment,
-                userDepartment:userDepartment,
-                section:section,
-                assetType:assetType,
-                assetName:assetName,
-                financialAssetId:financialAssetId,
-                unit:unit,
-                project:project,
+                assetNo:assetNo,
+                projectName:projectName,
+                requesterDepartment:requesterDepartment,
+                unitPlant:unitPlant,
                 line:line,
+                component:component,
                 operationNo:operationNo,
-                manufacturer: manufacturer,
-                manufacturerNo:manufacturerNo,
-                yearOfMfg:yearOfMfg,
-                countryOfMfg:countryOfMfg,
-                weight:weight,
-                usedNew:usedNew,
-                description:description,
-                requestorName:requestorName,
-                requesterDepartment:requestor,
-                assetImage:assetImage,
-                activeStatus:activeStatus,
-              
-            }, handleSuccess, handleException)
+                assetName:assetName,
+                operationName:operationName,
+                equipmentType:equipmentType,
+                dateOfRequest:dateOfRequest,
+                requesterName:requesterName,
+               
+            }, handleAddSuccess, handleException)
         ) : (
             AssetUpdateService({
-        
+                id:editData.id,
+                assetNo:assetNo,
+                projectName:projectName,
+                requesterDepartment:requesterDepartment,
+                unitPlant:unitPlant,
+                line:line,
+                component:component,
+                operationNo:operationNo,
+                assetName:assetName,
+                operationName:operationName,
+                equipmentType:equipmentType,
+                dateOfRequest:dateOfRequest,
+                requesterName:requesterName,
 
-                }, handleSuccess, handleException)
+                }, handleUpdateSuccess, handleException)
             );
     }
     
-    const handleSuccess = (dataObject) => {
-        console.log(dataObject);
+    const handleAddSuccess = (dataObject) => {
         setRefresh(oldValue => !oldValue);
         setNotification({
             status: true,
             type: 'success',
             message: dataObject.message,
-          });
-        
-        setAssetMaster('');
-        setAssetId('');
-        setDepartment('');
-        setSection('');
-        setAssetName('');
-        setFinancialAssetId('');
-        setAssetType('');
-        setManufacturer('');
-        setDescription('');
-        setAssetImage('');
-        setUnit('');
-        setProject('');
+          });  
+        clearForm();       
+    }
+
+    const clearForm = () => {
         setLine('');
-        setUsedNew('');
-        setManufacturerNo('');
-        setUserDepartment("");
-        setControlDepartment('');
+        setProjectName('');
+        setRequesterDepartment('');
+        setUnitPlant('');
+        setComponent('');
         setOperationNo('');
-        setRequestor('');
-        setUsageCode('');
-        setYearOfMfg('');
-        setCountryOfMfg('');
-        setWeight('');
-        setRequestorName('');
-        setActiveStatus('');
-     
+        setAssetName('');
+        setAssetNo('');
+        setOperationName('');
+        setEquipmentType('');
+        setDateOfRequest('');
+        setRequesterName('');
+        setLineList([]);
+    }
+
+    const handleUpdateSuccess = (dataObject) => {
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+            type: 'success',
+            message: dataObject.message,
+        });  
+        setOpen(false);       
     }
 
     const handleException = (errorObject, errorMessage) => {
@@ -356,65 +169,61 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
             type: 'error',
             message: errorMessage,
           });
-          setAssetMaster('');
-          setAssetId('');
-          setDepartment('');
-          setSection('');
-          setAssetName('');
-          setFinancialAssetId('');
-          setAssetType('');
-          setManufacturer('');
-          setDescription('');
-          setAssetImage('');
-          setUnit('');
-          setProject('');
-          setLine('');
-          setUsedNew('');
-          setManufacturerNo('');
-          setUserDepartment("");
-          setControlDepartment('');
-          setOperationNo('');
-          setRequestor('');
-          setUsageCode('');
-          setYearOfMfg('');
-          setCountryOfMfg('');
-          setWeight('');
-          setRequestorName('');
-          setActiveStatus('');
+       
       
     }
     const handleCloseNotify = () => {
-        setOpen(false)
         setNotification({
           status: false,
           type: '',
           message: '',
         });
       };
-    const handleChange=(e)=>{
-        setUsedNew(e.target.value);
-    }
+    
 
     const onAssetMasterChange = (e) => {
-        setAssetMaster(e.target.value);
+       
         AssetIdShow(handleAssetId,handleAssetIdException);
     }
 
     const handleAssetId=(dataObject)=>{
-        setAssetId(dataObject.data);
+        
     }
     const handleAssetIdException=(errorObject, errorMessage) => {
         console.log(errorMessage);
 
     }
-    const onChangeSatus=(e)=>{
-        setActiveStatus(e.target.value);
+    const onRequesterDepartmentChange=(e)=>{
+        setRequesterDepartment(e.target.value);      
     }
+
+    const onUnitPlantChange = (e) => {
+        setUnitPlant(e.target.value);
+        // API {id:e.target.value}
+        FetchGetLineService({
+            id: e.target.value
+          },handleFetchGetLine, handleFetchGetLineException);
+        }
+
+        const handleFetchGetLine=(dataObject)=>{
+            setLineList(dataObject.data || []);
+        }
+        const handleFetchGetLineException=(errorStaus, errorMessage) =>{
+            console.log(errorMessage);
+        }
+      
+        
+    const onLineChange = (e) => {
+        setLine(e.target.value);    
+      }
+    
     return (
         <div>
             <Dialog
                 open={open}
-                fullWidth>
+                fullWidth
+                maxWidth='lg'
+            >
                 <form onSubmit={onSubmit}>
                     <DialogTitle style={{ background: 'whitesmoke' }}>
                         {"ADD ASSET"}
@@ -423,103 +232,154 @@ const AssetModel = ({ open, setOpen, isAdd, editData, setRefresh, refresh }) => 
                         <DialogContentText>
                             <form>
                                 <Grid container spacing={2} style={{ marginTop: '20px' }}>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                     <TextField 
-                                    fullWidth 
-                                    label="Project Name"
-                                    placeholder='Project Name'
-                                    variant="outlined"
+                                        fullWidth 
+                                        label="Project Name"
+                                        placeholder='Project Name'
+                                        variant="outlined"
+                                        value={projectName}
+                                        onChange={(e)=>{setProjectName(e.target.value)}}
                                     />
-                                    </Grid>
+                                </Grid>
                                     
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Request Department</InputLabel>
-                                            <Select
+                                <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Request Department</InputLabel>
+                                        <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             label="Request Department"
-                                            placeholder='Request Department'>
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                            placeholder='Request Department'
+                                            value={requesterDepartment}
+                                                onChange={(e) => onRequesterDepartmentChange(e)}
+                                                >
+                                                    {
+                                                       requesterDepartmentList?.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.requesterDepartment}</MenuItem>
+                                                        )
+                                                    })}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                     <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Unit/Plant</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             label="Unit/Plant"
-                                            placeholder='Unit/Plant'>
+                                            placeholder='Unit/Plant'
+                                            value={unitPlant}
+                                                onChange={(e) => onUnitPlantChange(e)}
+                                                >
+                                                    {
+                                                       unitPlantList?.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.unitPlant}</MenuItem>
+                                                        )
+                                                    })} 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                     <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Line</InputLabel>
                                             <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             label="Line"
-                                            placeholder='Line'>
+                                            placeholder='Line'
+                                            value={line}
+                                                onChange={(e) => onLineChange(e)}
+                                                >
+                                                    {
+                                                       lineList?.map((data, index) => {
+                                                        return (
+                                                            <MenuItem value={data.id} key={index}>{data.lineName}</MenuItem>
+                                                        )
+                                                    })} 
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Component"
                                         placeholder='Component'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={component}
+                                        onChange={(e)=>{setComponent(e.target.value)}}
+                                        />
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Operation No"
                                         placeholder='Operation No'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={operationNo}
+                                        onChange={(e)=>{setOperationNo(e.target.value)}}/>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Machine Name"
                                         placeholder='Machine Name'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={assetName}
+                                        onChange={(e)=>{setAssetName(e.target.value)}}/>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Operation Name"
                                         placeholder='Operation Name'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={operationName}
+                                        onChange={(e)=>{setOperationName(e.target.value)}}/>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Equipment Type"
                                         placeholder='Equipment Type'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={equipmentType}
+                                        onChange={(e)=>{setEquipmentType(e.target.value)}}/>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Asset No"
                                         placeholder='Asset No'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={assetNo}
+                                        onChange={(e)=>{setAssetNo(e.target.value)}}/>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Date of Request"
                                         placeholder='Date of Request'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        type='date'
+                                        value={dateOfRequest}
+                                        onChange={(e)=>{setDateOfRequest(e.target.value)}}
+                                        InputLabelProps={{
+                                            shrink: true
+                                        }}
+                                        />
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+                                    <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
                                         <TextField 
                                         fullWidth 
                                         label="Name of Request"
                                         placeholder='Name of Request'
-                                        variant="outlined"/>
+                                        variant="outlined"
+                                        value={requesterName}
+                                        onChange={(e)=>{setRequesterName(e.target.value)}}/>
                                     </Grid>
 
                                 </Grid>

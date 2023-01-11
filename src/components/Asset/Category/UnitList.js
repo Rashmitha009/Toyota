@@ -20,47 +20,47 @@ const UnitList = () => {
     message: '',
 });
 
-  const columns = [
-    { field: 'id', headerName: 'Serial No',  
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-    { field: 'unitName', headerName: 'Unit Name', 
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-    { field: 'description', headerName: 'Description',  
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
-    { field: 'action', headerName: 'Action',  
-      minWidth: 100, flex: 1, align: 'center', 
-      headerAlign: 'center', sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <EditData selectedRow={params.row} />,
-            <DeleteData selectedRow={params.row} />,
-        ],
-        }
+const columns = [
+  { field: 'id', headerName: 'Serial No',  
+    minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+  { field: 'unitPlant', headerName: 'Unit/Plant', 
+    minWidth: 100, flex: 1, align: 'left', headerAlign: 'center' },
+  { field: 'description', headerName: 'Description',  
+    minWidth: 100, flex: 1, align: 'left', headerAlign: 'center' },
+  { field: 'action', headerName: 'Action',  
+    minWidth: 100, flex: 1, align: 'center', 
+    headerAlign: 'center', sortable: false,
+    cellClassname: 'actions',
+    type: 'actions',
+    getActions: (params) => [
+      <EditData selectedRow={params.row} />,
+      <DeleteData selectedRow={params.row} />,
+    ],
+  }
 ];
 
 function EditData({ selectedRow }) {
   return (
-      <EditIcon
-      className='prbuton'
-      variant="contained"
-      color='primary'
-      onClick={() => {
-          setIsAdd(false);
-          setEditData(selectedRow);
-          setOpen(true);
-      }}/>        
+    <EditIcon
+    className='prbuton'
+    variant="contained"
+    color='primary'
+    onClick={() => {
+      setIsAdd(false);
+      setEditData(selectedRow);
+      setOpen(true);
+    }}/>        
   )
 }
 
 function DeleteData({ selectedRow }) {
   return (
-      <DeleteIcon
-      variant="contained"
-      color='primary'
-      onClick={() => {
-          deletUser(selectedRow.id)
-      }}/>       
+    <DeleteIcon
+    variant="contained"
+    color='primary'
+    onClick={() => {
+      deletUser(selectedRow.id)
+    }}/>       
   )
 }
 
@@ -72,18 +72,18 @@ const handleDeleteSuccess = (dataObject) =>{
   console.log(dataObject);
   setRefresh(oldValue => !oldValue);
   setNotification({
-      status: true,
-      type: 'success',
-      message: dataObject.message,
+    status: true,
+    type: 'success',
+    message: dataObject.message,
   });
 }
 
 const handleDeleteException = (errorObject, errorMessage) =>{
   console.log(errorMessage);
   setNotification({
-      status: true,
-      type: 'error',
-      message:errorMessage,
+    status: true,
+    type: 'error',
+    message:errorMessage,
   });
 }
 
@@ -113,44 +113,41 @@ const handleNotify = () => {
     message: '',
   });
 };
+
 return (
-    <div>
-      <Grid container style={{
-                display:'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding:'10px'
-            }} 
-            >
-                <Grid item  
-                    style={{alignSelf:'center',textAlign:'center'}}
-                >
-                    <h3 style={{margin:'0px'}}>Unit List</h3>
-                </Grid>
-                <Grid item style={{}} >
-                  <Button variant="contained" onClick={handleModalOpen} >
-                    Add
-                  </Button>
-                    
-                </Grid>
+  <div>
+    <Grid container style={{
+      display:'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding:'10px'
+    }}>
+      <Grid item style={{alignSelf:'center',textAlign:'center'}}>
+        <h3 style={{margin:'0px'}}>Unit List</h3>
       </Grid>
-      <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
-          <DataGrid 
-              style={{ height: 270,width:'100%' }}
-              loading={loading}
-              rows={rows}
-              columns={columns} 
-          />
+      <Grid item style={{}} >
+        <Button variant="contained" onClick={handleModalOpen} >
+          Add
+        </Button>
       </Grid>
-      <UnitModel 
-        open={open}
-        setOpen={setOpen}
-        isAdd={isAdd}
-        editData={editData}
-        setRefresh={setRefresh}
-        refresh={refresh}/>
+    </Grid>
+    <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+      <DataGrid 
+      style={{ height: 270,width:'100%' }}
+      loading={loading}
+      rows={rows}
+      columns={columns} />
+    </Grid>
+    
+    <UnitModel
+    open={open}
+    setOpen={setOpen}
+    isAdd={isAdd}
+    editData={editData}
+    setRefresh={setRefresh}
+    refresh={refresh}/>
       <NotificationBar
         handleClose={handleNotify}
         notificationContent={openNotification.message}

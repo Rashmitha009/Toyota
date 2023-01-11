@@ -10,164 +10,173 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import { UnitAddService, UnitUpdateService } from '../../../services/ApiServices'
 import NotificationBar from '../../../services/NotificationBar';
 
 const UnitModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
-    const [unitName,setUnitName]=useState("");
+    const [unitPlant,setUnitPlant]=useState("");
     const[description,setDescription]=useState("");
     const [status,setStatus]=useState('');
     const [openNotification, setNotification] = useState({
         status: false,
         type: 'error',
         message: '',
-      });
-
-      useEffect(() => {
-       setUnitName(editData?.unitName || '');
-       setDescription(editData?.description || '');
-      }, [editData]);
+    });
+    
+    useEffect(() => {
+        setUnitPlant(editData?.unitPlant || '');
+        setDescription(editData?.description || '');
+    }, [editData]);
 
     const handleClose=()=>{
         setOpen(false);
-        setUnitName('');
+        setUnitPlant('');
         setDescription('');
     }
+
     const onSubmit=(e)=>{
         e.preventDefault();
         isAdd === true ?
         (
             UnitAddService({
-                unitName:unitName,
+                unitName:unitPlant,
                 description:description,
-            }, handleSuccess, handleException)
+            }, handleAddSuccess, handleException)
         ) : (
             UnitUpdateService({
             id: editData.id,
-            unitName:unitName,
+            unitName:unitPlant,
             description:description,
-          }, handleSuccess, handleException)
+          }, handleUpdateSuccess, handleException)
         );
-      }
-      
-      const handleSuccess = (dataObject) => {
+    }
+    
+    const handleAddSuccess = (dataObject) => {
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
         setNotification({
-          status: true,
+            status: true,
           type: 'success',
           message: dataObject.message,
         });
-        setUnitName('');
+        clearForm();
+        setUnitPlant('');
         setDescription('');
-      }
-      const handleException = (errorObject, errorMessage) => {
+    }
+
+    const clearForm = () => {
+        setUnitPlant('');
+        setDescription('');
+    } 
+
+    const handleUpdateSuccess = (dataObject) => {
+        console.log(dataObject);
+        setRefresh(oldValue => !oldValue);
+        setNotification({
+            status: true,
+          type: 'success',
+          message: dataObject.message,
+        });
+        setOpen(false)
+        
+    }
+    
+    const handleException = (errorObject, errorMessage) => {
         console.log(errorMessage);
         setNotification({
           status: true,
           type: 'error',
           message: errorMessage,
         });
-        setUnitName('');
+        setUnitPlant('');
         setDescription('');
-      }
-      const handleNotify = () => {
-        setOpen(false)
+    }
+    
+    const handleNotify = () => {
+       
         setNotification({
           status: false,
           type: '',
           message: '',
         });
-      };
-      const onStatus=(e)=>{
-        setStatus(e.target.value);
-      }
-
-  return (
+    };
     
-    <div>
-        <Dialog 
+    const onStatus=(e)=>{
+        setStatus(e.target.value);
+    }
+  
+    return (
+        <div>
+            <Dialog 
             open={open}
             onClose={handleClose}
-            fullWidth
-        >
-            <form onSubmit={onSubmit}> 
+            fullWidth>
                 <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
                     {"ADD UNIT"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <div>
-                            <Grid container  style={{marginTop:'10px'}}>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                <label >Unit Name:</label>
+                        <form onSubmit={onSubmit}> 
+                            <div>
+                                <Grid container spacing={2}  style={{marginTop:'10px'}}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                        <TextField 
+                                        fullWidth 
+                                        label="Unit/Plant"
+                                        placeholder='Unit/Plant'
+                                        variant="outlined"
+                                        required
+                                        onChange={((e)=>{setUnitPlant(e.target.value)})}
+                                        value={unitPlant}/>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                        <TextField 
+                                        fullWidth
+                                        multiline
+                                        required
+                                        label='Description'
+                                        placeholder='Description'
+                                        onChange={((e)=>{setDescription(e.target.value)})}
+                                        value={description}/>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                <TextField fullWidth 
-                                    label=""
-                                    variant="outlined"
-                                    onChange={((e)=>{setUnitName(e.target.value)})}
-                                    value={unitName}
-                                />
-                                </Grid>
-                            </Grid>
-
-                            <Grid container  style={{marginTop:'10px'}}>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                <label>Description:</label>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                                <TextField 
-                                    fullWidth
-                                    multiline
-                                    onChange={((e)=>{setDescription(e.target.value)})}
-                                    value={description}
-                                />
-                                </Grid>
-                            </Grid>
-                            <Grid container  style={{marginTop:'10px'}}>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <label>Status:</label>
-                                </Grid>
-                                <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
-                                    style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
-                                >
-                                    <FormControl>
-                                    <RadioGroup
-                                        row
-                                        value={status}
-                                        onChange={onStatus}
+                                {/* <Grid container  style={{marginTop:'10px'}}>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                        style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
                                     >
-                                        <FormControlLabel value="Active" control={<Radio />} label="Active" />
-                                        <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
-                                    </RadioGroup>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-                            <div style={{marginLeft:'70%',marginTop:'10px'}}>
-                            <Button type='reset' onClick={handleClose}>Cancel</Button>
-                            <Button type='submit'>
-                                {isAdd === true ? 'Add' : 'Update'}
-                            </Button>
+                                        <label>Status:</label>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={6} lg={6} xl={6}
+                                        style={{alignSelf:'center', textAlign:'center', marginTop:'20px'}}
+                                    >
+                                        <FormControl>
+                                        <RadioGroup
+                                            row
+                                            value={status}
+                                            onChange={onStatus}
+                                        >
+                                            <FormControlLabel value="Active" control={<Radio />} label="Active" />
+                                            <FormControlLabel value="Inactive" control={<Radio />} label="Inactive" />
+                                        </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                </Grid> */}
+                                <div style={{marginLeft:'70%',marginTop:'10px'}}>
+                                <Button type='reset' onClick={handleClose}>Cancel</Button>
+                                <Button type='submit'>
+                                    {isAdd === true ? 'Add' : 'Update'}
+                                </Button>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </DialogContentText>
                 </DialogContent>
-            </form>
         </Dialog>
         <NotificationBar
-            handleClose={handleNotify}
-            notificationContent={openNotification.message}
-            openNotification={openNotification.status}
-            type={openNotification.type}
-        />  
+        handleClose={handleNotify}
+        notificationContent={openNotification.message}
+        openNotification={openNotification.status}
+        type={openNotification.type}/>  
     </div>
 
   )

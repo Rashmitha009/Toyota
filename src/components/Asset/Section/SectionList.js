@@ -24,12 +24,18 @@ const SectionList = () => {
 
 
   const columns = [
-    { field: 'id', headerName: 'Section No', 
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-    { field: 'department', headerName: 'Department',  
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-    { field: 'section', headerName: 'Section',   
-      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    {  field: 'id', 
+    headerName: 'Section No',  
+    minWidth: 100, 
+    flex: 1, 
+    align: 'center', 
+    headerAlign: 'center'
+},
+{   field: 'section', headerName: 'Section', 
+    minWidth: 100, flex: 1, align: 'left', headerAlign: 'center' },
+{   field: 'description', headerName: 'Description', 
+    minWidth: 100, flex: 1, align: 'left', headerAlign: 'center' },
+    
     { field: 'action', headerName: 'Action',   
       minWidth: 100, flex: 1, align: 'center', 
       headerAlign: 'center', sortable: false,

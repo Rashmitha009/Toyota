@@ -254,9 +254,13 @@ export const  ProjectShow = ( successCallback, errorCallBack) => _fetchService('
 
 export const  LineShow = ( successCallback, errorCallBack) => _fetchService('line/showData', 'GET',{}, successCallback, errorCallBack);
 
+/////-----Asset Toyota Line------////
 
+export const  RequesterDepartment = ( successCallback, errorCallBack) => _fetchService('getrequesterDepartment', 'GET',{}, successCallback, errorCallBack);
 
+export const FetchGetUnitPlantService = (successCallback, errorCallBack) => _fetchService('getUnitPlant', 'GET', {}, successCallback, errorCallBack);
 
+export const FetchGetLineService = (data,successCallback, errorCallBack) => _fetchService(`getLine/${data.id}`, 'GET', {}, successCallback, errorCallBack);
 
 ////....Department..../////
 
