@@ -13,6 +13,7 @@ import { AssetTypeAddService,
     FetchDepaertmentService,
     FetchSectionService , 
 } from '../../../services/ApiServices';
+
 import { Grid } from '@mui/material';
 import NotificationBar from '../../../services/NotificationBar';
 
@@ -143,10 +144,83 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                    fullWidth>
                     <form onSubmit={onSubmit}>
                         <DialogTitle id="alert-dialog-title" style={{background:'whitesmoke'}}>
-                            {"ADD SECTION"}
+                            {"ADD ASSET TYPE"}
                         </DialogTitle>
-                        <div>
-                            <Grid container style={{marginTop:"20px"}}>
+                        <form>
+                            <Grid  container spacing={3} style={{ marginTop: '20px' }}>
+                                <Grid item xs={12} sm={11} md={11} lg={11} xl={11} style={{marginLeft:'20px',marginRight:'20px'}}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Unit/Plant</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Unit/Plant"
+                                        placeholder='Unit/Plant'>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={11} md={11} lg={11} xl={11} style={{marginLeft:'20px',marginRight:'20px'}}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
+                                            <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            label="Select Department"
+                                            placeholder='Select Department'>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+                                <Grid item xs={12} sm={11} md={11} lg={11} xl={11} style={{marginLeft:'20px',marginRight:'20px'}}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Select Section</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Select Section"
+                                        placeholder='Select Section'>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12} sm={11} md={11} lg={11} xl={11} style={{marginLeft:'20px',marginRight:'20px'}}>
+                                    <TextField 
+                                    fullWidth 
+                                    label="Asset Type"
+                                    placeholder='Asset Type'
+                                    variant="outlined"
+                                    />
+
+                                </Grid>
+                            </Grid>
+
+
+
+                        <div style={{marginLeft:'70%',marginTop:'20px'}}>
+                            <Button type='reset' onClick={handleClose}>Cancel</Button>
+                            <Button type='submit'>
+                            {isAdd === true ? 'Add' : 'Update'}
+                            </Button>
+                            </div>
+
+                        </form>
+                            
+                            
+                       
+                        </form>
+                    </Dialog>
+                    <NotificationBar
+                        handleClose={handleCloseNotify}
+                        notificationContent={openNotification.message}
+                        openNotification={openNotification.status}
+                        type={openNotification.type}
+                    />
+                </div>
+          
+        )
+    }
+
+export default AssetTypeModel;
+
+{/* <Grid container style={{marginTop:"20px"}}>
                                 <Grid item xs={10} sm={5} md={5} lg={5} xl={5}
                                  style={{alignSelf:'center', textAlign:'center',marginLeft:'10px'}}
                                 >
@@ -214,25 +288,4 @@ const AssetTypeModel = ({ open, setOpen, isAdd, editData, setRefresh }) => {
                                     onChange={(e)=>{setAssetType(e.target.value)}}
                                 />
                                 </Grid>
-                            </Grid>
-                            <div style={{marginLeft:'70%',marginTop:'20px'}}>
-                            <Button type='reset' onClick={handleClose}>Cancel</Button>
-                            <Button type='submit'>
-                            {isAdd === true ? 'Add' : 'Update'}
-                            </Button>
-                            </div>
-                        </div>
-                        </form>
-                    </Dialog>
-                    <NotificationBar
-                        handleClose={handleCloseNotify}
-                        notificationContent={openNotification.message}
-                        openNotification={openNotification.status}
-                        type={openNotification.type}
-                    />
-                </div>
-          
-        )
-    }
-
-export default AssetTypeModel;
+                            </Grid> */}

@@ -113,9 +113,16 @@ const Main = () => {
     const TransferCountException=()=>{}
 
     return (
-        <div style={{width:'95%', height:'50vh'}}>
-            <Grid container spacing={2} style={{marginTop:'20px', marginLeft:'20px'}}>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.9}
+        <div style={{
+            // width:'100%', 
+        // height:'50vh'
+        }}>
+            <Grid container spacing={2} style={{
+                marginTop:'20px', 
+                paddingLeft:'20px',
+                display: 'flex'
+            }}>
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8  }
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -131,7 +138,9 @@ const Main = () => {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            marginBottom:'10px'
+                            marginBottom:'10px',
+                            justifyContent: 'space-around',
+
                         }}>
                             <Typography variant="h6" gutterBottom
                                 style={{ marginRight:'65%' , color:'aqua',}}
@@ -149,7 +158,7 @@ const Main = () => {
                             }
                         </div>
                 </Grid>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.9}
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8}
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -167,6 +176,7 @@ const Main = () => {
                             display: 'flex',
                             alignItems: 'center',
                             marginBottom:'10px',
+                            justifyContent: 'space-around',
                         }}> 
                         <Typography variant="h6" gutterBottom
                         style={{ marginRight:'62%' , color:'aqua'}}>
@@ -181,7 +191,7 @@ const Main = () => {
                            
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.9}
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8}
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -197,7 +207,8 @@ const Main = () => {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            marginBottom:'10px'
+                            marginBottom:'10px',
+                            justifyContent: 'space-around',
                         }}>    
                         <Typography variant="h6" gutterBottom
                             style={{ marginRight:'68%' , color:'aqua'}}>{tagAssets}</Typography>
@@ -213,7 +224,7 @@ const Main = () => {
                            
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.8}
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8}
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -230,7 +241,8 @@ const Main = () => {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            marginBottom:'10px'
+                            marginBottom:'10px',
+                            justifyContent: 'space-around',
                             
                         }}>   
                         <Typography variant="h5" gutterBottom
@@ -247,7 +259,7 @@ const Main = () => {
                         }
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.8}
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8}
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -266,7 +278,7 @@ const Main = () => {
                         </div>
                         
                 </Grid>
-                <Grid item xs={10} sm={4} md={3.5} lg={1.8} xl={1.8}
+                <Grid item xs={12} sm={5.5} md={3.7} lg={1.7} xl={1.8}
                     style={{
                         color: 'white',
                         display: 'box'  ,
@@ -279,6 +291,7 @@ const Main = () => {
                         <div style={{
                             marginBottom:'10px',
                             alignItems: 'center',
+                            justifyContent: 'space-around',
                         }}>    
                     <img src={img} style={{alignSelf:'center',alignItems: 'center',}} height="40px" width="40px"/>
                     <Typography variant="h6" gutterBottom>
@@ -288,8 +301,10 @@ const Main = () => {
                 </Grid>
             </Grid>
 
-            <Grid container spacing={2} style={{marginLeft:'20px'}}>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+            <Grid container spacing={2} style={{
+                paddingLeft:'20px'
+                }}>
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box',
@@ -309,7 +324,8 @@ const Main = () => {
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        marginBottom:'10px'
+                        marginBottom:'10px',
+                        justifyContent: 'space-around',
                     }}>
                         <Typography variant="h5" gutterBottom
                             style={{ marginRight:'60%' , color:'aqua', }}
@@ -323,7 +339,7 @@ const Main = () => {
                 </Link>
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -342,7 +358,8 @@ const Main = () => {
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        marginBottom:'10px'
+                        marginBottom:'10px',
+                        justifyContent: 'space-around',
                     }}>
                         <Typography variant="h5" gutterBottom
                             style={{ marginRight:'60%' , color:'aqua', }}
@@ -357,7 +374,7 @@ const Main = () => {
                     </div>
                 
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -376,7 +393,8 @@ const Main = () => {
                 <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        marginBottom:'10px'
+                        marginBottom:'10px',
+                        justifyContent: 'space-around',
                     }}>
                     <Typography variant="h5" gutterBottom
                         style={{ marginRight:'60%' , color:'aqua', }}>
@@ -389,7 +407,7 @@ const Main = () => {
                     </Link>
                 </div>
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -405,7 +423,8 @@ const Main = () => {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center', 
-                            marginBottom:'10px'
+                            marginBottom:'10px',
+                            justifyContent: 'space-around',
                         }}>
                             <Typography variant="h5" gutterBottom
                                 style={{ marginRight:'60%' , color:'aqua', }}>
@@ -416,10 +435,7 @@ const Main = () => {
                             }}/></Link>
                         </div>
                 </Grid>
-            </Grid>
-
-            <Grid container spacing={2} style={{marginLeft:'20px'}}>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -433,7 +449,11 @@ const Main = () => {
                     <Typography variant="h6" gutterBottom>
                     Certificate Due
                     </Typography> 
-                    <div style={{display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
+                    <div style={{display: 'flex',
+                                alignItems: 'center', 
+                                marginBottom:'10px',
+                                justifyContent: 'space-around',
+                        }}>
                         <Typography variant="h5" gutterBottom
                             style={{ marginRight:'60%' , color:'aqua', }}>
                             {certificateDueCount}
@@ -443,7 +463,7 @@ const Main = () => {
                         }}/></Link>
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -456,7 +476,11 @@ const Main = () => {
                         <Typography variant="h6" gutterBottom>
                             Insurance Due
                         </Typography> 
-                        <div style={{display: 'flex', alignItems: 'center', marginBottom:'10px'}}>
+                        <div style={{display: 'flex', 
+                                    alignItems: 'center', 
+                                    marginBottom:'10px',
+                                    justifyContent: 'space-around',
+                                    }}>
                             <Typography variant="h5" gutterBottom
                                 style={{ marginRight:'60%' , color:'aqua', }}>
                                 {insuranceDueCount}
@@ -466,7 +490,7 @@ const Main = () => {
                                 }} /></Link>
                         </div>
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -480,7 +504,11 @@ const Main = () => {
                     <Typography variant="h6" gutterBottom>
                         Transfer Due
                     </Typography> 
-                    <div style={{display: 'flex', alignItems: 'center', marginBottom:'10px'}}>
+                    <div style={{display: 'flex', 
+                                alignItems: 'center', 
+                                marginBottom:'10px',
+                                justifyContent: 'space-around',
+                                }}>
                         <Typography variant="h5" gutterBottom
                             style={{ marginRight:'60%' , color:'aqua', }}>
                             {transferDueCount}
@@ -490,7 +518,7 @@ const Main = () => {
                             }} /></Link>
                     </div>
                 </Grid>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -504,7 +532,11 @@ const Main = () => {
                     <Typography variant="h6" gutterBottom>
                     Audit Due
                     </Typography>
-                    <div style={{display: 'flex', alignItems: 'center', marginBottom:'10px'}}>
+                    <div style={{display: 'flex', 
+                                alignItems: 'center', 
+                                marginBottom:'10px',
+                                justifyContent: 'space-around',
+                                }}>
                         <Typography variant="h5" gutterBottom
                             style={{ marginRight:'60%' , color:'aqua', }}>
                             { auditDueCount}
@@ -514,110 +546,125 @@ const Main = () => {
                             }} /></Link>
                     </div>
                 </Grid>
-            </Grid>
-            {     
-            user === true &&
-                <Grid container spacing={2} style={{marginLeft:'20px'}}>
-                    <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
-                            style={{
-                            color: 'white',
-                            display: 'box'  ,
-                            background:'rgb(91, 87, 87)',
-                            marginRight:'20px',
-                            border: 'solid',
-                            borderColor: 'aqua',
-                            marginTop:'30px'
-            
-                    }}>
-                        <Typography variant="h6" gutterBottom>
-                        EOL 
-                        </Typography>
-                        <div style={{ display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
-                            <Typography variant="h5" gutterBottom
-                                style={{ marginRight:'60%' , color:'aqua', }}>
-                                { eolCount}
+                {     
+                user === true &&
+                    <>
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                            EOL 
                             </Typography>
-                            <Link to='/Eol'><Battery50Icon className='icondash' style={{
-                                fontSize: '60'
-                            }}/></Link>
-                        </div>
-                    </Grid>
-                    <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
-                            style={{
-                            color: 'white',
-                            display: 'box'  ,
-                            background:'rgb(91, 87, 87)',
-                            marginRight:'20px',
-                            border: 'solid',
-                            borderColor: 'aqua',
-                            marginTop:'30px'
-            
-                    }}>
-                        <Typography variant="h6" gutterBottom>
-                            Not Found
-                        </Typography>
-                        <div style={{ display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
-                            <Typography variant="h5" gutterBottom
-                                style={{ marginRight:'60%' , color:'aqua', }}>
-                                {notFound}
+                            <div style={{ display: 'flex',
+                                          alignItems: 'center', 
+                                          marginBottom:'10px',
+                                          justifyContent: 'space-around',
+                                        }}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { eolCount}
+                                </Typography>
+                                <Link to='/Eol'><Battery50Icon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                                Not Found
                             </Typography>
-                            <DangerousIcon className='icondash' style={{
-                                fontSize: '60'
-                            }}/>
-                        </div>
-                    </Grid>
-                    <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
-                            style={{
-                            color: 'white',
-                            display: 'box'  ,
-                            background:'rgb(91, 87, 87)',
-                            marginRight:'20px',
-                            border: 'solid',
-                            borderColor: 'aqua',
-                            marginTop:'30px'
-            
-                    }}>
-                        <Typography variant="h6" gutterBottom>
-                        Not in Use
-                        </Typography>
-                        <div style={{ display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
-                            <Typography variant="h5" gutterBottom
-                                style={{ marginRight:'60%' , color:'aqua', }}>
-                                { notInuseCount}
+                            <div style={{ display: 'flex',
+                                          alignItems: 'center', 
+                                          marginBottom:'10px',
+                                          justifyContent: 'space-around',
+                                        }}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    {notFound}
+                                </Typography>
+                                <DangerousIcon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                            Not in Use
                             </Typography>
-                            <Link to='/Notinuse'><NotInterestedIcon className='icondash' style={{
-                                fontSize: '60'
-                            }}/></Link>
-                        </div>
-                    </Grid>
-                    <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
-                            style={{
-                            color: 'white',
-                            display: 'box'  ,
-                            background:'rgb(91, 87, 87)',
-                            marginRight:'20px',
-                            border: 'solid',
-                            borderColor: 'aqua',
-                            marginTop:'30px'
-            
-                    }}>
-                        <Typography variant="h6" gutterBottom>
-                            Damage
-                        </Typography>
-                        <div style={{ display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
-                            <Typography variant="h5" gutterBottom
-                                style={{ marginRight:'60%' , color:'aqua', }}>
-                                { damageCount }
+                            <div style={{ display: 'flex',
+                                          alignItems: 'center', 
+                                          marginBottom:'10px',
+                                          justifyContent: 'space-around',
+                                        }}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { notInuseCount}
+                                </Typography>
+                                <Link to='/Notinuse'><NotInterestedIcon className='icondash' style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
+                                style={{
+                                color: 'white',
+                                display: 'box'  ,
+                                background:'rgb(91, 87, 87)',
+                                marginRight:'20px',
+                                border: 'solid',
+                                borderColor: 'aqua',
+                                marginTop:'30px'
+                
+                        }}>
+                            <Typography variant="h6" gutterBottom>
+                                Damage
                             </Typography>
-                            <Link to='/Damage'><EventBusyIcon className='icondash'  style={{
-                                fontSize: '60'
-                            }}/></Link>
-                        </div>
-                    </Grid>
-                </Grid>
-            }
-            <Grid container spacing={2} style={{marginLeft:'20px'}}>
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                            <div style={{ display: 'flex',
+                                          alignItems: 'center', 
+                                          marginBottom:'10px',
+                                          justifyContent: 'space-around',
+                                          
+                                        }}>
+                                <Typography variant="h5" gutterBottom
+                                    style={{ marginRight:'60%' , color:'aqua', }}>
+                                    { damageCount }
+                                </Typography>
+                                <Link to='/Damage'><EventBusyIcon className='icondash'  style={{
+                                    fontSize: '60'
+                                }}/></Link>
+                            </div>
+                        </Grid>
+                    </>
+                }
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -634,7 +681,8 @@ const Main = () => {
                     <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            marginBottom:'10px'    
+                            marginBottom:'10px' ,
+                            justifyContent: 'space-around',   
                     }}>
                         <Typography variant="h5" gutterBottom
                                 style={{ marginRight:'60%' , color:'aqua', }}>
@@ -645,7 +693,7 @@ const Main = () => {
                         }}/></Link>
                     </div>
                 </Grid>      
-                <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                         style={{
                         color: 'white',
                         display: 'box'  ,
@@ -662,7 +710,8 @@ const Main = () => {
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            marginBottom:'10px'
+                            marginBottom:'10px',
+                            justifyContent: 'space-around',
                         }}>
                             <Typography variant="h5" gutterBottom
                                 style={{ marginRight:'60%' , color:'aqua', }}>
@@ -677,7 +726,7 @@ const Main = () => {
                 {
                 user === true &&
                     <>
-                        <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                                 style={{
                                 color: 'white',
                                 display: 'box'  ,
@@ -691,7 +740,12 @@ const Main = () => {
                             <Typography variant="h6" gutterBottom>
                                 Sale
                             </Typography>
-                            <div style={{ display: 'flex',alignItems: 'center', marginBottom:'10px'}}>
+                            <div style={{ display: 'flex',
+                                          alignItems: 'center', 
+                                          marginBottom:'10px',
+                                          justifyContent: 'space-around',
+                                          
+                                        }}>
                                     <Typography variant="h5" gutterBottom
                                     style={{ marginRight:'60%' , color:'aqua', }}>
                                     { salesCount }
@@ -701,7 +755,7 @@ const Main = () => {
                                     }}/></Link>
                             </div>
                         </Grid>
-                        <Grid item xs={10} sm={4.5} md={2.7} lg={2.8} xl={2.8} 
+                        <Grid item xs={12} sm={5.5} md={3.7} lg={3.6} xl={2.8} 
                             style={{
                             color: 'white',
                             display: 'box'  ,
@@ -719,7 +773,8 @@ const Main = () => {
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                marginBottom:'10px'
+                                marginBottom:'10px',
+                                justifyContent: 'space-around',
                             }}>
                                 <Typography variant="h5" gutterBottom
                                     style={{ marginRight:'60%' , color:'aqua', }}>

@@ -91,8 +91,10 @@ const Sidebar = ({ toggleFunction, sidebarOpen }) => {
 return (
         <div 
             style={{
-                height: '12  0vh', 
-                width: '11vh',
+                height: '94vh', 
+                width: '6vw',
+                minWidth:'80px',
+                overflow:'auto',
                 background:'#57595D',
             }}
         >    

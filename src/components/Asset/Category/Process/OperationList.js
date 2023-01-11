@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Grid, Button } from '@mui/material';
-import LineModel from './LineModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FetchLineService, LineDeleteService } from '../../../services/ApiServices';
-import NotificationBar from '../../../services/NotificationBar';
+import OperationModal from './OperationModal';
+import NotificationBar from '../../../../services/NotificationBar';
 
-const LineList = () => {
+const OperationList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
@@ -19,11 +18,13 @@ const LineList = () => {
         type: 'error',
         message: '',
     });
+
     
+
     const columns = [
         {   field: 'id', headerName: 'Serial No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'lineName', headerName: 'Line Name', 
+        {   field: 'userDepartment', headerName: 'Process/Operation No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {   field: 'description', headerName: 'Description', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
@@ -37,7 +38,8 @@ const LineList = () => {
         ],
         }
     ];
-  
+    
+    
     function EditData({ selectedRow }) {
         return (
             <EditIcon
@@ -51,59 +53,62 @@ const LineList = () => {
             }}/> 
         )
     }
-  
+
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
             variant="contained"
             color='primary'
             onClick={() => {
-                deletUser(selectedRow.id)
+                //  deletUser(selectedRow.id)
             }}/>
         )
     }
+
+    // const deletUser =(id) => {
+    //     UserDepartmentDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+    // }
   
-    const deletUser =(id) => {
-        LineDeleteService({id}, handleDeleteSuccess, handleDeleteException);
-    }
+    // const handleDeleteSuccess = (dataObject) =>{
+    //     console.log(dataObject);
+    //     setRefresh(oldValue => !oldValue);
+    //     setNotification({
+    //         status: true,
+    //         type: 'success',
+    //         message: dataObject.message,
+    //     });
+    // }
+
+    // const handleDeleteException = (errorObject, errorMessage) =>{
+    //     console.log(errorMessage);
+    //     setNotification({
+    //         status: true,
+    //         type: 'error',
+    //         message:errorMessage,
+    //     });
+    // }
+
+    // useEffect(() => {
+    //     FetchUserDepartmentService(handleFetchSuccess, handleFetchException);
+    // }, [refresh]);
   
-    const handleDeleteSuccess = (dataObject) =>{
-        console.log(dataObject);
-        setRefresh(oldValue => !oldValue);
-        setNotification({
-            status: true,
-            type: 'success',
-            message: dataObject.message,
-        });
-    }
+    // const handleFetchSuccess = (dataObject) =>{
+    //     setLoading(false);
+    //     setRows(dataObject.data);
+    // }
   
-    const handleDeleteException = (errorObject, errorMessage) =>{
-        console.log(errorMessage);
-        setNotification({
-            status: true,
-            type: 'error',
-            message:errorMessage,
-        });
-    }
-  
-    useEffect(() => {
-        FetchLineService(handleFetchSuccess, handleFetchException);
-    }, [refresh]);
-  
-    const handleFetchSuccess = (dataObject) =>{
-        setLoading(false);
-        setRows(dataObject.data);
-    }
-  
-    const handleFetchException = (errorStaus, errorMessage) =>{
-        console.log(errorMessage);
-    }
+    // const handleFetchException = (errorStaus, errorMessage) =>{
+    //     console.log(errorMessage);
+    // }
     
+  
+
     const handleModalOpen = () => {
         setIsAdd(true);
         setOpen(true);
     };
     
+
     const handleNotify = () => {
         setOpen(false)
         setNotification({
@@ -113,8 +118,8 @@ const LineList = () => {
         });
     };
   
-  return (
-    <div>
+    return (
+        <div>
         <Grid container style={{
                 display:'flex',
                 flexDirection: 'row',
@@ -127,7 +132,7 @@ const LineList = () => {
             <Grid item  
                 style={{alignSelf:'center',textAlign:'center'}}
             >
-                <h3 style={{margin:'0px'}}>Line List</h3>
+                <h3 style={{margin:'0px'}}>Process/Operation No</h3>
             </Grid>
               <Grid item style={{}} >
                 <Button variant="contained" onClick={handleModalOpen} >
@@ -143,21 +148,21 @@ const LineList = () => {
                 columns={columns} 
             />
         </Grid>
-        <LineModel 
+        <OperationModal 
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
             editData={editData}
             setRefresh={setRefresh}
-            refresh={refresh}/>
-
+            refresh={refresh}
+/>
             <NotificationBar
             handleClose={handleNotify}
             notificationContent={openNotification.message}
             openNotification={openNotification.status}
             type={openNotification.type}/>
-        </div>
-    )
+          </div>
+  )
 }
 
-export default LineList
+export default OperationList

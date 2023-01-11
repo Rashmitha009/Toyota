@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
 import { Grid, Button } from '@mui/material';
-import LineModel from './LineModel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { FetchLineService, LineDeleteService } from '../../../services/ApiServices';
+import ControlDepartmentModal from './ControlDepartmentModal';
+import { ControlDepartmentDeleteService, FetchControlDepartmentService } from '../../../services/ApiServices';
 import NotificationBar from '../../../services/NotificationBar';
 
-const LineList = () => {
+const ControlDepartmentList = () => {
     const [open, setOpen] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
     const [rows, setRows] = useState([]);
@@ -19,11 +19,11 @@ const LineList = () => {
         type: 'error',
         message: '',
     });
-    
+
     const columns = [
         {   field: 'id', headerName: 'Serial No', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
-        {   field: 'lineName', headerName: 'Line Name', 
+        {   field: 'controlDepartment', headerName: 'Control Department', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
         {   field: 'description', headerName: 'Description', 
             minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
@@ -37,7 +37,7 @@ const LineList = () => {
         ],
         }
     ];
-  
+
     function EditData({ selectedRow }) {
         return (
             <EditIcon
@@ -51,7 +51,7 @@ const LineList = () => {
             }}/> 
         )
     }
-  
+       
     function DeleteData({ selectedRow }) {
         return (
             <DeleteIcon
@@ -62,11 +62,11 @@ const LineList = () => {
             }}/>
         )
     }
-  
+
     const deletUser =(id) => {
-        LineDeleteService({id}, handleDeleteSuccess, handleDeleteException);
+        ControlDepartmentDeleteService({id}, handleDeleteSuccess, handleDeleteException);
     }
-  
+
     const handleDeleteSuccess = (dataObject) =>{
         console.log(dataObject);
         setRefresh(oldValue => !oldValue);
@@ -76,7 +76,7 @@ const LineList = () => {
             message: dataObject.message,
         });
     }
-  
+
     const handleDeleteException = (errorObject, errorMessage) =>{
         console.log(errorMessage);
         setNotification({
@@ -85,9 +85,9 @@ const LineList = () => {
             message:errorMessage,
         });
     }
-  
+
     useEffect(() => {
-        FetchLineService(handleFetchSuccess, handleFetchException);
+        FetchControlDepartmentService(handleFetchSuccess, handleFetchException);
     }, [refresh]);
   
     const handleFetchSuccess = (dataObject) =>{
@@ -103,7 +103,7 @@ const LineList = () => {
         setIsAdd(true);
         setOpen(true);
     };
-    
+
     const handleNotify = () => {
         setOpen(false)
         setNotification({
@@ -113,37 +113,34 @@ const LineList = () => {
         });
     };
   
-  return (
-    <div>
-        <Grid container style={{
+    return (
+        <div>
+            <Grid container style={{
                 display:'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding:'10px'
-            }} 
-            >
-            <Grid item  
-                style={{alignSelf:'center',textAlign:'center'}}
-            >
-                <h3 style={{margin:'0px'}}>Line List</h3>
+            }}>
+                <Grid item style={{alignSelf:'center',textAlign:'center'}}>
+                    <h3 style={{margin:'0px'}}>Control Department List</h3>
+                </Grid>
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={handleModalOpen} >
+                        Add
+                    </Button>
+                </Grid>
             </Grid>
-              <Grid item style={{}} >
-                <Button variant="contained" onClick={handleModalOpen} >
-                    Add
-                </Button>    
-              </Grid>
-        </Grid>
-        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
-            <DataGrid 
+            <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+                <DataGrid 
                 style={{ height: 270,width:'100%' }}
                 loading={loading}
                 rows={rows}
-                columns={columns} 
-            />
-        </Grid>
-        <LineModel 
+                columns={columns}/>
+            </Grid>
+            
+            <ControlDepartmentModal 
             open={open}
             setOpen={setOpen}
             isAdd={isAdd}
@@ -160,4 +157,5 @@ const LineList = () => {
     )
 }
 
-export default LineList
+export default ControlDepartmentList;
+

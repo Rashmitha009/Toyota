@@ -2,6 +2,12 @@
 
 /* styling scrollbar */
 
+/* ::-webkit-scrollbar { height: 7px; }
+::-webkit-scrollbar-thumb:horizontal{
+  background: rgb(185, 192, 197);
+  border-radius: 10px;
+} */
+
 ::-webkit-scrollbar {
   width: 5px;
   height: 6px;

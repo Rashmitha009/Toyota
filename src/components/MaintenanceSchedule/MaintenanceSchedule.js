@@ -987,8 +987,8 @@ v                                       value={problemNote}
                                                 , marginLeft: '20px'
                                             }}
                                         >
-                                            {
-                                                maintenance.length > 0
+                                                  {
+                                                    maintenance?.length > 0
                                                     ? maintenance?.map((maintenance, index) => (
                                                    
                                                     <Maintenance maintenance={maintenance} index={index}   key={index}

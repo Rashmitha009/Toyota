@@ -168,7 +168,7 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
       maxWidth='lg' >
       <form onSubmit={onSubmit}>
         <DialogTitle id="alert-dialog-title" style={{ background: 'whitesmoke' }}>
-          {isAdd === true ? 'Add ' : 'Edit '}User
+         {"MANAGE USER"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -343,12 +343,12 @@ const UserModel = ({ open, setOpen, isAdd, editData, setRefresh,refresh }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <div className='addbutton'>
-            <Button type='reset' onClick={handleClose}>Cancel</Button>
+        <div style={{marginLeft:'70%',marginTop:'20px'}}>
+          <Button type='reset' onClick={handleClose}>Cancel</Button>
             <Button type='submit'>
-              {isAdd === true ? 'Add' : 'Update'}
+                {isAdd === true ? 'Add' : 'Update'}
             </Button>
-          </div>
+            </div>
           <NotificationBar
             handleClose={handleCloseNotify}
             notificationContent={openNotification.message}

@@ -2,7 +2,7 @@ import ApplicationStore from "../utils/ApplicationStore";
 
 const _fetchServiceDownloadCsvData = (PATH, serviceMethod, data, successCallback, errorCallBack) => {
   const { access_token, userDetails } = ApplicationStore().getStorage('userDetails');
-  const END_POINT = 'https://varmatrix.com/AssetManagement/api/';
+  const END_POINT = 'http://192.168.1.35:8000/api/';
   const { email, userRole, companyCode } = userDetails;
 
   const headers = {

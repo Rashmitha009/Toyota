@@ -1,12 +1,11 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { AssetDeleteService, FetchAssetListService,FetchSectionService } from '../../../services/ApiServices';
 import AssetModel from './AssetModel';
 import NotificationBar from '../../../services/NotificationBar';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 
 const AssetList = () => {
     const [open, setOpen] = useState(false);
@@ -22,22 +21,32 @@ const AssetList = () => {
     });
           
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 40 },
-        { field: 'departmentName', headerName: 'Department', width: 100 },
-        { field: 'sectionName', headerName: 'Section', width: 100 },
-        { field: 'assetName', headerName: 'Machine', width: 100 },
-        { field: 'assetTypeName', headerName: 'Asset Type', width: 100 },
-        { field: 'manufacturer', headerName: 'Manufacturer', width: 100 },
-        { field: 'assetModel', headerName: 'Asset Model', width: 100 },
-        { field: 'warrantyStartDate', headerName: 'Warranty Start Date', width: 100 },
-        { field: 'warrantyEndDate', headerName: 'Warranty End Date', width: 100 },
-        {field: 'action', headerName: 'Action', width: 120, sortable: false,
-        cellClassname: 'actions',
-        type: 'actions',
-        getActions: (params) => [
-            <EditData selectedRow={params.row} />,
-            <DeleteData selectedRow={params.row} />,
-        ],
+        {   field: 'assetId', headerName: 'Asset Id',  
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+        {   field: 'departmentName', headerName: 'Department', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'sectionName', headerName: 'Section', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'assetName', headerName: 'Machine', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'assetTypeName', headerName: 'Asset Type', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'manufacturer', headerName: 'Manufacturer', 
+            minWidth: 150, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'manufacturerNo', headerName: 'Manufacturer No', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'yearOfMfg', headerName: 'Year Of Mfg', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'warrantyEndDate', headerName: 'Warranty End Date', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        {   field: 'action', headerName: 'Action', 
+            minWidth: 100, flex: 1, align: 'center', headerAlign: 'center', sortable: false,
+            cellClassname: 'actions',
+            type: 'actions',
+            getActions: (params) => [
+                <EditData selectedRow={params.row} />,
+                <DeleteData selectedRow={params.row} />,
+            ],
         }
     ];
     
@@ -118,18 +127,29 @@ const AssetList = () => {
     };
   
     return (
-        <div style={{border:'solid',borderColor:'whitesmoke'}}>
-            <Grid container>
-                <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{ alignSelf:'center', textAlign:'center' }}  >
-                    <h3 > Asset</h3>
+        <div style={{}}>
+            <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}> Asset</h3>
                 </Grid>
-                <Grid item xs={10} sm={10} md={6} lg={6} xl={6} style={{ alignSelf:'center', textAlign:'center' }}>
-                    <Button style={{width:'10%',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
+                <Grid item 
+                 style={{}} >
+                    <Button style={{}} variant="contained" onClick={handleModalOpen}>
                         Add
                     </Button>
                 </Grid>
             </Grid>
-            <hr style={{ bottom: 'solid' }} />
+           
             <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
                 <DataGrid 
                     style={{ height: 270,width:'120%' }}

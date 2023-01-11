@@ -1,12 +1,12 @@
 import  React , { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
 import { FetchSectionListService,SectionDeleteService} from '../../../services/ApiServices';
 import SectionModel from '../Section/SectionModel'
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl,  InputLabel, MenuItem, Select } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NotificationBar from '../../../services/NotificationBar';
+import { Button, Grid } from '@mui/material';
 
 const SectionList = () => {
   const [open, setOpen] = useState(false);
@@ -24,10 +24,15 @@ const SectionList = () => {
 
 
   const columns = [
-    { field: 'id', headerName: 'Section No', width: 200 },
-    { field: 'department', headerName: 'Department', width: 200 },
-    { field: 'section', headerName: 'Section', width: 200 },
-    {field: 'action', headerName: 'Action', width: 250, sortable: false,
+    { field: 'id', headerName: 'Section No', 
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    { field: 'department', headerName: 'Department',  
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'},
+    { field: 'section', headerName: 'Section',   
+      minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+    { field: 'action', headerName: 'Action',   
+      minWidth: 100, flex: 1, align: 'center', 
+      headerAlign: 'center', sortable: false,
       cellClassname: 'actions',
       type: 'actions',
       getActions: (params) => [
@@ -135,42 +140,46 @@ const SectionList = () => {
 
   return (
     <div>
-      <Grid container>
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
-          style={{alignSelf:'center', textAlign:'center'}}
-      >
-         <h3 >Section</h3>
-      </Grid>
-      <Grid item xs={6} sm={6} md={6} lg={6} xl={6} 
-        style={{alignSelf:'center', textAlign:'center'}}
-      >
-        <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen}>
-          Add
-        </Button>
-      </Grid> 
-      </Grid>
-      <hr style={{ bottom: 'solid' }} />
-     
-      <div className='adduser' style={{ height: 350, width: '90%',marginLeft:'30px' }}>
-        <DataGrid
-          loading={loading}
-          rows={rows}
-          columns={columns} 
+        <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+                <Grid item  
+                    style={{alignSelf:'center',textAlign:'center'}}
+                >
+                    <h3 style={{margin:'0px'}}>Section</h3>
+                </Grid>
+                <Grid item style={{}} >
+                    <Button variant="contained" onClick={handleModalOpen}>
+                        Add
+                    </Button>
+                </Grid>
+        </Grid>
+        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+            <DataGrid 
+                style={{ height: 270,width:'100%' }}
+                loading={loading}
+                rows={rows}
+                columns={columns} 
+            />
+        </Grid>
+        <SectionModel
+            open={open}
+            setOpen={setOpen}
+            isAdd={isAdd}
+            editData={editData}
+            setRefresh={setRefresh}/> 
+        <NotificationBar
+            handleClose={handleClose}
+            notificationContent={openNotification.message}
+            openNotification={openNotification.status}
+            type={openNotification.type}
         />
-      </div>
-      <SectionModel
-          open={open}
-          setOpen={setOpen}
-          isAdd={isAdd}
-          editData={editData}
-          setRefresh={setRefresh}/>
-          
-      <NotificationBar
-          handleClose={handleClose}
-          notificationContent={openNotification.message}
-          openNotification={openNotification.status}
-          type={openNotification.type}
-      />
     </div>
   )
 }

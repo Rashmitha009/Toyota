@@ -101,7 +101,7 @@ export const FetchCountService = (successCallback, errorCallBack) => _fetchServi
 export const FetcTagAssetShowData = (successCallback, errorCallBack) => _fetchService('tagAsset/showData', 'GET', {}, successCallback, errorCallBack);
 
 
-////.........Category...../////
+////.........Category Unit...../////
 export const UnitAddService = (data, successCallback, errorCallBack) => _fetchService('unit/add', 'POST', data, successCallback, errorCallBack);
 
 export const UnitUpdateService = (data, successCallback, errorCallBack) => _fetchService(`unit/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
@@ -110,7 +110,66 @@ export const UnitDeleteService = (data, successCallback, errorCallBack) => _fetc
 
 export const FetchUnitService = (successCallback, errorCallBack) => _fetchService('unit/showData', 'GET', {}, successCallback, errorCallBack);
 
+////.........Category Project...../////
 
+export const ProjectAddService = (data, successCallback, errorCallBack) => _fetchService('project/add', 'POST', data, successCallback, errorCallBack);
+
+export const ProjectUpdateService = (data, successCallback, errorCallBack) => _fetchService(`project/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const ProjectDeleteService = (data, successCallback, errorCallBack) => _fetchService(`project/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchProjectService = (successCallback, errorCallBack) => _fetchService('project/showData', 'GET', {}, successCallback, errorCallBack);
+
+////.........Category Line...../////
+
+export const LineAddService = (data, successCallback, errorCallBack) => _fetchService('line/add', 'POST', data, successCallback, errorCallBack);
+
+export const LineUpdateService = (data, successCallback, errorCallBack) => _fetchService(`line/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const LineDeleteService = (data, successCallback, errorCallBack) => _fetchService(`line/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchLineService = (successCallback, errorCallBack) => _fetchService('line/showData', 'GET', {}, successCallback, errorCallBack);
+
+////.........Category Control Department...../////
+
+export const ControlDepartmentAddService = (data, successCallback, errorCallBack) => _fetchService('controlDepartment/add', 'POST', data, successCallback, errorCallBack);
+
+export const ControlDepartmentUpdateService = (data, successCallback, errorCallBack) => _fetchService(`controlDepartment/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const ControlDepartmentDeleteService = (data, successCallback, errorCallBack) => _fetchService(`controlDepartment/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchControlDepartmentService = (successCallback, errorCallBack) => _fetchService('controlDepartment/showData', 'GET', {}, successCallback, errorCallBack);
+
+///.........Category User Department...../////
+
+export const UserDepartmentAddService = (data, successCallback, errorCallBack) => _fetchService('userDepartment/add', 'POST', data, successCallback, errorCallBack);
+
+export const UserDepartmentUpdateService = (data, successCallback, errorCallBack) => _fetchService(`userDepartment/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const UserDepartmentDeleteService = (data, successCallback, errorCallBack) => _fetchService(`userDepartment/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchUserDepartmentService = (successCallback, errorCallBack) => _fetchService('userDepartment/showData', 'GET', {}, successCallback, errorCallBack);
+
+///.........Category Requester  Department...../////
+
+export const RequesterDepartmentAddService = (data, successCallback, errorCallBack) => _fetchService('requesterDepartment/add', 'POST', data, successCallback, errorCallBack);
+
+export const RequesterDepartmentUpdateService = (data, successCallback, errorCallBack) => _fetchService(`requesterDepartment/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const RequesterDepartmentDeleteService = (data, successCallback, errorCallBack) => _fetchService(`requesterDepartment/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchRequesterDepartService = (successCallback, errorCallBack) => _fetchService('requesterDepartment/showData', 'GET', {}, successCallback, errorCallBack);
+
+
+////.........Category Asset Master...../////
+
+export const AssetMasterAddService = (data, successCallback, errorCallBack) => _fetchService('assetMaster/add', 'POST', data, successCallback, errorCallBack);
+
+export const AssetMasterUpdateService = (data, successCallback, errorCallBack) => _fetchService(`assetMaster/${data.id}/update`, 'POST', data, successCallback, errorCallBack);
+
+export const AssetMasterDeleteService = (data, successCallback, errorCallBack) => _fetchService(`assetMaster/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const FetchAssetmasterService = (successCallback, errorCallBack) => _fetchService('assetMaster/showData', 'GET', {}, successCallback, errorCallBack);
 
 // // --------- User--------------//
 export const FetchUserService = (successCallback, errorCallBack) => _fetchService('user/showData', 'GET', {}, successCallback, errorCallBack);
@@ -152,6 +211,7 @@ export const FetchRequestedService = (successCallback, errorCallBack) => _fetchS
 
 ///.........Asset........////
 
+
 export const  FetchAssetListService = (successCallback, errorCallBack) => _fetchService('asset/showData', 'GET', {}, successCallback, errorCallBack);
 
 export const  FetchVenderService = (successCallback, errorCallBack) => _fetchService('getVendor', 'GET', {}, successCallback, errorCallBack);
@@ -177,6 +237,24 @@ export const  AssetLabelAddService = (data, successCallback, errorCallBack) => _
 export const  AssetShowLabelService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/showLabel`, 'GET', {}, successCallback, errorCallBack);
 
 export const  AssetLabelDeletService = (data, successCallback, errorCallBack) => _fetchService(`label/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
+
+export const  AssetMasterShow = (successCallback, errorCallBack) => _fetchService('assetMaster/showData', 'GET', {}, successCallback, errorCallBack);
+
+export const  ControlDepartmentShow = ( successCallback, errorCallBack) => _fetchService('controlDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  UserDepartmentShow = ( successCallback, errorCallBack) => _fetchService('userDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  RequesterDepartmentShow = ( successCallback, errorCallBack) => _fetchService('requesterDepartment/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  AssetIdShow = ( successCallback, errorCallBack) => _fetchService('asset/id', 'GET',{}, successCallback, errorCallBack);
+
+export const  UnitShow = ( successCallback, errorCallBack) => _fetchService('unit/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  ProjectShow = ( successCallback, errorCallBack) => _fetchService('project/showData', 'GET',{}, successCallback, errorCallBack);
+
+export const  LineShow = ( successCallback, errorCallBack) => _fetchService('line/showData', 'GET',{}, successCallback, errorCallBack);
+
+
 
 
 
@@ -243,6 +321,9 @@ export const  AuditUpdateService = (data, successCallback, errorCallBack) => _fe
 export const AuditDeleteService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/delete`, 'POST', data, successCallback, errorCallBack);
 
 export const ViewAuditReportService = (data, successCallback, errorCallBack) => _fetchService(`audit/${data.id}/viewAuditReport`, 'POST', data, successCallback, errorCallBack);
+
+export const  GetAllocatedDepartmentService = (data,successCallback, errorCallBack) => _fetchService('getAllocatedDepartment', 'GET', {}, successCallback, errorCallBack);
+
 
 ///..........Amc.........//// 
 export const  FetchAmcServiceListService = (successCallback, errorCallBack) => _fetchService('amc/showData', 'GET', {}, successCallback, errorCallBack);
@@ -460,5 +541,17 @@ export const  FetchUpdateSelfAssessmentService = (data,successCallback, errorCal
 export const UpdateAmc = (data,successCallback, errorCallBack) => _fetchService(`amc/${data.id}/updateServiceDate`, 'POST',  successCallback, errorCallBack);
 
 export const UpdateCertificate = (data,successCallback, errorCallBack) => _fetchService(`certificate/${data.id}/updateInspectionDate`, 'POST',  successCallback, errorCallBack);
+
+
+
+///..................tranfer....////
+
+export const  TransferAssetGetAssetIdService = (successCallback, errorCallBack) => _fetchService('transferAsset/getAssetId', 'GET', {}, successCallback, errorCallBack);
+
+export const  TransGetAssetIdService = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}/getAssetList`, 'GET', {}, successCallback, errorCallBack);
+
+export const TransferAsset = (data,successCallback, errorCallBack) => _fetchService(`transferAsset/${data.id}`, 'POST', data, successCallback, errorCallBack);
+
+
 
 

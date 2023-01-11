@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid} from '@mui/x-data-grid';
-import { Button } from 'reactstrap';
+import Button from '@mui/material/Button';
 import UserModel from './UserModel';
 import { FetchUserService, UserDeleteService } from '../../services/ApiServices';
 import NotificationBar from '../../services/NotificationBar';
@@ -24,15 +24,24 @@ const UserList = (props) => {
 
  
     const columns = [
-        { field: 'id', headerName: 'Serial No', width: 50 },
-        { field: 'employee_id', headerName: 'Employee Id', width: 100 },
-        { field: 'employee_name', headerName: 'Employee Name', width: 100 },
-        { field: 'department', headerName: 'Department', width: 100 },
-        { field: 'designation', headerName: 'Designation', width: 120 },
-        { field: 'mobile_number', headerName: 'Mobile', width: 120 },
-        { field: 'email', headerName: 'Email', width: 120 },
-        { field: 'user_name', headerName: 'UserName', width: 120 },
-        {field: 'action', headerName: 'Action', width: 200, sortable: false,
+        { field: 'id', headerName: 'Serial No',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'employee_id', headerName: 'Employee Id', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'employee_name', headerName: 'Employee Name',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'department', headerName: 'Department', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'designation', headerName: 'Designation',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' },
+        { field: 'mobile_number', headerName: 'Mobile',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'email', headerName: 'Email',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        { field: 'user_name', headerName: 'UserName', 
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center'  },
+        {field: 'action', headerName: 'Action',
+        minWidth: 100, flex: 1, align: 'center', headerAlign: 'center' , sortable: false,
         cellClassname: 'actions',
         type: 'actions',
         getActions: (params) => [
@@ -120,23 +129,34 @@ const UserList = (props) => {
 
     return (
         <div>
-            <Grid container>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center', textAlignLast: 'center', marginTop: '20px', }} >
-                    <h3 > Manage user</h3>
-                </Grid>
-                <Grid xs={12} sm={6} md={6} lg={6} xl={6} style={{ alignSelf: 'center',  textAlignLast: 'center', marginTop: '20px',  }} >
-                    <Button style={{width:'120px',height:'30px'}} variant="outlined" onClick={handleModalOpen} >
-                      Add
-                    </Button>
-                </Grid>
+            <Grid container style={{
+                display:'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding:'10px'
+            }} 
+            >
+            <Grid item  
+                style={{alignSelf:'center',textAlign:'center'}}
+            >
+                <h3 style={{margin:'0px'}}>MANAGE USER</h3>
             </Grid>
-            <hr style={{ bottom: 'solid' }} />
-            <div style={{ height: '350px', width: '85%', marginLeft: '5%', marginTop: '20px' }}>
-                <DataGrid
+              <Grid item style={{}} >
+                <Button variant="contained" onClick={handleModalOpen} >
+                    Add
+                </Button>    
+              </Grid>
+        </Grid>
+        <Grid item xs={10} sm={10} md={10} lg={10} lx={10}>
+            <DataGrid 
+                style={{ height: 400,width:'100%' }}
                 loading={loading}
                 rows={rows}
-                columns={columns} />
-            </div>
+                columns={columns} 
+            />
+        </Grid>
             <UserModel 
             open={open}
             setOpen={setOpen}
